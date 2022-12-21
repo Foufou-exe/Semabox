@@ -6,7 +6,7 @@ import icmplib
 
 def get_download():
   # Choisissez un fichier de test de grande taille pour mesurer la vitesse de téléchargement
-  test_file_url = "http://ipv4.download.thinkbroadband.com/100MB.zip"
+  test_file_url = "http://ipv4.download.thinkbroadband.com/50MB.zip"
   # Enregistrez le temps de départ
   start_time = time.time()
   # Téléchargez le fichier de test
@@ -27,7 +27,7 @@ def get_upload_speed():
   url = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media"
 
   # Chemin d'accès au fichier à envoyer
-  file_path = "modules\download\TESTMB.zip"
+  file_path = "Connection\modules\download\TESTMB.zip"
   
   # Ouvrez le fichier en mode binaire
   with open(file_path, 'rb') as file:
