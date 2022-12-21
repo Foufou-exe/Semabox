@@ -27,7 +27,7 @@ def get_upload_speed():
   url = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media"
 
   # Chemin d'accès au fichier à envoyer
-  file_path = "Connection\modules\download\TESTMB.zip"
+  file_path = "modules\download\TESTMB.zip"
   
   # Ouvrez le fichier en mode binaire
   with open(file_path, 'rb') as file:

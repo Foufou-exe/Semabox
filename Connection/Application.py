@@ -1,7 +1,10 @@
 # Importation des modules
 import tkinter as tk
 import tkinter.font as tkFont
-from modules.generation_UID import lire_fichier
+import os
+
+# Importation des modules perso
+from modules.generation_UID import lire_fichier, creation_dossier, generate_id
 from modules.info_server import *
 from modules.scan_servers import scan_nmap
 from modules.server_speedtest import get_upload_speed, get_download , get_ping
@@ -255,6 +258,9 @@ class App:
 if __name__ == "__main__":
     root = tk.Tk()
     app = App(root)
+    if not os.path.exists("SEMABOX_UID"):
+        creation_dossier(generate_id())
+        
     root.mainloop()
 
 
