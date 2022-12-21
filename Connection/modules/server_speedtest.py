@@ -6,7 +6,7 @@ import icmplib
 
 def get_download():
   # Choisissez un fichier de test de grande taille pour mesurer la vitesse de téléchargement
-  test_file_url = "http://ipv4.download.thinkbroadband.com/100MB.zip"
+  test_file_url = "http://ipv4.download.thinkbroadband.com/50MB.zip"
   # Enregistrez le temps de départ
   start_time = time.time()
   # Téléchargez le fichier de test
