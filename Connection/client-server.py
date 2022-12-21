@@ -5,10 +5,6 @@ import socket
     Creation des fonctions
 """
 
-# generate a unique id for the client
-def _generate_uid():
-    global my_uid
-    my_uid = str(uuid.uuid4())
 
 # get the hostname of the client
 def _get_hostname():
