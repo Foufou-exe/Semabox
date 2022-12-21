@@ -9,7 +9,7 @@ from modules.info_server import *
 from modules.scan_servers import scan_nmap
 from modules.server_speedtest import get_upload_speed, get_download , get_ping
 
-
+# Création du dossier UID
 creation_dossier(generate_id())
 
 # Déclaration des variables 
