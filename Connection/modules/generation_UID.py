@@ -17,7 +17,6 @@ def creation_dossier(id_semabox):
         f.write(id_semabox)
 
 
-
 def lire_fichier():
     global contenu_lu
     with open("SEMABOX_UID/UID.txt", "r") as f:
