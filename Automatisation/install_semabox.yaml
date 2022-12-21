@@ -11,6 +11,7 @@
       name:
         - curl
         - git
+
   tasks:
   - name: Install Python 3 and pip
     apt:
@@ -18,6 +19,12 @@
       - python3
       - python3-pip
       state: latest
+
+  - name: Installation de Nmap
+    apt:
+      name: nmap
+      state: latest
+
   - name: Clone Git project
     git:
       repo: https://github.com/user/project.git

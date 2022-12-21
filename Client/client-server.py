@@ -17,13 +17,27 @@ connection, address = server.accept()
 request = connection.recv(1024)
 
 # Exécution du script spécifié dans la requête
-exec(request)
+output = exec(request)
 
 # Récupération des résultats du script exécuté
-results = 'Script executed successfully'
+results = output
 
-# Envoi des résultats au client
-connection.send(results)
+# Booléen pour suivre si le fichier a déjà été envoyé
+file_sent = False
 
-# Fermeture de la connexion
-connection.close()
+while True:
+    # Réception de la requête du client
+    request = connection.recv(1024)
+
+    if not file_sent:
+        # Envoi du fichier au client
+        with open('file.txt', 'rb') as f:
+            connection.send(f.read())
+        file_sent = True
+    else:
+
+    # Envoi des résultats au client
+    connection.send(results)
+
+    # Fermeture de la connexion
+    connection.close()

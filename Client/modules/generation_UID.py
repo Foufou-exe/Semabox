@@ -26,7 +26,6 @@ def lire_fichier():
         return contenu_lu
 
 
-
         
 if __name__ == "__main__":
     creation_dossier(generate_id())
