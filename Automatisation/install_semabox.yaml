@@ -1,0 +1,25 @@
+---
+- hosts: all
+  pre-task:
+  - name: Update et Upgrade
+    apt:
+      update_cache: yes
+      upgrade: dist
+
+  - name: install pre-requis
+    apt:
+      name:
+        - curl
+        - git
+  tasks:
+  - name: Install Python 3 and pip
+    apt:
+      name:
+      - python3
+      - python3-pip
+      state: latest
+  - name: Clone Git project
+    git:
+      repo: https://github.com/user/project.git
+      dest: /
+      version: master
