@@ -9,22 +9,17 @@ from modules.info_server import *
 from modules.scan_servers import scan_nmap
 from modules.server_speedtest import get_upload_speed, get_download , get_ping
 
-# Création du dossier UID
-creation_dossier(generate_id())
-
-# Déclaration des variables 
-ID = lire_fichier()
-host = get_hostname()
-ip = get_ip_address()
-dns_resolv = get_dns(ip)
-
-
 
 # Création de la fenêtre principale (main window)
 class App:
     # Constructeur de la classe App
     def __init__(self, root):
-
+        # Déclaration des variables 
+        ID = lire_fichier()
+        host = get_hostname()
+        ip = get_ip_address()
+        dns_resolv = get_dns(ip)
+        
         #setting title
         root.title("Semabox")
         #setting window size
@@ -247,9 +242,16 @@ class App:
 
 
     def Button_speedtest_command(self):
-        self.Text_Label_Ping["text"] = f"PING : {get_ping()} ms"
-        self.Text_Label_Montant["text"] = f"Débit Montant : {get_download()} mb/s"
-        self.Text_Label_Descendant["text"] = f"Débit Descendant : {get_upload_speed()}  mb/s"
+        ping = get_ping()
+        download = get_download()
+        upload = get_upload_speed()
+        # self.Text_Label_Ping["text"] = f"PING : loading..."
+        # self.Text_Label_Montant["text"] = f"Débit Montant : loading..."
+        # self.Text_Label_Descendant["text"] = f"Débit Descendant : loading...  mb/s"
+        
+        self.Text_Label_Ping["text"] = f"PING : {ping} ms"
+        self.Text_Label_Montant["text"] = f"Débit Montant : {download} mb/s"
+        self.Text_Label_Descendant["text"] = f"Débit Descendant : {upload}  mb/s"
         
     def Button_clear_nmap_command(self):
         self.Resultat_Scan_Nmap_Label["text"] = ""
@@ -264,6 +266,9 @@ class App:
         
 if __name__ == "__main__":
     root = tk.Tk()
+    if not os.path.exists("SEMABOX_UID"):
+        # Création du dossier UID
+        creation_dossier(generate_id())
     app = App(root)
     root.mainloop()
 
