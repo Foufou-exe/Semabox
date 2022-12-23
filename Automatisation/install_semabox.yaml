@@ -48,6 +48,6 @@
         requirements: /Semabox/Application/requirement.txt
 
     - name: Première installation de Semabox
-      command: python3 /Semabox/Application/install/firts_install.py
+      command: python3 /Semabox/Application/install/install.py
 
     - name: 
