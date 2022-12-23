@@ -1,7 +1,7 @@
 import socket
 import sys
 import os
-sys.path.append("Client")
+sys.path.append("Application")
 from modules.info_server import *
 from modules.generation_UID import *
 

@@ -50,4 +50,5 @@
     - name: Première installation de Semabox
       command: python3 /Semabox/Application/install/install.py
 
-    - name: 
+    - name: Script de Connexion entre le Serveur et le Client
+      command: python3 /Semabox/Application/Connexion-server.py
