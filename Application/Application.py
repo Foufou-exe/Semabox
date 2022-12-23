@@ -245,9 +245,6 @@ class App:
         ping = get_ping()
         download = get_download()
         upload = get_upload_speed()
-        # self.Text_Label_Ping["text"] = f"PING : loading..."
-        # self.Text_Label_Montant["text"] = f"Débit Montant : loading..."
-        # self.Text_Label_Descendant["text"] = f"Débit Descendant : loading...  mb/s"
         
         self.Text_Label_Ping["text"] = f"PING : {ping} ms"
         self.Text_Label_Montant["text"] = f"Débit Montant : {download} mb/s"

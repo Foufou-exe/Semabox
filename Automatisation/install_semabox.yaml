@@ -1,32 +1,53 @@
 ---
 - hosts: all
+  become: true
   pre-task:
-  - name: Update et Upgrade
-    apt:
-      update_cache: yes
-      upgrade: dist
+    - name: Update et Upgrade
+      apt:
+        update_cache: yes
+        upgrade: dist
 
-  - name: install pre-requis
-    apt:
-      name:
-        - curl
-        - git
+    - name: install pre-requis
+      apt:
+        name:
+          - curl
+          - git
+          - wget
 
   tasks:
-  - name: Install Python 3 and pip
-    apt:
-      name:
-      - python3
-      - python3-pip
-      state: latest
+    - name: Install Python 3 and pip
+      apt:
+        name:
+        - python3
+        - python3-pip
+        state: latest
 
-  - name: Installation de Nmap
-    apt:
-      name: nmap
-      state: latest
+    - name: Installation de Nmap
+      apt:
+        name: nmap
+        state: latest
 
-  - name: Clone Git project
-    git:
-      repo: https://github.com/user/project.git
-      dest: /
-      version: master
+    - name: Clone Git project SEMABOX
+      git:
+        repo: https://github.com/user/project.git
+        dest: /
+        version: master
+    
+    - name: Check if requirement.txt exists
+      stat:
+        path: /Semabox/Application/requirement.txt
+      register: requirement_file
+
+    - name: Fail if requirement.txt does not exist
+      fail:
+        msg: "requirement.txt does not exist"
+      when: not requirement_file.stat.exists
+
+    - name: Installation des dépendances Pythons
+      pip:
+        requirements: /Semabox/Application/requirement.txt
+
+    - name: Première installation de Semabox
+      command: python3 /Semabox/Application/install/firts_install.py
+
+    - name: 
