@@ -7,7 +7,7 @@ import os
 from modules.generation_UID import lire_fichier, creation_dossier, generate_id
 from modules.info_server import *
 from modules.scan_servers import scan_nmap
-from modules.server_speedtest import get_upload_speed, get_download , get_ping
+from modules.server_speedtest import get_upload_speed, get_download_speed , get_ping
 
 
 # Création de la fenêtre principale (main window)
@@ -113,7 +113,7 @@ class App:
 
     def Button_speedtest_command(self):
         ping = get_ping()
-        download = get_download()
+        download = get_download_speed()
         upload = get_upload_speed()
         
         self.Text_Label_Ping["text"] = f"PING : {ping} ms"
