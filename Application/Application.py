@@ -32,9 +32,11 @@ class App:
         root.resizable(width=False, height=False)
 
         # Création des widgets
-        font = tkFont.Font(family='Calibri', size=28)
+        font = tkFont.Font(family='Calibri', size=28, weight='bold')
         font2 = tkFont.Font(family='Calibri', size=17)
         font3 = tkFont.Font(family='Calibri', size=13)
+        font4 = tkFont.Font(family='Calibri', size=20)
+        font5 = tkFont.Font(family='Calibri', size=20, weight='bold')
         
         Titre_SEMABOX_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#ffd700" ,justify="center" ,relief="raised" ,text="SEMABOX")
         Titre_SEMABOX_Label.place(x=0,y=0,width=1279,height=69)
@@ -48,7 +50,7 @@ class App:
         Color_Background3_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#393d49" ,justify="center" ,text="")
         Color_Background3_Label.place(x=940,y=370,width=339,height=30)
 
-        Texte_Information_Label=tk.Label(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="INFORMATION")
+        Texte_Information_Label=tk.Label(root, font=font5 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="INFORMATION")
         Texte_Information_Label.place(x=940,y=90,width=339,height=41)
 
         Texte_IP_Label=tk.Label(root, font=font2 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text=f"IP : {ip}")
@@ -66,13 +68,13 @@ class App:
         Texte_Return_ID_Label=tk.Label(root, font=font3 ,fg="#333333" ,bg="#cdcdcd" ,justify="left" ,text=ID)
         Texte_Return_ID_Label.place(x=950,y=310,width=329,height=53)
 
-        Texte_Scan_De_Port_Label=tk.Label(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SCAN DE PORT")
+        Texte_Scan_De_Port_Label=tk.Label(root, font=font5 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SCAN DE PORT")
         Texte_Scan_De_Port_Label.place(x=0,y=90,width=910,height=42)
 
-        Texte_SPEEDTEST_Label=tk.Label(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SPEEDTEST")
+        Texte_SPEEDTEST_Label=tk.Label(root, font=font5 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SPEEDTEST")
         Texte_SPEEDTEST_Label.place(x=940,y=400,width=339,height=41)
 
-        self.Resultat_Scan_Nmap_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text="")
+        self.Resultat_Scan_Nmap_Label=tk.Label(root, font=font4 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text="")
         self.Resultat_Scan_Nmap_Label.place(x=0,y=130,width=722,height=587)
 
         Color_Background_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#999999" ,justify="center" ,text="")
