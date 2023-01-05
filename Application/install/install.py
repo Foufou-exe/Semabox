@@ -21,7 +21,7 @@ def ecriture_fichier(uid):
     ip = get_ip_address()
     dns = get_dns(ip)
     
-    liste_info = [dns,hostname,ip,uid]
+    liste_info = {"UID": uid, "Hostname": hostname, "IP": ip, "DNS": dns}
     name_file = dns + ".csv"
     os.chdir("Application/install")
     if not os.path.exists(name_file):
