@@ -15,7 +15,7 @@
           - wget
 
   tasks:
-    - name: Install Python 3 and pip
+    - name: Installation Python 3 and pip
       apt:
         name:
         - python3
@@ -33,7 +33,7 @@
         dest: /
         version: master
     
-    - name: Check if requirement.txt exists
+    - name: Check si requirement.txt existe
       stat:
         path: /Semabox/Application/requirement.txt
       register: requirement_file

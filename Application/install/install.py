@@ -2,8 +2,9 @@ import socket
 import sys
 import os
 sys.path.append("Application")
-from modules.info_server import *
+from modules.info_server import get_dns, get_hostname, get_ip_address
 from modules.generation_UID import *
+
 
 def premier_lancement():
     if not os.path.exists("SEMABOX_UID"):

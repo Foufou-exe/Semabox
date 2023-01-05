@@ -1,3 +1,4 @@
+# Importation des librairies nécessaires
 import requests
 import icmplib
 import time
@@ -74,7 +75,6 @@ if __name__ == "__main__":
   print("Vitesse de téléchargement: ", get_download_speed(), "Mbps")
   print("Vitesse d'envoi: ", get_upload_speed(), "Mbps")
   print("Ping: ", get_ping(), "ms")
-
 
 
 
