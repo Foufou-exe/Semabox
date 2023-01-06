@@ -1,10 +1,18 @@
+# Description: Ce module contient les fonctions qui permettent de scanner les ports ouverts sur l'hôte local.
 
+# Importation des modules Python nécessaires
 import nmap
+
+# Importation des modules Python personnalisés
 from info_server import get_ip_address
 
 
-
+# Fonctions
 def scan_nmap():
+    
+    """
+        Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne une chaîne de caractères contenant les informations sur les ports ouverts.
+    """
     
     # Création d'un objet nmap.PortScanner()
     nm = nmap.PortScanner()
@@ -14,17 +22,23 @@ def scan_nmap():
 
     # On scanne l'hôte en utilisant l'option -sS (SYN scan)
     nm.scan(host, arguments='-sS')
-
-    resultat_scan_list =  ""
-    # Parcours des ports scanneés
-    for port in nm[host]['tcp']:
-        # Si le port est ouvert, affichage du nom du service associé
-        if nm[host]['tcp'][port]['state'] == 'open':
-            resultat_scan_list += f"\nPort {port}/tcp | OPEN | service : {nm[host]['tcp'][port]['name']}"
-    return resultat_scan_list
+    
+    # On construit la chaîne de caractères à partir des informations sur les ports ouverts
+    return "".join(
+        f"\nPort {port}/tcp | OPEN | service : {nm[host]['tcp'][port]['name']}"
+        for port in nm[host]['tcp']
+        if nm[host]['tcp'][port]['state'] == 'open'
+    )
 
 
 def api_scan_nmap():
+   
+    """
+        Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne un dictionnaire
+        contenant les informations sur les ports ouverts.
+    """
+    
+    
     # Création d'un objet nmap.PortScanner()
     nm = nmap.PortScanner()
 
@@ -34,6 +48,7 @@ def api_scan_nmap():
     # On scanne l'hôte en utilisant l'option -sS (SYN scan)
     nm.scan(host, arguments='-sS')
     
+    # On construit le dictionnaire à partir des informations sur les ports ouverts
     scan_results = {
         port: {
             'state': nm[host]['tcp'][port]['state'],
@@ -44,6 +59,8 @@ def api_scan_nmap():
     }
 
     print(scan_results)
-    
+
+# Si ce fichier est exécuté directement, on appelle la fonction api_scan_nmap()
 if __name__ == "__main__":
     api_scan_nmap()
+    #print(scan_nmap())

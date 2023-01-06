@@ -1,15 +1,15 @@
-# Importation des modules
+# Importation des modules Pythons nécessaires
 import os
 import sys
 import tkinter as tk
 import tkinter.font as tkFont
 
 # Importation des modules perso
-sys.path.append('Application/modules')
-from generation_UID import creation_dossier, generate_id, lire_fichier
-from info_server import get_dns, get_hostname, get_ip_address
-from scan_servers import scan_nmap
-from server_speedtest import get_download_speed, get_ping, get_upload_speed
+sys.path.append('Application/modules')  # On ajoute le chemin 'Application/modules' au path de sys pour pouvoir importer les modules de ce répertoire
+from generation_UID import creation_dossier, generate_id, lire_fichier  # Import des fonctions du module 'generation_UID'
+from info_server import get_dns, get_hostname, get_ip_address  # Import des fonctions du module 'info_server'
+from scan_servers import scan_nmap  # Import de la fonction du module 'scan_servers'
+from server_speedtest import get_download_speed, get_ping, get_upload_speed  # Import des fonctions du module 'server_speedtest'
 
 
 # Création de la fenêtre principale (main window)
@@ -17,21 +17,20 @@ class App:
     # Constructeur de la classe App
     def __init__(self, root):
         # Déclaration des variables 
-        ID = lire_fichier()
-        host = get_hostname()
-        ip = get_ip_address()
-        dns_resolv = get_dns(ip)
-        
-        #setting title
-        root.title("Semabox")
-        #setting window size
-        width=1280
-        height=720
-        screenwidth = root.winfo_screenwidth()
-        screenheight = root.winfo_screenheight()
-        alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)
-        root.geometry(alignstr)
-        root.resizable(width=False, height=False)
+        ID = lire_fichier()  # On lit le fichier contenant l'identifiant unique généré par la fonction generate_id()
+        host = get_hostname()  # On récupère le nom d'hôte (hostname) du système
+        ip = get_ip_address()  # On récupère l'adresse IP de l'hôte
+        dns_resolv = get_dns(ip)  # On récupère le nom de domaine associé à l'adresse IP de l'hôte
+
+        # Configuration de la fenêtre
+        root.title("Semabox")  # Titre de la fenêtre
+        width=1280  # Largeur de la fenêtre
+        height=720  # Hauteur de la fenêtre
+        screenwidth = root.winfo_screenwidth()  # Largeur de l'écran
+        screenheight = root.winfo_screenheight()  # Hauteur de l'écran
+        alignstr = '%dx%d+%d+%d' % (width, height, (screenwidth - width) / 2, (screenheight - height) / 2)  # Alignement de la fenêtre au centre de l'écran
+        root.geometry(alignstr)  # Affectation de la taille et de l'alignement de la fenêtre
+        root.resizable(width=False, height=False)  # Empêche le redimensionnement de la fenêtre par l'utilisateur
 
         # Création des widgets
         font = tkFont.Font(family='Calibri', size=28, weight='bold')
@@ -108,39 +107,77 @@ class App:
         Button_speedtest_clear=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="CLEAR" ,command=self.Button_speedtest_clear_command)
         Button_speedtest_clear.place(x=1050,y=660,width=128,height=40)
 
+
+    """
+        Fonction: Button_scan_nmap_command
+            Description : Permets de lancer le scan nmap et d'afficher les résultats dans le label
+    """
+
+    # Fonction appelée lorsque le bouton "Button_scan_nmap" est cliqué
     def Button_scan_nmap_command(self):
+        # Execution de la fonction "scan_nmap" et stockage du résultat dans la variable "result_scan"
         result_scan = scan_nmap()
+        # Mise à jour du texte du label "Resultat_Scan_Nmap_Label" avec le contenu de la variable "result_scan"
         self.Resultat_Scan_Nmap_Label["text"] = result_scan
 
-
+    """
+        Fonction: Button_speedtest_command
+            Description : Permets de lancer le speedtest et d'afficher les résultats dans les labels
+    """ 
+    # Fonction appelée lorsque le bouton "Button_speedtest" est cliqué
     def Button_speedtest_command(self):
+        # Execution de la fonction "get_ping" et stockage du résultat dans la variable "ping"
         ping = get_ping()
+        # Execution de la fonction "get_download_speed" et stockage du résultat dans la variable "download"
         download = get_download_speed()
+        # Execution de la fonction "get_upload_speed" et stockage du résultat dans la variable "upload"
         upload = get_upload_speed()
         
+        # Mise à jour du texte du label "Text_Label_Ping" avec le contenu de la variable "ping"
         self.Text_Label_Ping["text"] = f"PING : {ping} ms"
+        # Mise à jour du texte du label "Text_Label_Montant" avec le contenu de la variable "download"
         self.Text_Label_Montant["text"] = f"Débit Montant : {download} mb/s"
+        # Mise à jour du texte du label "Text_Label_Descendant" avec le contenu de la variable "upload"
         self.Text_Label_Descendant["text"] = f"Débit Descendant : {upload}  mb/s"
         
+    """
+        Fonction: Button_clear_nmap_command
+            Description : Effacer les résultats du Scan Nmap
+    """    
+    # Fonction appelée lorsque le bouton "Button_clear_nmap" est cliqué
     def Button_clear_nmap_command(self):
+        # Mise à jour du texte du label "Resultat_Scan_Nmap_Label" avec une chaîne vide
         self.Resultat_Scan_Nmap_Label["text"] = ""
 
+   
+    # Fonction appelée lorsque le bouton "Button_speedtest_clear" est cliqué
 
+    """
+        Fonction: Button_speedtest_clear_command
+            Description : Effacer les résultats du Speedtest
+    """
     def Button_speedtest_clear_command(self):
+        # Mise à jour du texte du label "Text_Label_Ping" avec la chaîne "PING :" suivie d'une chaîne vide suivie de " ms"
         self.Text_Label_Ping["text"] = "PING :" + "" + " ms"
+        # Mise à jour du texte du label "Text_Label_Montant" avec la chaîne "Débit Montant : " suivie d'une chaîne vide suivie de " mb/s"
         self.Text_Label_Montant["text"] = "Débit Montant : " + "" + " mb/s"
+         # Mise à jour du texte du label "Text_Label_Descendant" avec la chaîne "Débit Descendant : " suivie d'une chaîne vide suivie de " mb/s"
         self.Text_Label_Descendant["text"] = "Débit Descendant : " + "" + " mb/s"
         
 
         
+# Si le script est exécuté directement (et non importé par un autre script)
 if __name__ == "__main__":
+    # Création d'une instance de la classe Tk (fenêtre principale de l'application)
     root = tk.Tk()
+    # Si le dossier "SEMABOX_UID" n'existe pas
     if not os.path.exists("SEMABOX_UID"):
-        # Création du dossier UID
+        # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
         creation_dossier(generate_id())
+    # Création d'une instance de la classe "App" avec en paramètre la fenêtre principale "root"
     app = App(root)
+    # Lancement de la boucle principale de l'application
     root.mainloop()
-
 
 
 
