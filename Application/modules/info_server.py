@@ -24,6 +24,7 @@ def api_info_server():
         'hostname': hostname,
         'ip': ip,
         'dns': dns
+        
     }
     print(info_server)
 
