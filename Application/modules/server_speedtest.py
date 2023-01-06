@@ -68,13 +68,22 @@ def get_ping(host=HOST):
     ping = int(icmp.avg_rtt)
     return ping
 
-
+def api_speedtest():
+    """
+    Calcule la vitesse de téléchargement, d'envoi et de ping.
+    
+    Returns:
+        dict: Dictionnaire contenant les vitesses de téléchargement, d'envoi et de ping.
+    """
+    download_speed = get_download_speed()
+    upload_speed = get_upload_speed()
+    ping = get_ping()
+    result = {"download_speed": download_speed, "upload_speed": upload_speed, "ping": ping}
+    print(result)
   
 
 if __name__ == "__main__":
-  print("Vitesse de téléchargement: ", get_download_speed(), "Mbps")
-  print("Vitesse d'envoi: ", get_upload_speed(), "Mbps")
-  print("Ping: ", get_ping(), "ms")
+    api_speedtest()
 
 
 

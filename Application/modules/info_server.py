@@ -16,8 +16,17 @@ def get_dns(ip):
     dns_resulte = socket.gethostbyaddr(ip)
     return dns_resulte[0]
 
+def api_info_server():
+    hostname = get_hostname()
+    ip = get_ip_address()
+    dns = get_dns(ip)
+    info_server = {
+        'hostname': hostname,
+        'ip': ip,
+        'dns': dns
+    }
+    print(info_server)
+
 
 if __name__ == "__main__":
-    print(get_hostname())
-    print(get_ip_address())
-    print(get_dns(get_ip_address()))
+    api_info_server()

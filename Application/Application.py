@@ -1,13 +1,15 @@
 # Importation des modules
+import os
+import sys
 import tkinter as tk
 import tkinter.font as tkFont
-import os
 
 # Importation des modules perso
-from modules.generation_UID import lire_fichier, creation_dossier, generate_id
-from modules.info_server import *
-from modules.scan_servers import scan_nmap
-from modules.server_speedtest import get_upload_speed, get_download_speed , get_ping
+sys.path.append('Application/modules')
+from generation_UID import creation_dossier, generate_id, lire_fichier
+from info_server import get_dns, get_hostname, get_ip_address
+from scan_servers import scan_nmap
+from server_speedtest import get_download_speed, get_ping, get_upload_speed
 
 
 # Création de la fenêtre principale (main window)
