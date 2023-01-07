@@ -140,6 +140,10 @@ def execute_script():
     # Utilisez la fonction render_template de Jinja2 pour afficher le résultat en HTML
     return render_template('info_server.html', info_server=info_server.items())
 
+@app.route('/')
+def index():
+    
+    return render_template('index.html')
 
 if __name__ == '__main__':
     # on récupère l'adresse IP de la machine

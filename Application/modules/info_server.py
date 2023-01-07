@@ -48,6 +48,8 @@ def get_version_semabox():
     
     with open("Application/modules/version.txt", "r") as f:
         return f.readline()
+    
+
 
 def api_info_server():
     
