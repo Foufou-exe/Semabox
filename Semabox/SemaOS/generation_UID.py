@@ -30,7 +30,18 @@ def lire_fichier():
     """
     with open("SEMABOX_UID/UID.txt", "r") as f:
         return f.readline()
+    
+def check_file():
+    """
+        Cette fonction vérifie si le fichier "UID.txt" existe dans le dossier "SEMABOX_UID".
+        Si le fichier n'existe pas, on appelle la fonction creation_dossier() avec un identifiant généré par generate_id().
+        Sinon, on appelle la fonction lire_fichier().
+    """
+    if not os.path.exists("SEMABOX_UID/UID.txt"):
+        creation_dossier(generate_id())
+    else:
+        print(lire_fichier())
 
 # Si ce fichier est exécuté directement, on appelle la fonction creation_dossier() avec un identifiant généré par generate_id()
 if __name__ == "__main__":
-    creation_dossier(generate_id())
+    check_file()

@@ -1,9 +1,6 @@
 # Description: Ce script permet d'installer la semabox sur le réseau local et de l'enregistrer dans la base de données.
 
 """
-    Desciption:
-      Ce script permet d'installer la semabox sur le réseau local et de l'enregistrer dans la base de données.
-
     Le script effectue les actions suivantes :
 
       Importe les modules Python nécessaires :
@@ -12,6 +9,7 @@
           dns.update
           sys
           mysql.connector
+          subprocess
         
       Ajoute le chemin vers le dossier 'Application' afin de pouvoir importer nos modules Python personnalisés.
       
@@ -54,16 +52,30 @@ import dns.query
 import dns.update
 import sys
 import mysql.connector
+import subprocess
+
 
 # Ajout du chemin vers le dossier Application pour qu'on puisse importer nos modules
-sys.path.append('Application')
+sys.path.append('Semabox')
 
 # Importe de nos modules Python personnalisés
-from modules.info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns, get_version_semabox as version_semabox
-from modules.generation_UID import lire_fichier as uid
+from SemaOS.info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns, get_version_semabox as version_semabox
+from SemaOS.generation_UID import lire_fichier as uid
 
 # Ajout d'un enregistrement DNS
-def addDnsRecord(domain, ip_dns, new_host, new_ip, enregistrement, ttl):
+def add_dns_record(domain, ip_dns, new_host, new_ip, enregistrement, ttl):
+  """
+    Description:
+        Cette fonction ajoute un enregistrement DNS pour un nouvel hôte avec une adresse IP spécifiée dans le domaine spécifié.
+
+    Args:
+        domain (str): Le nom de domaine auquel ajouter l'enregistrement DNS.
+        ip_dns (str): L'adresse IP du serveur DNS qui gère le domaine.
+        new_host (str): Le nom de l'hôte à ajouter.
+        new_ip (str): L'adresse IP de l'hôte à ajouter.
+        enregistrement (str): Le type d'enregistrement DNS à ajouter (par exemple 'A', 'AAAA', 'CNAME', etc.).
+        ttl (int): Le temps de vie de l'enregistrement DNS en secondes.
+  """
   # Créez un objet Update
   update = dns.update.Update(domain)
   # Ajoutez l'enregistrement de l'hôte
@@ -74,8 +86,22 @@ def addDnsRecord(domain, ip_dns, new_host, new_ip, enregistrement, ttl):
 
 
 # Ajoutez un enregistrement à la table 'box' de la base de données 'semabox' sur le serveur MariaDB à l'adresse 192.168.150.250.
-def addBddRecord(sema_id, sema_hostname, sema_ip, sema_dns, sema_version, user, password, host, database):
-  
+def add_bdd_record(sema_id, sema_hostname, sema_ip, sema_dns, sema_version, user, password, host, database):
+  """
+    Description:
+        Cette fonction ajoute un enregistrement à la table 'box' de la base de données 'semabox' sur le serveur MariaDB à l'adresse spécifiée.
+
+    Args:
+        sema_id (str): L'identifiant unique (UID) de l'installation de SemaOS.
+        sema_hostname (str): Le nom d'hôte de l'installation de SemaOS.
+        sema_ip (str): L'adresse IP de l'installation de SemaOS.
+        sema_dns (str): Le nom de domaine de l'installation de SemaOS.
+        sema_version (str): La version de SemaOS utilisée.
+        user (str): Le nom d'utilisateur pour se connecter au serveur MariaDB.
+        password (str): Le mot de passe pour se connecter au serveur MariaDB.
+        host (str): L'adresse du serveur MariaDB.
+        database (str): Le nom de la base de données à utiliser.
+  """
   # Connection à la base de données
   cnx = mysql.connector.connect(user=user, password=password, host=host, database=database)
 
@@ -84,13 +110,6 @@ def addBddRecord(sema_id, sema_hostname, sema_ip, sema_dns, sema_version, user, 
 
   # Construction la déclaration INSERT
   insert_stmt = f"INSERT INTO box ({sema_id}, {sema_hostname}, {sema_ip}, {sema_dns}, {sema_version}) VALUES (%s, %s, %s, %s, %s)"
-  
-  # TABLE box
-  #     sema_id TEXT,
-  #     sema_hostname VARCHAR(255) NOT NULL,
-  #     sema_ip VARCHAR(20) NOT NULL,
-  #     sema_dns VARCHAR(20) NOT NULL,
-  #     sema_version VARCHAR(255) NOT NULL
 
   # Execution de la requête avec les valeurs à insérer dans la base de données
   cursor.execute(insert_stmt, (sema_id, sema_hostname, sema_ip, sema_dns, sema_version))
@@ -103,10 +122,18 @@ def addBddRecord(sema_id, sema_hostname, sema_ip, sema_dns, sema_version, user, 
   cnx.close()
 
 
-
+def pre_installation():
+  """
+    Description:
+        Cette fonction exécute le script de génération d'un identifiant unique (UID) pour l'installation de SemaOS.
+  """
+  subprocess.run(["python", "Semabox/SemaOS/generation_UID.py"])
+  
+  
+  
 if __name__ == "__main__":
-  # Appelle de la Focntion addDnsRecord :  Ajout de l'enregistrement DNS
-  addDnsRecord(
+  # Appelle de la Focntion add_dns_record :  Ajout de l'enregistrement DNS
+  add_dns_record(
     domain='cma4.box',# domain : le nom de domaine auquel ajouter l'enregistrement
     ip_dns='192.168.100.253', # serveur_dns : l'adresse IP du serveur DNS auquel envoyer la requête
     host=hostname(),# hostname : le nom de l'hôte à ajouter 
@@ -114,9 +141,9 @@ if __name__ == "__main__":
     enregistrement='A', # enregistrement : le type d'enregistrement (A, AAAA, etc.)
     ttl=300 
   ) # ttl : le temps de vie (en secondes) de l'enregistrement
-  
-  # Appelle de la Focntion addBddRecord :  Insertion des données dans la base de données
-  addBddRecord(
+
+  # Appelle de la Focntion add_bdd_record :  Insertion des données dans la base de données
+  add_bdd_record(
     sema_id=uid(), # uid : l'identifiant unique de la semabox
     sema_hostname=hostname(), # hostname : le nom de l'hôte de la semabox
     sema_ip=ip(), 
@@ -127,6 +154,7 @@ if __name__ == "__main__":
     host='192.168.150.250', # host : l'adresse IP du serveur de la base de données
     database='semabox' # database : le nom de la base de données
   )
+  pre_installation()
 
     
     

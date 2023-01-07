@@ -35,13 +35,13 @@ import json
 
 from flask import Flask, render_template, request, jsonify, abort
 
-# Ajoutez le chemin vers le dossier Application
+# Ajoutez le chemin vers le dossier Semabox/SemaOS
 import sys
-sys.path.append('Application')
-# On ajoute le chemin vers le dossier Application pour qu'on puisse importer nos modules
+sys.path.append('Semabox/SemaOS')
+# On ajoute le chemin vers le dossier Semabox/SemaOS pour qu'on puisse importer nos modules
 
 # Importe de nos modules Python personnalisés
-from modules.info_server import get_ip_address as ip, get_dns as dns
+from info_server import get_ip_address as ip, get_dns as dns
 
 
 # Création de l'application Flask
@@ -57,7 +57,7 @@ def create_script(script):
     script = data['script']
     
     # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', f'Application/modules/{script}'], stdout=subprocess.PIPE)
+    result = subprocess.run(['python', f'Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
     
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
@@ -85,7 +85,7 @@ def get_script(script):
     script = data['script']
     
     # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', f'Application/modules/{script}'], stdout=subprocess.PIPE)
+    result = subprocess.run(['python', f'Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
     
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
@@ -113,7 +113,7 @@ def update_script(script):
     script = data['script']
     
     # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', f'Application/modules/{script}'], stdout=subprocess.PIPE)
+    result = subprocess.run(['python', f'Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
     
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
@@ -137,7 +137,7 @@ def update_script(script):
 @app.route('/api/test')
 def execute_script():
     # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
-    result = subprocess.run(['python', 'Application/modules/info_server.py'], stdout=subprocess.PIPE)
+    result = subprocess.run(['python', 'Semabox/SemaOS/info_server.py'], stdout=subprocess.PIPE)
     output = result.stdout.decode('utf-8')
     liste = ast.literal_eval(output)
     info_server = liste
@@ -152,18 +152,30 @@ def execute_script():
 
 
 # Fonction Erreur d'affichage
+
+# Définit un gestionnaire d'erreur pour le code d'erreur HTTP 404 (page non trouvée)
 @app.errorhandler(404)
 def page_not_found(error):
+    # Retourne la réponse générée par le template de la page d'erreur HTTP 404, ainsi que le code d'erreur 404
     return render_template('ErrorPages/HTTP404.html'), 404
 
-@app.errorhandler(500)
-def page_not_found2(error):
-    return render_template('ErrorPages/HTTP500.html'), 500
-
+# Définit un gestionnaire d'erreur pour le code d'erreur HTTP 400 (requête incorrecte)
 @app.errorhandler(400)
-def page_not_found2(error):
+def page_not_found3(error):
+    # Retourne la réponse générée par le template de la page d'erreur HTTP 400, ainsi que le code d'erreur 400
     return render_template('ErrorPages/HTTP400.html'), 400
 
+# Définit un gestionnaire d'erreur pour le code d'erreur HTTP 500 (erreur interne du serveur)
+@app.errorhandler(500)
+def page_not_found2(error):
+    # Retourne la réponse générée par le template de la page d'erreur HTTP 500, ainsi que le code d'erreur 500
+    return render_template('ErrorPages/HTTP500.html'), 500
+
+# Définit un gestionnaire d'erreur pour le code d'erreur HTTP 501 (fonctionnalité non implémentée)
+@app.errorhandler(501)
+def page_not_found4(error):
+    # Retourne la réponse générée par le template de la page d'erreur HTTP 501, ainsi que le code d'erreur 501
+    return render_template('ErrorPages/HTTP501.html'), 501
 
 if __name__ == '__main__':
     # on lance l'application Flask avec le mode debug activé et sur l'adresse IP de la machine ainsi que sur le port donnée

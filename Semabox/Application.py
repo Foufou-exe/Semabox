@@ -1,3 +1,17 @@
+# Description: Fichier principal de l'application Semabox
+
+"""
+    Description: Fichier principal de l'application Semabox
+        Ce script importe plusieurs modules Python nécessaires pour son fonctionnement. 
+        Il importe également des fonctions de modules personnalisés se trouvant dans le répertoire 'Semabox/SemaOS'.
+        Il définit une classe 'App' qui représente la fenêtre principale de l'application. 
+        Le constructeur de cette classe initialise diverses variables telles que l'identifiant unique du système, le nom d'hôte, l'adresse IP et le nom de domaine associé. 
+        Il configure également la fenêtre en lui attribuant un titre, une taille et un alignement au centre de l'écran. 
+        Ensuite, il crée des widgets tels que des labels, des boutons et un menu déroulant. 
+        Ces widgets sont placés dans la fenêtre et sont configurés avec des polices de caractères, des couleurs de fond, du texte et d'autres paramètres.
+        Le script termine en exécutant la boucle principale de Tkinter pour afficher la fenêtre et rendre possible l'interaction avec l'utilisateur.
+"""
+
 # Importation des modules Pythons nécessaires
 import os
 import sys
@@ -5,7 +19,7 @@ import tkinter as tk
 import tkinter.font as tkFont
 
 # Importation des modules perso
-sys.path.append('Application/modules')  # On ajoute le chemin 'Application/modules' au path de sys pour pouvoir importer les modules de ce répertoire
+sys.path.append('Semabox/SemaOS')  # On ajoute le chemin 'Semabox/SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
 from generation_UID import creation_dossier, generate_id, lire_fichier  # Import des fonctions du module 'generation_UID'
 from info_server import get_dns, get_hostname, get_ip_address  # Import des fonctions du module 'info_server'
 from scan_servers import scan_nmap  # Import de la fonction du module 'scan_servers'
@@ -15,6 +29,14 @@ from server_speedtest import get_download_speed, get_ping, get_upload_speed  # I
 # Création de la fenêtre principale (main window)
 class App:
     # Constructeur de la classe App
+    """
+        Description:
+            La classe App définit une application graphique utilisant l'interface utilisateur Tkinter.
+            Le constructeur de la classe, __init__, prend en argument root, qui est la fenêtre principale de l'application.
+            Le constructeur initialise plusieurs variables en appelant des fonctions de lecture de fichier, de récupération de nom d'hôte, d'adresse IP et de nom de domaine associé à l'adresse IP de l'hôte.
+            Le constructeur configure également la fenêtre en définissant sa taille et son alignement au centre de l'écran, et en empêchant le redimensionnement par l'utilisateur.
+            Enfin, le constructeur crée plusieurs widgets Tkinter pour afficher du texte et des couleurs de fond.
+    """
     def __init__(self, root):
         # Déclaration des variables 
         ID = lire_fichier()  # On lit le fichier contenant l'identifiant unique généré par la fonction generate_id()
@@ -108,24 +130,26 @@ class App:
         Button_speedtest_clear.place(x=1050,y=660,width=128,height=40)
 
 
-    """
-        Fonction: Button_scan_nmap_command
-            Description : Permets de lancer le scan nmap et d'afficher les résultats dans le label
-    """
+
 
     # Fonction appelée lorsque le bouton "Button_scan_nmap" est cliqué
     def Button_scan_nmap_command(self):
+        """
+            Fonction: Button_scan_nmap_command
+                Description : Permets de lancer le scan nmap et d'afficher les résultats dans le label
+        """
         # Execution de la fonction "scan_nmap" et stockage du résultat dans la variable "result_scan"
         result_scan = scan_nmap()
         # Mise à jour du texte du label "Resultat_Scan_Nmap_Label" avec le contenu de la variable "result_scan"
         self.Resultat_Scan_Nmap_Label["text"] = result_scan
 
-    """
-        Fonction: Button_speedtest_command
-            Description : Permets de lancer le speedtest et d'afficher les résultats dans les labels
-    """ 
+
     # Fonction appelée lorsque le bouton "Button_speedtest" est cliqué
     def Button_speedtest_command(self):
+        """
+            Fonction: Button_speedtest_command
+                Description : Permets de lancer le speedtest et d'afficher les résultats dans les labels
+        """ 
         # Execution de la fonction "get_ping" et stockage du résultat dans la variable "ping"
         ping = get_ping()
         # Execution de la fonction "get_download_speed" et stockage du résultat dans la variable "download"
@@ -140,23 +164,23 @@ class App:
         # Mise à jour du texte du label "Text_Label_Descendant" avec le contenu de la variable "upload"
         self.Text_Label_Descendant["text"] = f"Débit Descendant : {upload}  mb/s"
         
-    """
-        Fonction: Button_clear_nmap_command
-            Description : Effacer les résultats du Scan Nmap
-    """    
+
     # Fonction appelée lorsque le bouton "Button_clear_nmap" est cliqué
     def Button_clear_nmap_command(self):
+        """
+            Fonction: Button_clear_nmap_command
+                Description : Effacer les résultats du Scan Nmap
+        """    
         # Mise à jour du texte du label "Resultat_Scan_Nmap_Label" avec une chaîne vide
         self.Resultat_Scan_Nmap_Label["text"] = ""
 
    
     # Fonction appelée lorsque le bouton "Button_speedtest_clear" est cliqué
-
-    """
-        Fonction: Button_speedtest_clear_command
-            Description : Effacer les résultats du Speedtest
-    """
     def Button_speedtest_clear_command(self):
+        """
+            Fonction: Button_speedtest_clear_command
+                Description : Effacer les résultats du Speedtest
+        """
         # Mise à jour du texte du label "Text_Label_Ping" avec la chaîne "PING :" suivie d'une chaîne vide suivie de " ms"
         self.Text_Label_Ping["text"] = "PING :" + "" + " ms"
         # Mise à jour du texte du label "Text_Label_Montant" avec la chaîne "Débit Montant : " suivie d'une chaîne vide suivie de " mb/s"
@@ -178,6 +202,5 @@ if __name__ == "__main__":
     app = App(root)
     # Lancement de la boucle principale de l'application
     root.mainloop()
-
 
 

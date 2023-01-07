@@ -1,4 +1,17 @@
-# Description: Ce module contient les fonctions qui permettent de scanner les ports ouverts sur l'hôte local.
+# Description: Ce Script permet de scanner les ports ouverts sur l'hôte local.
+
+"""
+    Information:
+        Importation des modules Python nécessaires:
+            nmap - Ce module permet d'utiliser l'outil nmap en Python.
+
+        Importation des modules Python personnalisés:
+            info_server - Ce module contient la fonction get_ip_address() qui retourne l'adresse IP de l'hôte local.
+
+        Fonctions:
+            scan_nmap() - Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne une chaîne de caractères contenant les informations sur les ports ouverts.
+            api_scan_nmap() - Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne un dictionnaire contenant les informations sur les ports ouverts.
+"""
 
 # Importation des modules Python nécessaires
 import nmap
@@ -11,7 +24,8 @@ from info_server import get_ip_address
 def scan_nmap():
     
     """
-        Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne une chaîne de caractères contenant les informations sur les ports ouverts.
+        Description:
+            Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne une chaîne de caractères contenant les informations sur les ports ouverts.
     """
     
     # Création d'un objet nmap.PortScanner()
@@ -34,10 +48,10 @@ def scan_nmap():
 def api_scan_nmap():
    
     """
-        Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne un dictionnaire
-        contenant les informations sur les ports ouverts.
+        Description:
+            Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne un dictionnaire
+            contenant les informations sur les ports ouverts.
     """
-    
     
     # Création d'un objet nmap.PortScanner()
     nm = nmap.PortScanner()
@@ -62,5 +76,5 @@ def api_scan_nmap():
 
 # Si ce fichier est exécuté directement, on appelle la fonction api_scan_nmap()
 if __name__ == "__main__":
-    #api_scan_nmap()
-    print(scan_nmap())
+    api_scan_nmap()
+    # print(scan_nmap())

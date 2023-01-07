@@ -4,10 +4,10 @@ import platform
 import sys
 
 # Ajout du chemin vers le dossier Application pour qu'on puisse importer nos modules
-sys.path.append('Application')
+sys.path.append('Semabox/SemaOS')
 
 # Importe de nos modules Python personnalisés
-from modules.generation_UID import lire_fichier
+from generation_UID import lire_fichier
 
 
 
@@ -46,7 +46,7 @@ def get_version_semabox():
         Cette fonction retourne la version de SemaBox en lisant le fichier "version.txt" dans le répertoire "Application/modules".
     """
     
-    with open("Application/modules/version.txt", "r") as f:
+    with open("Semabox/SemaOS/version.txt", "r") as f:
         return f.readline()
     
 
@@ -73,3 +73,4 @@ def api_info_server():
 # Si ce fichier est exécuté directement, on appelle la fonction api_info_server()
 if __name__ == "__main__":
     api_info_server()
+
