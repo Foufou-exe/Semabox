@@ -62,5 +62,5 @@ def api_scan_nmap():
 
 # Si ce fichier est exécuté directement, on appelle la fonction api_scan_nmap()
 if __name__ == "__main__":
-    api_scan_nmap()
-    #print(scan_nmap())
+    #api_scan_nmap()
+    print(scan_nmap())

@@ -83,7 +83,7 @@ def addBddRecord(sema_id, sema_hostname, sema_ip, sema_dns, sema_version, user, 
   cursor = cnx.cursor()
 
   # Construction la déclaration INSERT
-  insert_stmt = "INSERT INTO box (sema_id, sema_hostname, sema_ip, sema_dns, sema_version) VALUES (%s, %s, %s, %s, %s)"
+  insert_stmt = f"INSERT INTO box ({sema_id}, {sema_hostname}, {sema_ip}, {sema_dns}, {sema_version}) VALUES (%s, %s, %s, %s, %s)"
   
   # TABLE box
   #     sema_id TEXT,

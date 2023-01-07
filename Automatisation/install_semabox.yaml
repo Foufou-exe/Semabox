@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: Client
   become: true
   pre-task:
     - name: Update et Upgrade
@@ -38,7 +38,7 @@
         path: /Semabox/install/requirement.txt
       register: requirement_file
 
-    - name: Fail if requirement.txt does not exist
+    - name Fail if requirement.txt does not exist
       fail:
         msg: "requirement.txt does not exist"
       when: not requirement_file.stat.exists
@@ -47,7 +47,18 @@
       pip:
         requirements: /Semabox/install/requirement.txt
 
+    - name : Copie du Service Semabox-API
+      copy:
+        src: /Semabox/install/Semabox-api.service
+        dest: /etc/systemd/system    
+
     - name: Première installation de Semabox
       command: python3 /Semabox/install/install.py
 
-#
+    - name: Activation du service Semabox-api
+      ansible.builtin.systemd:
+        name: Semabox-api.service
+        enabled: yes
+        state: started
+
+

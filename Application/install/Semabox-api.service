@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 User=root
-WorkingDirectory=/Samabox
-ExecStart=/Samabox/Samabox-api.py
+WorkingDirectory=/Samabox/Samabox-api
+ExecStart=/Samabox/Samabox-api/API.py
 
 [Install]
 WantedBy=multi-user.target

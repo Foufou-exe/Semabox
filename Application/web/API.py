@@ -23,8 +23,17 @@ import subprocess
 import ast
 import json
 
-# Import des modules Flask 
-from flask import Flask, render_template, request, jsonify
+"""
+    Description de la Librairie Flask:
+        Les modules Flask :
+            Flask = Framework Python pour créer des applications Web  
+            render_template = module qui permet de rendre un template HTML, request = module qui permet de récupérer les données envoyées dans une requête HTTP
+            jsonify = module qui permet de convertir un dictionnaire Python en une chaîne de caractères JSON
+            abort = module qui permet de retourner une erreur HTTP
+"""
+
+
+from flask import Flask, render_template, request, jsonify, abort
 
 # Ajoutez le chemin vers le dossier Application
 import sys
@@ -32,7 +41,7 @@ sys.path.append('Application')
 # On ajoute le chemin vers le dossier Application pour qu'on puisse importer nos modules
 
 # Importe de nos modules Python personnalisés
-from modules.info_server import get_ip_address as ip_address
+from modules.info_server import get_ip_address as ip, get_dns as dns
 
 
 # Création de l'application Flask
@@ -114,7 +123,9 @@ def update_script(script):
     
     # Si la liste est vide ou que ce n'est pas un dictionnaire, on retourne un message d'erreur
     if result_script is None or not isinstance(result_script, dict):
-        return "Aucune information sur le serveur disponible"
+        abort(404, "Aucune information sur le serveur disponible")
+    
+    
     
     # Conversion du dictionnaire en une chaîne de caractères au format JSON
     result_script_json = json.dumps(result_script)
@@ -131,8 +142,7 @@ def execute_script():
     liste = ast.literal_eval(output)
     info_server = liste
     
-    # Si le dictionnaire est vide, on retourne un message d'erreur
-
+   # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
     if info_server is None or not isinstance(info_server, dict):
         return "Aucune information sur le serveur disponible"
     
@@ -140,14 +150,22 @@ def execute_script():
     # Utilisez la fonction render_template de Jinja2 pour afficher le résultat en HTML
     return render_template('info_server.html', info_server=info_server.items())
 
-@app.route('/')
-def index():
-    
-    return render_template('index.html')
+
+# Fonction Erreur d'affichage
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('ErrorPages/HTTP404.html'), 404
+
+@app.errorhandler(500)
+def page_not_found2(error):
+    return render_template('ErrorPages/HTTP500.html'), 500
+
+@app.errorhandler(400)
+def page_not_found2(error):
+    return render_template('ErrorPages/HTTP400.html'), 400
+
 
 if __name__ == '__main__':
-    # on récupère l'adresse IP de la machine
-    ip = ip_address()
     # on lance l'application Flask avec le mode debug activé et sur l'adresse IP de la machine ainsi que sur le port donnée
-    app.run(host=ip,port=5600,debug=True)
+    app.run(host=ip(),port=80,debug=True)
 
