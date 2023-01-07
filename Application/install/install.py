@@ -1,21 +1,32 @@
-# Importation des modules Pythons nécessaires
+import dns.query
+import dns.update
 import sys
-import os
 
-# Ajout du chemin vers le dossier Application pour qu'on puisse importer nos modules
-sys.path.append("Application")
+sys.path.append('Application')
 
-# Importe de nos modules Python personnalisés
-from modules.info_server import get_dns, get_hostname, get_ip_address
-from modules.generation_UID import *
+from modules.info_server import get_ip_address, get_hostname
 
+# domain : le nom de domaine auquel ajouter l'enregistrement
+domain = 'cma4.box'
+# ip : l'adresse IP de l'hôte à ajouter
+ip = get_ip_address()
+# enregistrement : le type d'enregistrement (A, AAAA, etc.)
+enregistrement = 'A'
+# ttl : le temps de vie (en secondes) de l'enregistrement
+ttl = 300
+# hostname : le nom de l'hôte à ajouter
+hostname = get_hostname()
+# serveur_dns : l'adresse IP du serveur DNS auquel envoyer la requête
+serveur_dns = '192.168.100.253'
 
-def premier_lancement():
-    if not os.path.exists("SEMABOX_UID"):
-        creation_dossier(generate_id())
-    return lire_fichier()
-
+def addDnsRecord(domain, ip_dns, new_host, new_ip, enregistrement, ttl):
+    # Créez un objet Update
+    update = dns.update.Update(domain)
+    # Ajoutez l'enregistrement de l'hôte
+    update.add(new_host, ttl, enregistrement, new_ip)
+    # Envoyez la requête DNS UPDATE
+    response = dns.query.tcp(update, ip_dns)
 
 
 if __name__ == "__main__":
-    
+    print(domain=domain, ip_dns=serveur_dns, host=hostname, new_ip=ip, enregistrement=enregistrement, ttl=ttl)

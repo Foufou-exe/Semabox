@@ -35,7 +35,7 @@
     
     - name: Check si requirement.txt existe
       stat:
-        path: /Semabox/Application/requirement.txt
+        path: /Semabox/install/requirement.txt
       register: requirement_file
 
     - name: Fail if requirement.txt does not exist
@@ -45,10 +45,10 @@
 
     - name: Installation des dépendances Pythons
       pip:
-        requirements: /Semabox/Application/requirement.txt
+        requirements: /Semabox/install/requirement.txt
 
     - name: Première installation de Semabox
-      command: python3 /Semabox/Application/install/install.py
+      command: python3 /Semabox/install/install.py
 
     - name: Script de Connexion entre le Serveur et le Client
-      command: python3 /Semabox/Application/Connexion-server.py
+      command: python3 /Semabox/
