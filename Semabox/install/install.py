@@ -59,11 +59,11 @@ import subprocess
 sys.path.append('Semabox')
 
 # Importe de nos modules Python personnalisés
-from SemaOS.info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns, get_version_semabox as version_semabox
+from SemaOS.info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns_semabox, get_version_semabox as version_semabox, get_public_ip as ip_public
 from SemaOS.generation_UID import lire_fichier as uid
 
 # Ajout d'un enregistrement DNS
-def add_dns_record(domain, ip_dns, new_host, new_ip, enregistrement, ttl):
+def add_dns_record(domain, ip_dns, host, new_ip, enregistrement, ttl):
   """
     Description:
         Cette fonction ajoute un enregistrement DNS pour un nouvel hôte avec une adresse IP spécifiée dans le domaine spécifié.
@@ -79,9 +79,13 @@ def add_dns_record(domain, ip_dns, new_host, new_ip, enregistrement, ttl):
   # Créez un objet Update
   update = dns.update.Update(domain)
   # Ajoutez l'enregistrement de l'hôte
-  update.add(new_host, ttl, enregistrement, new_ip)
+  update.add(host, ttl, enregistrement, new_ip)
   # Envoyez la requête DNS UPDATE
   response = dns.query.tcp(update, ip_dns)
+  
+  # Vérifiez si la requête a réussi
+  if response.rcode() == 0:
+    print("Enregistrement DNS ajouté avec succès.")
 
 
 
@@ -109,7 +113,7 @@ def add_bdd_record(sema_id, sema_hostname, sema_ip, sema_dns, sema_version, user
   cursor = cnx.cursor()
 
   # Construction la déclaration INSERT
-  insert_stmt = f"INSERT INTO box ({sema_id}, {sema_hostname}, {sema_ip}, {sema_dns}, {sema_version}) VALUES (%s, %s, %s, %s, %s)"
+  insert_stmt = "INSERT INTO box (sema_id, sema_hostname, sema_ip, sema_dns, sema_version) VALUES (%s, %s, %s, %s, %s)"
 
   # Execution de la requête avec les valeurs à insérer dans la base de données
   cursor.execute(insert_stmt, (sema_id, sema_hostname, sema_ip, sema_dns, sema_version))
@@ -122,6 +126,8 @@ def add_bdd_record(sema_id, sema_hostname, sema_ip, sema_dns, sema_version, user
   cnx.close()
 
 
+
+
 def pre_installation():
   """
     Description:
@@ -132,6 +138,7 @@ def pre_installation():
   
   
 if __name__ == "__main__":
+  pre_installation()
   # Appelle de la Focntion add_dns_record :  Ajout de l'enregistrement DNS
   add_dns_record(
     domain='cma4.box',# domain : le nom de domaine auquel ajouter l'enregistrement
@@ -146,15 +153,12 @@ if __name__ == "__main__":
   add_bdd_record(
     sema_id=uid(), # uid : l'identifiant unique de la semabox
     sema_hostname=hostname(), # hostname : le nom de l'hôte de la semabox
-    sema_ip=ip(), 
-    sema_dns=dns(ip()), # ip : l'adresse IP de la semabox
+    sema_ip=ip(),
+    sema_ip=ip_public(), # ip_pubic : l'adresse IP publique de la semabox 
+    sema_dns=dns_semabox(ip()), #+ "".join(".cma4.box") , # ip : l'adresse IP de la semabox
     sema_version=version_semabox(),  # version_semabox : la version de la semabox
     user='semabox', # user : l'utilisateur de la base de données
     password='Mspr_epsi1!', # password : le mot de passe de l'utilisateur
-    host='192.168.150.250', # host : l'adresse IP du serveur de la base de données
+    host='192.168.150.240', # host : l'adresse IP du serveur de la base de données
     database='semabox' # database : le nom de la base de données
   )
-  pre_installation()
-
-    
-    

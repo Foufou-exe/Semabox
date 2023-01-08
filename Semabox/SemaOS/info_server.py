@@ -2,6 +2,8 @@
 import socket
 import platform
 import sys
+import requests
+
 
 # Ajout du chemin vers le dossier Application pour qu'on puisse importer nos modules
 sys.path.append('Semabox/SemaOS')
@@ -38,7 +40,7 @@ def get_dns(ip):
     """
     
     dns_resulte = socket.gethostbyaddr(ip)
-    return dns_resulte[0]
+    return dns_resulte[0] + "".join(".cma4.box")
 
 def get_version_semabox():
     
@@ -49,7 +51,13 @@ def get_version_semabox():
     with open("Semabox/SemaOS/version.txt", "r") as f:
         return f.readline()
     
-
+def get_public_ip():
+    url = "https://api.ipify.org"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.text
+    else:
+        return "Unable to fetch public IP."
 
 def api_info_server():
     
@@ -61,16 +69,18 @@ def api_info_server():
     hostname = get_hostname()
     ip = get_ip_address()
     dns = get_dns(ip)
+    ip_public = get_public_ip()
     info_server = {
         'hostname': hostname,
         'ip': ip,
+        'ip_public': ip_public,
         'dns': dns,
         'uid': lire_uid,
         'version_semabox': version
     }
     print(info_server)
+    
 
 # Si ce fichier est exécuté directement, on appelle la fonction api_info_server()
 if __name__ == "__main__":
     api_info_server()
-

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>SemaWEB</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/styles/styles.css') }}">
+
+    </head>
+    <div class="area"></div><nav class="main-menu">
+        <ul>
+            <li>
+                <a href="{{url_for('index')}}">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="nav-text">
+                       Tableau de bord
+                    </span>
+                </a>
+              
+            </li>
+            <li>
+               <a href="{{url_for('tools')}}">
+                   <i class="fa fa-cogs fa-2x"></i>
+                    <span class="nav-text">
+                        Script
+                    </span>
+                </a>
+            </li>
+            <li>
+        </ul>
+
+        <ul class="logout">
+            <li>
+               <a href="login.html">
+                     <i class="fa fa-power-off fa-2x"></i>
+                    <span class="nav-text">
+                        Déconnexion
+                    </span>
+                </a>
+            </li>  
+        </ul>
+    </nav>
+    
+    </body>
+</html>

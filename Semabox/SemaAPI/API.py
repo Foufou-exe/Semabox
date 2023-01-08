@@ -33,7 +33,7 @@ import json
 """
 
 
-from flask import Flask, render_template, request, jsonify, abort
+from flask import Flask, render_template, request, jsonify, abort, Response
 
 # Ajoutez le chemin vers le dossier Semabox/SemaOS
 import sys
@@ -148,7 +148,17 @@ def execute_script():
     
     
     # Utilisez la fonction render_template de Jinja2 pour afficher le résultat en HTML
-    return render_template('info_server.html', info_server=info_server.items())
+    return render_template('Pages/test/info_server.html', info_server=info_server.items())
+
+
+@app.route('/')
+def index():
+    return render_template('Pages/SemaWeb/index.html')
+
+@app.route('/')
+def tools():
+    return render_template('Pages/SemaWeb/tools.html')
+
 
 
 # Fonction Erreur d'affichage
@@ -176,6 +186,22 @@ def page_not_found2(error):
 def page_not_found4(error):
     # Retourne la réponse générée par le template de la page d'erreur HTTP 501, ainsi que le code d'erreur 501
     return render_template('ErrorPages/HTTP501.html'), 501
+
+# # Définit un gestionnaire d'erreur pour le code d'erreur HTTP 304 (fonctionnalité non implémentée)
+# @app.errorhandler(304)
+# def page_not_found5(error):
+#     # Retourne la réponse générée par le template de la page d'erreur HTTP 304, ainsi que le code d'erreur 304
+#     return render_template('ErrorPages/HTTP304.html'), 304
+
+@app.errorhandler(404)
+def page_not_found(error):
+    # Si la ressource n'a pas été modifiée, renvoyer une réponse avec le code d'erreur 304
+    return Response(render_template('ErrorPages/HTTP304.html'), status=304)
+
+@app.route('/<path:path>')
+def catch_all(path):
+    # Si l'utilisateur accède à un dossier qui n'existe pas, générer une erreur 404
+    abort(404)
 
 if __name__ == '__main__':
     # on lance l'application Flask avec le mode debug activé et sur l'adresse IP de la machine ainsi que sur le port donnée

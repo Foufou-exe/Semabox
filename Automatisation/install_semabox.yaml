@@ -38,7 +38,7 @@
         path: /Semabox/install/requirement.txt
       register: requirement_file
 
-    - name Fail if requirement.txt does not exist
+    - name: Fail if requirement.txt does not exist
       fail:
         msg: "requirement.txt does not exist"
       when: not requirement_file.stat.exists
