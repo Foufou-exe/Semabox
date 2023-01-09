@@ -160,7 +160,6 @@ def tools():
     return render_template('Pages/SemaWeb/tools.html')
 
 
-
 # Fonction Erreur d'affichage
 
 # Définit un gestionnaire d'erreur pour le code d'erreur HTTP 404 (page non trouvée)
@@ -187,11 +186,6 @@ def page_not_found4(error):
     # Retourne la réponse générée par le template de la page d'erreur HTTP 501, ainsi que le code d'erreur 501
     return render_template('ErrorPages/HTTP501.html'), 501
 
-# # Définit un gestionnaire d'erreur pour le code d'erreur HTTP 304 (fonctionnalité non implémentée)
-# @app.errorhandler(304)
-# def page_not_found5(error):
-#     # Retourne la réponse générée par le template de la page d'erreur HTTP 304, ainsi que le code d'erreur 304
-#     return render_template('ErrorPages/HTTP304.html'), 304
 
 @app.errorhandler(404)
 def page_not_found(error):

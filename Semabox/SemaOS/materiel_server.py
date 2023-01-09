@@ -45,8 +45,7 @@ def get_server_info():
     # Conversion du temps écoulé en heures
     uptime_hours = int(uptime / 3600)
 
-    # Retour du dictionnaire
-    return {
+    resultat = {
         'num_cpus': num_cpus,
         'cpu_utilization': cpu_utilization,
         'ram_size_go': ram_size,
@@ -54,6 +53,8 @@ def get_server_info():
         'uptime_hours': uptime_hours,
         'os_name': os_name
     }
+    # Retour du dictionnaire
+    print(resultat)
 
 
 if __name__ == '__main__':
