@@ -27,10 +27,10 @@ if __name__ == "__main__":
     # Si le serveur est en ligne
     if server_is_up(get_ip_address()):
         # Crée un dictionnaire contenant l'état 'up' du serveur et l'affiche à l'écran
-        resultat1 = {"etat": "up"}
+        resultat1 = {"etat_semabox": "up"}
         print(resultat1)
     # Si le serveur n'est pas en ligne
     else:
         # Crée un dictionnaire contenant l'état 'down' du serveur et l'affiche à l'écran
-        resultat2 = {"etat": "down"}
+        resultat2 = {"etat_semabox": "down"}
         print(resultat2)

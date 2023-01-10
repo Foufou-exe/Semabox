@@ -56,11 +56,11 @@ import subprocess
 
 
 # Ajout du chemin vers le dossier Application pour qu'on puisse importer nos modules
-sys.path.append('Semabox')
-
+sys.path.append("./Semabox/SemaOS")
 # Importe de nos modules Python personnalisés
 from SemaOS.info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns_semabox, get_version_semabox as version_semabox, get_public_ip as ip_public
 from SemaOS.generation_UID import lire_fichier as uid
+
 
 # Ajout d'un enregistrement DNS
 def add_dns_record(domain, ip_dns, host, new_ip, enregistrement, ttl):
@@ -154,7 +154,7 @@ if __name__ == "__main__":
     sema_id=uid(), # uid : l'identifiant unique de la semabox
     sema_hostname=hostname(), # hostname : le nom de l'hôte de la semabox
     sema_ip=ip(),
-    sema_ip=ip_public(), # ip_pubic : l'adresse IP publique de la semabox 
+    sema_ip_public=ip_public(), # ip_pubic : l'adresse IP publique de la semabox 
     sema_dns=dns_semabox(ip()), #+ "".join(".cma4.box") , # ip : l'adresse IP de la semabox
     sema_version=version_semabox(),  # version_semabox : la version de la semabox
     user='semabox', # user : l'utilisateur de la base de données
