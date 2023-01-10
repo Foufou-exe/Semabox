@@ -135,15 +135,17 @@ class App:
 
         self.help_menu = tk.Menu(self.menu)
         self.menu.add_cascade(label="A propos", menu=self.help_menu)
+        self.help_menu.add_command(label="Update", command=self.update_code)
         self.help_menu.add_command(label="Version", command=self.about)
-        self.help_menu.add_command(label="Version", command=self.update_code)
 
     def about(self):
         messagebox.showinfo("A propos", f"Version de Ma Semabox : {get_version_semabox()}")
-        
-    def update_code(self):
-        
 
+    def update_code(self):
+        messagebox.showinfo("Update", 
+                            f"Le {get_version_semabox()} "
+                            )
+        
     # Fonction appelée lorsque le bouton "Button_scan_nmap" est cliqué
     def Button_scan_nmap_command(self):
         """
