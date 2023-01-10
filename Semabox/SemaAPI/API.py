@@ -50,11 +50,6 @@ app = Flask(__name__, template_folder='template')
 # Définition d'une route qui accepte les méthodes POST
 @app.route('/api/<script>', methods=['POST'])
 def create_script(script):
-    # Récupération des données envoyées en PUT dans une variable 'data'
-    data = request.get_json()
-    
-    # Récupération du nom du script à exécuter dans la variable 'script'
-    script = data['script']
     
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', f'Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
@@ -73,16 +68,11 @@ def create_script(script):
     result_script_json = json.dumps(result_script)
     
     # Retour de la chaîne de caractères au format JSON avec l'en-tête 'Content-Type: application/json'
-    return jsonify(resultresult_script_json=result_script_json)
+    return jsonify(result_script_json=result_script_json)
 
 # Définition d'une route qui accepte les méthodes GET
 @app.route('/api/<script>', methods=['GET'])
 def get_script(script):
-    # # Récupération des données envoyées en PUT dans une variable 'data'
-    # data = request.get_json()
-    
-    # # Récupération du nom du script à exécuter dans la variable 'script'
-    # script = data['script']
     
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', f'Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
@@ -101,20 +91,15 @@ def get_script(script):
     result_script_json = json.dumps(result_script)
     
     # Retour de la chaîne de caractères au format JSON avec l'en-tête 'Content-Type: application/json'
-    return jsonify(resultresult_script_json=result_script_json)
+    return jsonify(result_script_json=result_script_json)
 
 # Définition d'une route qui accepte les méthodes PUT
 @app.route('/api/<script>', methods=['PUT'])
 def update_script(script):
-    # Récupération des données envoyées en PUT dans une variable 'data'
-    data = request.get_json()
-    
-    # Récupération du nom du script à exécuter dans la variable 'script'
-    script = data['script']
     
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', f'Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
-    
+    print(result.stdout)
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
     

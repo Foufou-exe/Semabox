@@ -1,5 +1,12 @@
 import subprocess
 
+def check_code_gitlab_application():
+    result = subprocess.run(['git', 'pull'], stdout=subprocess.PIPE)
+    if result.stdout == b'Already up to date.\n':
+        return "Code déjà à jour ✅"
+    else:
+        return "Code mis à jours ♻️"
+
 
 def check_code_gitlab():
     """
@@ -19,4 +26,5 @@ def check_code_gitlab():
     print(result_code)
     
 if __name__ == "__main__":
-    check_code_gitlab()
+    # check_code_gitlab()
+    print(check_code_gitlab_application())

@@ -1,5 +1,8 @@
+
 # Importe le module os
-import os
+import subprocess
+import time
+import platform
 
 # Importe la fonction get_ip_address() du module info_server
 from info_server import get_ip_address
@@ -16,21 +19,19 @@ def server_is_up(host):
         Returns:
             bool: True si le serveur est en ligne, False sinon.
     """
-    # Envoie une requête ping au serveur en utilisant la commande 'ping' du système et stocke le résultat dans la variable 'response'
-    response = os.system(f"ping {host}")
-    
-    # Retourne True si la commande 'ping' a réussi (c'est-à-dire si le serveur est en ligne), False sinon
-    return response == 0
 
-# Si le module est exécuté directement (et non importé)
-if __name__ == "__main__":
-    # Si le serveur est en ligne
-    if server_is_up(get_ip_address()):
-        # Crée un dictionnaire contenant l'état 'up' du serveur et l'affiche à l'écran
+    try:
+        response = subprocess.check_output(
+            f'ping -n 1 {host}', shell=True, universal_newlines=True
+        )
         resultat1 = {"etat_semabox": "up"}
         print(resultat1)
-    # Si le serveur n'est pas en ligne
-    else:
-        # Crée un dictionnaire contenant l'état 'down' du serveur et l'affiche à l'écran
+    except subprocess.CalledProcessError as e:
         resultat2 = {"etat_semabox": "down"}
         print(resultat2)
+        
+        
+# Si le module est exécuté directement (et non importé)
+if __name__ == "__main__":
+    server_is_up(host=get_ip_address())
+

@@ -17,11 +17,12 @@ import os
 import sys
 import tkinter as tk
 import tkinter.font as tkFont
+from tkinter import messagebox
 
 # Importation des modules perso
 sys.path.append('Semabox/SemaOS')  # On ajoute le chemin 'Semabox/SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
 from generation_UID import creation_dossier, generate_id, lire_fichier  # Import des fonctions du module 'generation_UID'
-from info_server import get_dns, get_hostname, get_ip_address  # Import des fonctions du module 'info_server'
+from info_server import get_dns, get_hostname, get_ip_address, get_version_semabox  # Import des fonctions du module 'info_server'
 from scan_servers import scan_nmap  # Import de la fonction du module 'scan_servers'
 from server_speedtest import get_download_speed, get_ping, get_upload_speed  # Import des fonctions du module 'server_speedtest'
 
@@ -128,9 +129,20 @@ class App:
 
         Button_speedtest_clear=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="CLEAR" ,command=self.Button_speedtest_clear_command)
         Button_speedtest_clear.place(x=1050,y=660,width=128,height=40)
+        
+        self.menu = tk.Menu(root)
+        root.config(menu=self.menu)
 
+        self.help_menu = tk.Menu(self.menu)
+        self.menu.add_cascade(label="A propos", menu=self.help_menu)
+        self.help_menu.add_command(label="Version", command=self.about)
+        self.help_menu.add_command(label="Version", command=self.update_code)
 
-
+    def about(self):
+        messagebox.showinfo("A propos", f"Version de Ma Semabox : {get_version_semabox()}")
+        
+    def update_code(self):
+        
 
     # Fonction appelée lorsque le bouton "Button_scan_nmap" est cliqué
     def Button_scan_nmap_command(self):
@@ -195,7 +207,7 @@ if __name__ == "__main__":
     # Création d'une instance de la classe Tk (fenêtre principale de l'application)
     root = tk.Tk()
     # Si le dossier "SEMABOX_UID" n'existe pas
-    if not os.path.exists("SEMABOX_UID"):
+    if not os.path.exists("./Semabox/SemaOS/Semabox_UID"):
         # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
         creation_dossier(generate_id())
     # Création d'une instance de la classe "App" avec en paramètre la fenêtre principale "root"
