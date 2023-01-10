@@ -58,8 +58,8 @@ import subprocess
 # Ajout du chemin vers le dossier Application pour qu'on puisse importer nos modules
 sys.path.append("./Semabox/SemaOS")
 # Importe de nos modules Python personnalisés
-from SemaOS.info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns_semabox, get_version_semabox as version_semabox, get_public_ip as ip_public
-from SemaOS.generation_UID import lire_fichier as uid
+from info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns_semabox, get_version_semabox as version_semabox, get_public_ip as ip_public
+from generation_UID import lire_fichier as uid
 
 
 # Ajout d'un enregistrement DNS

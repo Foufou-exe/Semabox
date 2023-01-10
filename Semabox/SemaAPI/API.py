@@ -37,7 +37,7 @@ from flask import Flask, render_template, request, jsonify, abort, Response
 
 # Ajoutez le chemin vers le dossier Semabox/SemaOS
 import sys
-sys.path.append('Semabox/SemaOS')
+sys.path.append('./Semabox/SemaOS')
 # On ajoute le chemin vers le dossier Semabox/SemaOS pour qu'on puisse importer nos modules
 
 # Importe de nos modules Python personnalisés
@@ -78,11 +78,11 @@ def create_script(script):
 # Définition d'une route qui accepte les méthodes GET
 @app.route('/api/<script>', methods=['GET'])
 def get_script(script):
-    # Récupération des données envoyées en PUT dans une variable 'data'
-    data = request.get_json()
+    # # Récupération des données envoyées en PUT dans une variable 'data'
+    # data = request.get_json()
     
-    # Récupération du nom du script à exécuter dans la variable 'script'
-    script = data['script']
+    # # Récupération du nom du script à exécuter dans la variable 'script'
+    # script = data['script']
     
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', f'Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
@@ -137,7 +137,7 @@ def update_script(script):
 @app.route('/api/test')
 def execute_script():
     # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
-    result = subprocess.run(['python', 'Semabox/SemaOS/info_server.py'], stdout=subprocess.PIPE)
+    result = subprocess.run(['python', './Semabox/SemaOS/info_server.py'], stdout=subprocess.PIPE)
     output = result.stdout.decode('utf-8')
     liste = ast.literal_eval(output)
     info_server = liste
@@ -185,7 +185,6 @@ def page_not_found2(error):
 def page_not_found4(error):
     # Retourne la réponse générée par le template de la page d'erreur HTTP 501, ainsi que le code d'erreur 501
     return render_template('ErrorPages/HTTP501.html'), 501
-
 
 @app.errorhandler(404)
 def page_not_found(error):

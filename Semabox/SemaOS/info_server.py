@@ -16,7 +16,7 @@ import requests
 
 
 # Ajout du chemin vers le dossier Application pour qu'on puisse importer nos modules
-sys.path.append('Semabox/SemaOS')
+sys.path.append('./Semabox/SemaOS')
 
 # Importe de nos modules Python personnalisés
 from generation_UID import lire_fichier
@@ -58,7 +58,7 @@ def get_version_semabox():
         Cette fonction retourne la version de SemaBox en lisant le fichier "version.txt" dans le répertoire "Application/modules".
     """
     
-    with open("SemaOS/version.txt", "r") as f:
+    with open("./Semabox/SemaOS/version.txt", "r") as f:
         return f.readline()
     
 def get_public_ip():
