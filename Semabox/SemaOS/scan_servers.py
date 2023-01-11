@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.11.1
+
 # Description: Ce Script permet de scanner les ports ouverts sur l'hôte local.
 
 """

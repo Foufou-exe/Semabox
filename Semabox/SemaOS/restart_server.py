@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.11.1
+
 # Description: Ce fichier contient les fonctions permettant de redémarrer ou d'éteindre le serveur.
 
 # Importation des modules Python nécessaires

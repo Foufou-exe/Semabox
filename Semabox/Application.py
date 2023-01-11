@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.11.1
+
 # Description: Fichier principal de l'application Semabox
 
 """

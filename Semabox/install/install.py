@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.11.1
+
 # Description: Ce script permet d'installer la semabox sur le réseau local et de l'enregistrer dans la base de données.
 
 """

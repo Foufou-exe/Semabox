@@ -1,3 +1,4 @@
+#!/usr/bin/env python3.11.1
 # Description: Ce fichier contient des fonctions permettant de récupérer des informations sur le serveur sur lequel le code est exécuté.
 
 """

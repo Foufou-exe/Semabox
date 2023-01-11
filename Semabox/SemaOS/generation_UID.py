@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.11.1
+
 # Importation des modules Python nécessaires
 import os
 import uuid

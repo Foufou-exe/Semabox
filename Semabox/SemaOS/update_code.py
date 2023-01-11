@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.11.1
+
 import subprocess
 import os
 from datetime import datetime

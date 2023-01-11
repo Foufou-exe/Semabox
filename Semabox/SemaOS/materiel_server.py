@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.11.1
+
 """
     Description: Ce module contient des fonctions qui permettent de récupérer des informations sur le serveur exécutant le script.
 

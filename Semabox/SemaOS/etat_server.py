@@ -1,3 +1,4 @@
+#!/usr/bin/env python3.11.1
 
 # Importe le module os
 import subprocess
