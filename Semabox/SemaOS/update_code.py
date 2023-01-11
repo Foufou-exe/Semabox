@@ -12,9 +12,9 @@ def get_latest_commit_date(repo_path):
 def check_code_gitlab_application(date):
     result = subprocess.run(['git', 'pull'], stdout=subprocess.PIPE)
     if result.stdout == b'Already up to date.\n':
-        return f"Code déjà à jour ✅ \n Depuis le {date}  \n Aucun changement à appliquer. 😊 "
+        return f"Le Code déjà à jour ✅ \nDepuis le {date} \nAucun changement à appliquer. 😊 "
     else:
-        return f"Code est mis à jours ♻️ \n Depuis {date}  \n Veuillez redémarrer l'application pour appliquer les changements. 😊 "
+        return f"Le Code est mis à jours ♻️ \nDepuis le {date} \nVeuillez redémarrer l'application pour appliquer les changements. ❗ "
 
 
 def check_code_gitlab():
@@ -35,6 +35,6 @@ def check_code_gitlab():
     print(result_code)
     
 if __name__ == "__main__":
-    # check_code_gitlab()
-    check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
+    check_code_gitlab()
+    
 
