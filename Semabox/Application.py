@@ -17,6 +17,7 @@ import os
 import sys
 import tkinter as tk
 import tkinter.font as tkFont
+from tkinter.ttk import *
 from tkinter import messagebox
 
 # Importation des modules perso
@@ -25,7 +26,7 @@ from generation_UID import creation_dossier, generate_id, lire_fichier  # Import
 from info_server import get_dns, get_hostname, get_ip_address, get_version_semabox  # Import des fonctions du module 'info_server'
 from scan_servers import scan_nmap  # Import de la fonction du module 'scan_servers'
 from server_speedtest import get_download_speed, get_ping, get_upload_speed  # Import des fonctions du module 'server_speedtest'
-
+from update_code import *  # Import de la fonction du module 'update_code'
 
 # Création de la fenêtre principale (main window)
 class App:
@@ -130,21 +131,56 @@ class App:
         Button_speedtest_clear=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="CLEAR" ,command=self.Button_speedtest_clear_command)
         Button_speedtest_clear.place(x=1050,y=660,width=128,height=40)
         
+        # La ligne self.menu = tk.Menu(root) crée un menu tkinter et l'attribue à la variable self.menu. 
+        # Cela permet de créer un menu dans la fenêtre principale.
         self.menu = tk.Menu(root)
+        
+        # root.config(menu=self.menu) définit le menu créé à la ligne 1 comme menu pour la fenêtre principale.
         root.config(menu=self.menu)
-
+        
+        # root.iconbitmap('./Semabox/SemaOS/assets/images/developer.ico') définit l'icône de la fenêtre principale avec le fichier situé à ./Semabox/SemaOS/assets/images/developer.ico
+        root.iconbitmap('./Semabox/SemaOS/assets/images/developer.ico')
+        
+        # root.tk.call('source','./Semabox/SemaOS/assets/themes/azure.tcl') Exécute le code Tcl à partir du fichier ./Semabox/SemaOS/assets/themes/azure.tcl sur l'instance Tk de la fenêtre principale.
+        root.tk.call('source','./Semabox/SemaOS/assets/themes/azure.tcl')
+        # root.tk.call("set_theme", "dark") définit le thème en noir pour l'instance Tk de la fenêtre principale
+        root.tk.call("set_theme", "dark")
+        
+        
+        # Création du menu "A propos"
+        # self.help_menu crée un nouveau menu et l'attribue à la variable self.help_menu.
         self.help_menu = tk.Menu(self.menu)
+        
+        # self.menu.add_cascade ajoute une nouvelle cascade à self.menu avec l'étiquette "A propos" et assigne self.help_menu comme menu pour la cascade.
         self.menu.add_cascade(label="A propos", menu=self.help_menu)
+        
+        # self.help_menu.add_command crée une nouvelle commande avec l'étiquette "Update" dans self.help_menu et la commande est exécutée lorsque l'on clique sur "Update" .
         self.help_menu.add_command(label="Update", command=self.update_code)
+        
+        # self.help_menu.add_command crée une nouvelle commande avec l'étiquette "Version" dans self.help_menu et la commande est exécutée lorsque l'on clique sur "Version"
         self.help_menu.add_command(label="Version", command=self.about)
 
     def about(self):
-        messagebox.showinfo("A propos", f"Version de Ma Semabox : {get_version_semabox()}")
+        """
+            Fonction : about
+            Description : Fonction qui permet d'afficher la version de l'application
+                def about(self): crée une nouvelle méthode appelée about et lorsqu'elle est appelée, elle affiche une boîte de message d'information avec le message "A propos" et la version de Ma Semabox en utilisant la fonction get_version_semabox()
+        """
+        messagebox.showinfo(
+            "A propos", 
+            f"Version de Ma Semabox : {get_version_semabox()}"
+        )
 
     def update_code(self):
-        messagebox.showinfo("Update", 
-                            f"Le {get_version_semabox()} "
-                            )
+        """
+            Fonction : update_code
+            Description : Fonction qui permet de vérifier si il y a une mise à jour de l'application
+                def update_code(self): crée une nouvelle méthode appelée update_code et lorsqu'elle est appelée, elle affiche une boîte de message d'information avec le message "Update" et le status du code à l'aide de check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
+        """
+        messagebox.showinfo(
+            "Update", 
+            check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
+        )
         
     # Fonction appelée lorsque le bouton "Button_scan_nmap" est cliqué
     def Button_scan_nmap_command(self):
