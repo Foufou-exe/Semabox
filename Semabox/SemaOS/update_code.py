@@ -8,8 +8,7 @@ def get_latest_commit_date(repo_path):
     git_log = subprocess.run(['git', 'log', '-1', '--pretty=%cI'], cwd=repo_path, capture_output=True, text=True)
     git_log_output = git_log.stdout.strip()
     date = git_log_output.split("+")[0]
-    date_time = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
-    return date_time
+    return datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
 
 def check_code_gitlab_application(date):
     result = subprocess.run(['git', 'pull'], stdout=subprocess.PIPE)
