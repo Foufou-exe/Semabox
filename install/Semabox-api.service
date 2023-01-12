@@ -1,11 +1,11 @@
 [Unit]
-Description=Api Samabox
+Description=Api Semabox
 After=network.target
 
 [Service]
 User=root
-WorkingDirectory=/Samabox/Samabox-api
-ExecStart=/Samabox/Samabox-api/API.py
+WorkingDirectory=/Semabox/SemaAPI
+ExecStart=/Semabox/SemaAPI/API.py
 
 [Install]
 WantedBy=multi-user.target

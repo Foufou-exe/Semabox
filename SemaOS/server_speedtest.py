@@ -12,7 +12,7 @@ FILE_PATH = "SemaOS\download\TESTMB.zip"
 HOST = "ipv4.download.thinkbroadband.com"
 
 # Définition des fonctions
-def get_download_speed(test_file_url=TEST_FILE_URL):
+def get_download_speed(test_file_url=TEST_FILE_URL)->str:
     """
     Calcule la vitesse de téléchargement en mégabits par seconde.
     
@@ -32,7 +32,7 @@ def get_download_speed(test_file_url=TEST_FILE_URL):
     download_speed = len(response.content) / elapsed_time
     return "{0:.2f}".format(download_speed / 1000000 * 8)
 
-def get_upload_speed(file_path=FILE_PATH, upload_url=UPLOAD_URL):
+def get_upload_speed(file_path=FILE_PATH, upload_url=UPLOAD_URL)->str:
     """
     Calcule la vitesse d'envoi en mégabits par seconde.
     
@@ -55,7 +55,7 @@ def get_upload_speed(file_path=FILE_PATH, upload_url=UPLOAD_URL):
         upload_speed = len(response.content) / (upload_end_time - upload_start_time)
         return "{0:.2f}".format(upload_speed)
 
-def get_ping(host=HOST):
+def get_ping(host=HOST)->int:
     """
     Envoie une requête ICMP et renvoie la durée du ping en millisecondes.
     
@@ -72,7 +72,7 @@ def get_ping(host=HOST):
     ping = int(icmp.avg_rtt)
     return ping
 
-def api_speedtest():
+def api_speedtest()->dict:
     """
     Calcule la vitesse de téléchargement, d'envoi et de ping.
     

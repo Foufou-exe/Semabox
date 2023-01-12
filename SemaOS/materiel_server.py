@@ -16,7 +16,7 @@ import psutil
 import platform
 
 # Définition des fonctions
-def get_server_info():
+def get_server_info()->dict:
     """
         Description:
             Cette fonction retourne un dictionnaire contenant des informations sur le serveur exécutant le script. Les informations incluent le nombre de coeurs CPU, l'utilisation CPU, la quantité de mémoire RAM, le nombre de disques, le temps écoulé depuis l'allumage et le nom de l'OS.

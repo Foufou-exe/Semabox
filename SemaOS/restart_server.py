@@ -6,7 +6,7 @@
 import subprocess
 
 # Définition des fonctions
-def redemarrer():
+def redemarrer()->str:
     """
         Description:
             Cette fonction redémarre le serveur.

@@ -27,13 +27,13 @@ import json
     Description de la Librairie Flask:
         Les modules Flask :
             Flask = Framework Python pour créer des applications Web  
-            render_template = module qui permet de rendre un template HTML, request = module qui permet de récupérer les données envoyées dans une requête HTTP
+            request = module qui permet de récupérer les données envoyées dans une requête HTTP
             jsonify = module qui permet de convertir un dictionnaire Python en une chaîne de caractères JSON
             abort = module qui permet de retourner une erreur HTTP
 """
 
 
-from flask import Flask, render_template, request, jsonify, abort, Response
+from flask import Flask, render_template, jsonify, abort, Response
 
 # Ajoutez le chemin vers le dossier Semabox/SemaOS
 import sys
@@ -41,7 +41,7 @@ sys.path.append('./SemaOS')
 # On ajoute le chemin vers le dossier Semabox/SemaOS pour qu'on puisse importer nos modules
 
 # Importe de nos modules Python personnalisés
-from info_server import get_ip_address as ip, get_dns as dns
+from info_server import get_ip_address as ip
 
 
 # Création de l'application Flask

@@ -23,7 +23,7 @@ from info_server import get_ip_address
 
 
 # Fonctions
-def scan_nmap():
+def scan_nmap()->str:
     
     """
         Description:
@@ -47,7 +47,7 @@ def scan_nmap():
     )
 
 
-def api_scan_nmap():
+def api_scan_nmap()->dict:
    
     """
         Description:

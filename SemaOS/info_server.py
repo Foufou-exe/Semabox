@@ -24,7 +24,7 @@ from generation_UID import lire_fichier
 
 
 
-def get_hostname():
+def get_hostname()->str:
     
     """
         Cette fonction retourne le nom d'hôte de la machine sur laquelle le code est exécuté.
@@ -32,7 +32,7 @@ def get_hostname():
     
     return platform.node()
 
-def get_ip_address():
+def get_ip_address()->str:
     
     """
         Cette fonction retourne l'adresse IP de la machine sur laquelle le code est exécuté.
@@ -41,7 +41,7 @@ def get_ip_address():
     return socket.gethostbyname(socket.gethostname())
 
 
-def get_dns(ip):   
+def get_dns(ip)->str:   
      
     """
         Cette fonction retourne le nom de domaine associé à l'adresse IP spécifiée.
@@ -53,7 +53,7 @@ def get_dns(ip):
     dns_resulte = socket.gethostbyaddr(ip)
     return dns_resulte[0] + "".join(".cma4.box")
 
-def get_version_semabox():
+def get_version_semabox()->str:
     
     """
         Cette fonction retourne la version de SemaBox en lisant le fichier "version.txt" dans le répertoire "Application/modules".
@@ -62,7 +62,7 @@ def get_version_semabox():
     with open("./SemaOS/version.txt", "r") as f:
         return f.readline()
     
-def get_public_ip():
+def get_public_ip()->str:
     url = "https://api.ipify.org"
     response = requests.get(url)
     if response.status_code == 200:
