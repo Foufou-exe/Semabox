@@ -92,7 +92,7 @@ def add_dns_record(domain, ip_dns, host, new_ip, enregistrement, ttl):
 
 
 # Ajoutez un enregistrement à la table 'box' de la base de données 'semabox' sur le serveur MariaDB à l'adresse 192.168.150.250.
-def add_bdd_record(sema_id, sema_hostname, sema_ip, sema_dns, sema_version, user, password, host, database):
+def add_bdd_record(sema_id, sema_hostname, sema_ip, sema_ip_public, sema_dns, sema_version, user, password, host, database):
   """
     Description:
         Cette fonction ajoute un enregistrement à la table 'box' de la base de données 'semabox' sur le serveur MariaDB à l'adresse spécifiée.
@@ -115,10 +115,10 @@ def add_bdd_record(sema_id, sema_hostname, sema_ip, sema_dns, sema_version, user
   cursor = cnx.cursor()
 
   # Construction la déclaration INSERT
-  insert_stmt = "INSERT INTO box (sema_id, sema_hostname, sema_ip, sema_dns, sema_version) VALUES (%s, %s, %s, %s, %s)"
+  insert_stmt = "INSERT INTO box (sema_id, sema_hostname, sema_ip, sema_ip_public, sema_dns, sema_version) VALUES (%s, %s, %s, %s, %s)"
 
   # Execution de la requête avec les valeurs à insérer dans la base de données
-  cursor.execute(insert_stmt, (sema_id, sema_hostname, sema_ip, sema_dns, sema_version))
+  cursor.execute(insert_stmt, (sema_id, sema_hostname, sema_ip, sema_ip_public, sema_dns, sema_version))
 
   # Enregistrez les modifications dans la base de données
   cnx.commit()

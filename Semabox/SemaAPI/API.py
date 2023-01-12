@@ -183,5 +183,5 @@ def catch_all(path):
 
 if __name__ == '__main__':
     # on lance l'application Flask avec le mode debug activé et sur l'adresse IP de la machine ainsi que sur le port donnée
-    app.run(host=ip(),port=80,debug=True)
+    app.run(host=ip(),port=80,debug=False)
 
