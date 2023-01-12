@@ -2,8 +2,7 @@
 
 # Importe le module os
 import subprocess
-import time
-import platform
+
 
 # Importe la fonction get_ip_address() du module info_server
 from info_server import get_ip_address

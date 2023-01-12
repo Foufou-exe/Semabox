@@ -37,7 +37,7 @@ from flask import Flask, render_template, request, jsonify, abort, Response
 
 # Ajoutez le chemin vers le dossier Semabox/SemaOS
 import sys
-sys.path.append('./Semabox/SemaOS')
+sys.path.append('./SemaOS')
 # On ajoute le chemin vers le dossier Semabox/SemaOS pour qu'on puisse importer nos modules
 
 # Importe de nos modules Python personnalisés
@@ -52,7 +52,7 @@ app = Flask(__name__, template_folder='template')
 def create_script(script):
     
     # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', f'Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
+    result = subprocess.run(['python', f'./SemaOS/{script}'], stdout=subprocess.PIPE)
     
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
@@ -75,7 +75,7 @@ def create_script(script):
 def get_script(script):
     
     # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', f'Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
+    result = subprocess.run(['python', f'./SemaOS/{script}'], stdout=subprocess.PIPE)
     
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
@@ -98,7 +98,7 @@ def get_script(script):
 def update_script(script):
     
     # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', f'Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
+    result = subprocess.run(['python', f'./SemaOS/{script}'], stdout=subprocess.PIPE)
     print(result.stdout)
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
@@ -122,7 +122,7 @@ def update_script(script):
 @app.route('/api/test')
 def execute_script():
     # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
-    result = subprocess.run(['python', './Semabox/SemaOS/info_server.py'], stdout=subprocess.PIPE)
+    result = subprocess.run(['python', './SemaOS/info_server.py'], stdout=subprocess.PIPE)
     output = result.stdout.decode('utf-8')
     liste = ast.literal_eval(output)
     info_server = liste

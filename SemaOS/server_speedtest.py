@@ -8,7 +8,7 @@ import time
 # Définition des constantes
 TEST_FILE_URL = "http://ipv4.download.thinkbroadband.com/50MB.zip"
 UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media"
-FILE_PATH = "Semabox\SemaOS\download\TESTMB.zip"
+FILE_PATH = "SemaOS\download\TESTMB.zip"
 HOST = "ipv4.download.thinkbroadband.com"
 
 # Définition des fonctions
