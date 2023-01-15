@@ -49,9 +49,21 @@ nav a:hover {
     margin-top: 5%;
 }
 
+.logo3 {
+    width: 35%;
+    margin-left: 60px;
+    height: 650px;
+}
+
+
 h2.title {
     font-size: 29px;
     margin-left: 7%;
+}
+
+.container-propos-title{
+    font-size: 40px;
+    margin-left: 13%;
 }
 
 footer {
@@ -89,9 +101,44 @@ div.container-body{
     font-size: 25px;
 }
 
-.container-propos{
-    position: absolute;
-    top: 20%;
-    left: 40%;
-    border: 3px solid #17202A;
+.container-propos-body{
+    position: fixed;
+    top: 10%;
+    left: 37%;
+}
+
+container-propos-title{
+    margin-left: 13%;
+    text-decoration: underline;
+    font-size: 40px;
+}
+
+
+.container-dev {
+  display: flex;
+  flex-wrap: nowrap;
+
+}
+
+.name-container {
+  display: flex;
+  flex-direction: column;
+  margin-right: 100px;
+}
+
+.logo-social {
+    width: 35px;
+    margin-right: 10px;
+}
+
+.logo-social-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.name{
+    padding-right: 20px;
+    font-size: 20px;
+    width: 190px;
+    padding-bottom: 10px;
 }
