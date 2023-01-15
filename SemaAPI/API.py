@@ -138,11 +138,26 @@ def execute_script():
 
 @app.route('/')
 def index():
-    return render_template('Pages/SemaWeb/index.html')
+    # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
+    result = subprocess.run(['python', './SemaOS/info_server.py'], stdout=subprocess.PIPE)
+    output = result.stdout.decode('utf-8')
+    liste = ast.literal_eval(output)
+    info_server = liste
+    
+   # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
+    if info_server is None or not isinstance(info_server, dict):
+        return "Aucune information sur le serveur disponible"
+    
+    
+    return render_template('Pages/SemaWeb/index.html', info_server=info_server)
 
-@app.route('/')
+@app.route('/tools')
 def tools():
     return render_template('Pages/SemaWeb/tools.html')
+
+@app.route('/propos')
+def about():
+    return render_template('Pages/SemaWeb/propos.html')
 
 
 # Fonction Erreur d'affichage

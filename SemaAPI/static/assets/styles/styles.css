@@ -1,0 +1,97 @@
+/* Path: SemaAPI\static\assets\styles\styles.css */ 
+
+body {
+    background-color: #1C2833;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+nav {
+    background-color: #17202A;
+    color: #fff;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px;
+    position: relative;
+    z-index: 1;
+}
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 10px;
+    transition: all .3s;
+}
+nav a:hover {
+    color: #fff;
+    background-color: #2E4053;
+    border-radius: 4px;
+}
+
+
+.brand {
+    display: flex;
+    align-items: center;
+}
+.logo {
+    width: 50px;
+    margin-right: 10px;
+}
+.brand-name {
+    font-size: 1.2rem;
+}
+
+.logo2  {
+    width: 25%;
+    margin-left: 100px;
+    margin-top: 5%;
+}
+
+h2.title {
+    font-size: 29px;
+    margin-left: 7%;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center; /* pour centrer verticalement */
+    justify-content: center; /* pour centrer horizontalement */
+    background-color: #17202A;
+    color: #fff;
+    padding: 10px;
+}
+
+
+.container{
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    border: 3px solid #17202A;
+    padding: 20px;
+    padding-right: 7%;
+    padding-left: 7%;
+    padding-bottom: 3%;
+}
+
+div.container-title{
+    margin-left: 13%;
+    text-decoration: underline;
+    font-size: 30px;
+}
+
+div.container-body{
+    font-size: 25px;
+}
+
+.container-propos{
+    position: absolute;
+    top: 20%;
+    left: 40%;
+    border: 3px solid #17202A;
+}

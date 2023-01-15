@@ -17,24 +17,14 @@
             <a href="/tools">Tools</a>
             <a href="/propos">A propos</a>
         </nav>
-    
         <section>
             <img src="{{url_for('static', filename='assets/images/web.png')}}" alt="logo" class="logo2">
-                <h2 class="title">Ma Semabox : {{info_server["hostname"]}}</h2>
-                <div class="container">
-                    <div class="container-title">
-                        <h3>Information de la Semabox</h3>
-                    </div>
-                    <div class="container-body">
-                        <p>IP : {{info_server["ip"]}}</p>
-                        <p>IP Public : {{info_server["ip_public"]}}</p>
-                        <p>DNS : {{info_server["dns"]}}</p>
-                        <p>UID : {{info_server["uid"]}}</p>
-                        <p>Version Semabox : {{info_server["version_semabox"]}}</p>                  
-                    </div>
+            <div class="container-propos">
+                <div class="container-title">
+                    <h3>A propose de SemaWEB</h3>
                 </div>
+            </div>
         </section>
-
         <footer>
             <div class="brand">
                 <img src="{{url_for('static', filename='assets/images/cube.png')}}" alt="logo" width="50px" class="logo">
