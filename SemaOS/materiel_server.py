@@ -37,7 +37,12 @@ def get_server_info()->dict:
 
     # Récupération du nombre de disques
     num_disks = len(psutil.disk_partitions())
-
+    
+    # Récupération de la taille d'un disque spécifique
+    disk_path = '/'  # Le chemin du disque que vous voulez récupérer
+    usage = psutil.disk_usage(disk_path)
+    disk_size = int(usage.total / (1024 ** 3))
+    
     # Récupération du nom de l'OS
     os_name = platform.system()
 
@@ -51,6 +56,7 @@ def get_server_info()->dict:
         'num_cpus': num_cpus,
         'cpu_utilization': cpu_utilization,
         'ram_size_go': ram_size,
+        'disks': disk_size,
         'num_disks': num_disks,
         'uptime_hours': uptime_hours,
         'os_name': os_name

@@ -41,6 +41,7 @@ nav a:hover {
 }
 .brand-name {
     font-size: 1.2rem;
+    font-weight: bold;
 }
 
 .logo2  {
@@ -64,7 +65,18 @@ h2.title {
 .container-propos-title{
     font-size: 40px;
     margin-left: 13%;
+    font-weight: bold;
 }
+
+.container-propos-title2{
+    font-weight: bold;
+}
+
+
+.container-propos-title3{
+    font-weight: bold;
+}
+
 
 footer {
     position: fixed;
@@ -142,3 +154,12 @@ container-propos-title{
     width: 190px;
     padding-bottom: 10px;
 }
+
+.materiel-body-container{
+    background-color: #212F3D;
+    padding: 20px;
+    border-radius: 20px 20px 20px 20px;
+    height: 200px;
+    width: 200px;
+}
+

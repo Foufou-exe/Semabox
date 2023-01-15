@@ -153,7 +153,29 @@ def index():
 
 @app.route('/tools')
 def tools():
-    return render_template('Pages/SemaWeb/tools.html')
+    # Exécution du script 'materiel_server.py' et récupération du dictionnaire de résultat
+    result = subprocess.run(['python', './SemaOS/materiel_server.py'], stdout=subprocess.PIPE)
+    output = result.stdout.decode('utf-8')
+    liste = ast.literal_eval(output)
+    materiel = liste
+    
+    # Exécution du script 'materiel_server.py' et récupération du dictionnaire de résultat
+    result_script = subprocess.run(['python', './SemaOS/etat_server.py'], stdout=subprocess.PIPE)
+    output_script = result_script.stdout.decode('utf-8')
+    disctionnaire = ast.literal_eval(output_script)
+    etat = disctionnaire
+    
+    
+   # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
+    if materiel is None or not isinstance(materiel, dict):
+        return "Aucune information sur le serveur disponible"
+    
+    # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
+    if etat is None or not isinstance(etat, dict):
+        return "Aucune information sur le serveur disponible"
+    
+    
+    return render_template('Pages/SemaWeb/tools.html', materiel=materiel ,etat=etat)
 
 @app.route('/propos')
 def about():
