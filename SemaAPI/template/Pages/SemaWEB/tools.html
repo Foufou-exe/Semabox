@@ -32,37 +32,43 @@
 
             <div class="materiel-body-container">
                 <div class="title-materiel-body-container">
+                    <img src="{{url_for('static', filename='assets/images/computer.svg')}}" alt="logo2" class="logo-information">
                     <h1>Information Système</h1>
                 </div>
-                <div class="1-materiel-body-container">
-                    <h3>OS: {{materiel["os_name"]}}</h3>
-                </div>
-                <div class="2-materiel-body-container">
-                    <h3>Nombre de Coeurs CPU: {{materiel["num_cpus"]}}</h3>
-                </div>
-                <div class="3-materiel-body-container">
-                    <h3>Utilisation du CPU: {{materiel["cpu_utilization"]}} %</h3>
-                </div>
-                <div class="4-materiel-body-container">
-                    <h3>Nombre RAM: {{materiel["ram_size_go"]}} Go</h3>
-                </div>
-                <div class="5-materiel-body-container">
-                    <h3>Nombre de Disque: {{materiel["num_disks"]}} </h3>
-                </div>
-                <div class="6-materiel-body-container">
-                    <h3>L'Espace d'un disque: {{materiel["disks"]}} Go</h3>
-                </div>
-                <div class="7-materiel-body-container">
-                    <h3>Serveur allumée depuis {{materiel["uptime_hours"]}} H</h3>
-                </div>
-                <div class="8-materiel-body-container">
-                    <h3>Etat de la Semabox : {{etat["etat_semabox"]}}</h3>
+                <div class="materiel-body">
+                    <div class="A-materiel-body-container">
+                        <h3>- OS : {{materiel["os_name"]}} 🖥️</h3>
+                    </div>
+                    <div class="A-materiel-body-container">
+                        <h3>- Nombre de Coeurs CPU : {{materiel["num_cpus"]}} 🫀</h3>
+                    </div>
+                    <div class="A-materiel-body-container">
+                        <h3>- Utilisation du CPU : {{materiel["cpu_utilization"]}} %</h3>
+                    </div>
+                    <div class="A-materiel-body-container">
+                        <h3>- Taille RAM : {{materiel["ram_size_go"]}} Go</h3>
+                    </div>
+                    <div class="A-materiel-body-container">
+                        <h3>- Nombre de Disques : {{materiel["num_disks"]}} 💾</h3>
+                    </div>
+                    <div class="A-materiel-body-container">
+                        <h3>- L'Espace d'un disque : {{materiel["disks"]}} Go</h3>
+                    </div>
+                    <div class="A-materiel-body-container">
+                        <h3>- Serveur allumée depuis {{materiel["uptime_hours"]}} H ♾️</h3>
+                    </div>
+                    <div class="A-materiel-body-container">
+                        {% if etat["etat_semabox"] == "up" %}
+                            <h3>- Etat de la Semabox : {{etat["etat_semabox"]}} ✅</h3>
+                        {% else %}
+                            <h3>- Etat de la Semabox : {{etat["etat_semabox"]}} ❌</h3>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </section>
         <footer>
             <div class="brand">
-                <img src="{{url_for('static', filename='assets/images/cube.png')}}" alt="logo" width="50px" class="logo">
                 <p class="brand-name">Copyright© 2023 SemaWEB</p>
             </div>
         </footer>

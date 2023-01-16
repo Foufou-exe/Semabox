@@ -157,9 +157,33 @@ container-propos-title{
 
 .materiel-body-container{
     background-color: #212F3D;
-    padding: 20px;
     border-radius: 20px 20px 20px 20px;
-    height: 200px;
-    width: 200px;
+    height: 600px;
+    width: 400px;
+    margin-left: 100px;
+    margin-top: 50px;
 }
 
+.materiel-body{
+    margin-left: 50px;
+}
+
+.logo-information{
+    width: 50px;
+    margin-right: 10px;
+}
+
+.title-materiel-body-container{
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px 20px 10px 10px;
+    background: #273746;
+    height: 70px;
+    width: 400px;
+}
+
+.A-materiel-body-container{
+  margin-bottom: 40px;
+}
