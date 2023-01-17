@@ -226,15 +226,15 @@ def tools():
         # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
         if scan is None or not isinstance(scan, dict):
             return "Aucune information sur le serveur disponible"
-    
-
+        
     else:
         scan = " "
     
     if session.get('scan_status') == 'reset':
         scan = " "
-
-    return render_template('Pages/SemaWeb/tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan=scan)
+        
+    print(scan.items())
+    return render_template('Pages/SemaWeb/tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
 
 @app.route('/propos')
 def about():

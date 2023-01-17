@@ -252,6 +252,9 @@ if __name__ == "__main__":
         creation_dossier(generate_id())
     # Création d'une instance de la classe "App" avec en paramètre la fenêtre principale "root"
     app = App(root)
+    
+    # Update du code
+    check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
     # Lancement de la boucle principale de l'application
     root.mainloop()
 

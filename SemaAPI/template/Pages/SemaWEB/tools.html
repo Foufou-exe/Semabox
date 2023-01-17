@@ -94,7 +94,7 @@
                                 <h1>Scan Nmap</h1>
                             </div>
                             <div class="container-text-scan">
-                                {% for port, data in scan_results.items() %}
+                                {% for port, data in scan_results %}
                                     <p>Port {{ port }} est {{ data['state'] }} et utilise le service {{ data['service'] }}</p>
                                 {% endfor %}
                             </div>
