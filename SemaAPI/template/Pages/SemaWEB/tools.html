@@ -18,52 +18,98 @@
             <a href="/propos">About us</a>
         </nav>
         <section>
-            <div class="buttom-body-container">
-                <div class="buttom-body1">
-                    <button class="buttom-body" onclick="window.location.href='/tools/ports'">Scan de Ports</button>
+            <div class="container-body-all">
+                <div class="materiel-body-container">
+                    <div class="title-materiel-body-container">
+                        <img src="{{url_for('static', filename='assets/images/computer.svg')}}" alt="logo2" class="logo-information">
+                        <h1>Information Système</h1>
+                    </div>
+                    <div class="materiel-body">
+                        <div class="A-materiel-body-container">
+                            <h3>- OS : {{materiel["os_name"]}} 🖥️</h3>
+                        </div>
+                        <div class="A-materiel-body-container">
+                            <h3>- Nombre de Coeurs CPU : {{materiel["num_cpus"]}} 🫀</h3>
+                        </div>
+                        <div class="A-materiel-body-container">
+                            <h3>- Utilisation du CPU : {{materiel["cpu_utilization"]}} %</h3>
+                        </div>
+                        <div class="A-materiel-body-container">
+                            <h3>- Taille RAM : {{materiel["ram_size_go"]}} Go</h3>
+                        </div>
+                        <div class="A-materiel-body-container">
+                            <h3>- Nombre de Disques : {{materiel["num_disks"]}} 💾</h3>
+                        </div>
+                        <div class="A-materiel-body-container">
+                            <h3>- L'Espace d'un disque : {{materiel["disks"]}} Go</h3>
+                        </div>
+                        <div class="A-materiel-body-container">
+                            <h3>- Serveur allumée depuis {{materiel["uptime_hours"]}} H ♾️</h3>
+                        </div>
+                        <div class="A-materiel-body-container">
+                            {% if etat["etat_semabox"] == "up" %}
+                                <h3>- Etat de la Semabox : {{etat["etat_semabox"]}} ✅</h3>
+                            {% else %}
+                                <h3>- Etat de la Semabox : {{etat["etat_semabox"]}} ❌</h3>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-                <div class="buttom-body2">
-                    <button class="buttom-body" onclick="window.location.href='/tools/debits'">Calcul du Débit</button>
-                </div>
-                <div class="buttom-body3">
-                    <button class="buttom-body" onclick="window.location.href='/tools'">Clear</button>
-                </div>
-            </div>
 
-            <div class="materiel-body-container">
-                <div class="title-materiel-body-container">
-                    <img src="{{url_for('static', filename='assets/images/computer.svg')}}" alt="logo2" class="logo-information">
-                    <h1>Information Système</h1>
-                </div>
-                <div class="materiel-body">
-                    <div class="A-materiel-body-container">
-                        <h3>- OS : {{materiel["os_name"]}} 🖥️</h3>
-                    </div>
-                    <div class="A-materiel-body-container">
-                        <h3>- Nombre de Coeurs CPU : {{materiel["num_cpus"]}} 🫀</h3>
-                    </div>
-                    <div class="A-materiel-body-container">
-                        <h3>- Utilisation du CPU : {{materiel["cpu_utilization"]}} %</h3>
-                    </div>
-                    <div class="A-materiel-body-container">
-                        <h3>- Taille RAM : {{materiel["ram_size_go"]}} Go</h3>
-                    </div>
-                    <div class="A-materiel-body-container">
-                        <h3>- Nombre de Disques : {{materiel["num_disks"]}} 💾</h3>
-                    </div>
-                    <div class="A-materiel-body-container">
-                        <h3>- L'Espace d'un disque : {{materiel["disks"]}} Go</h3>
-                    </div>
-                    <div class="A-materiel-body-container">
-                        <h3>- Serveur allumée depuis {{materiel["uptime_hours"]}} H ♾️</h3>
-                    </div>
-                    <div class="A-materiel-body-container">
-                        {% if etat["etat_semabox"] == "up" %}
-                            <h3>- Etat de la Semabox : {{etat["etat_semabox"]}} ✅</h3>
-                        {% else %}
-                            <h3>- Etat de la Semabox : {{etat["etat_semabox"]}} ❌</h3>
-                        {% endif %}
-                    </div>
+                <div class="container-body-other">
+                   <div class="container-body-script">
+                        <div class="container-body-speedtest">
+                            <div class="container-title-speedtest">
+                                <h1>Speedtest</h1>
+                            </div>
+                            <div class="container-text1-speedtest">
+                                <h3>IP Public : {{ip["ip_public"]}}</h3>
+                            </div>
+                            <div class="container-block-speedtest"> 
+                                {% if speedtest %}
+                                    <div class="container-text2-speedtest">
+                                        <h3>- Ping : {{speedtest["ping"]}} ms</h3>
+                                    </div>
+                                    <div class="container-text3-speedtest">
+                                        <h3>- Download : {{speedtest["download_speed"]}} Mbit/s</h3>
+                                    </div>
+                                    <div class="container-text4-speedtest">
+                                        <h3>- Upload : {{speedtest["upload_speed"]}} Mbit/s</h3>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="Bouttom-speedtest">
+                                <form action="{{ url_for('tools') }}" method="post">
+                                    <div>
+                                        <button class="buttom-body" name="go" type="submit">Go</button>
+                                    </div>
+                                    <div>
+                                        <button class="buttom-body" name="reset" type="submit">Reset</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="container-body-scan">
+                            <div class="container-title-scan">
+                                <h1>Scan Nmap</h1>
+                            </div>
+                            <div class="container-text-scan">
+                                {% for port, data in scan_results.items() %}
+                                    <p>Port {{ port }} est {{ data['state'] }} et utilise le service {{ data['service'] }}</p>
+                                {% endfor %}
+                            </div>
+                            <div class="Bouttom-scan">
+                                <form action="{{ url_for('tools') }}" method="post" class="form2">
+                                    <div>
+                                        <button class="buttom-body-scan" name="scan" type="submit">Scan</button>
+                                    </div>
+                                    <div>
+                                        <button class="buttom-body-scan" name="reset" type="submit">Reset</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                   </div>
                 </div>
             </div>
         </section>

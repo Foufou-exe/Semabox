@@ -63,12 +63,15 @@ def get_version_semabox()->str:
         return f.readline()
     
 def get_public_ip()->str:
-    url = "https://api.ipify.org"
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.text
-    else:
-        return "Unable to fetch public IP."
+    # url = "https://api.ipify.org"
+    # response = requests.get(url)
+    # if response.status_code == 200:
+    #     return response.text
+    # else:
+    #     return "Unable to fetch public IP."
+    response = requests.get("http://ipinfo.io/json")
+    data = response.json()
+    return data["ip"]
 
 def api_info_server(version,lire_uid,hostname,ip,dns,ip_public)->dict:
     

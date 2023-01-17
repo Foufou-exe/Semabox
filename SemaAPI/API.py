@@ -33,7 +33,7 @@ import json
 """
 
 
-from flask import Flask, render_template, jsonify, abort, Response
+from flask import Flask, render_template, jsonify, abort, Response, request, session
 
 # Ajoutez le chemin vers le dossier Semabox/SemaOS
 import sys
@@ -46,6 +46,7 @@ from info_server import get_ip_address as ip
 
 # Création de l'application Flask
 app = Flask(__name__, template_folder='template')
+app.secret_key = '96735805964411ed8598cd1c1ad8becc'
 
 # Définition d'une route qui accepte les méthodes POST
 @app.route('/api/<script>', methods=['POST'])
@@ -151,31 +152,89 @@ def index():
     
     return render_template('Pages/SemaWeb/index.html', info_server=info_server)
 
-@app.route('/tools')
+@app.route('/tools', methods=['GET', 'POST'])
 def tools():
+    
+    if request.method == 'POST':
+        if 'go' in request.form:
+            session['speedtest_status'] = 'go'
+        elif 'reset' in request.form:
+            session['speedtest_status'] = 'reset'
+            
+        if 'scan' in request.form:
+            session['scan_status'] = 'scan'
+        elif 'reset' in request.form:
+            session['scan_status'] = 'reset'
+            
+    if request.method == 'GET':
+        session['speedtest_status'] = 'reset'
+        session['scan_status'] = 'reset'
+
     # Exécution du script 'materiel_server.py' et récupération du dictionnaire de résultat
     result = subprocess.run(['python', './SemaOS/materiel_server.py'], stdout=subprocess.PIPE)
     output = result.stdout.decode('utf-8')
     liste = ast.literal_eval(output)
     materiel = liste
-    
-    # Exécution du script 'materiel_server.py' et récupération du dictionnaire de résultat
+
+    # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
+    if materiel is None or not isinstance(materiel, dict):
+        return "Aucune information sur le serveur disponible"
+
+    # Exécution du script 'etat_server' et récupération du dictionnaire de résultat
     result_script = subprocess.run(['python', './SemaOS/etat_server.py'], stdout=subprocess.PIPE)
     output_script = result_script.stdout.decode('utf-8')
     disctionnaire = ast.literal_eval(output_script)
     etat = disctionnaire
-    
-    
-   # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
-    if materiel is None or not isinstance(materiel, dict):
-        return "Aucune information sur le serveur disponible"
-    
+
     # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
     if etat is None or not isinstance(etat, dict):
         return "Aucune information sur le serveur disponible"
+
+    # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
+    results = subprocess.run(['python', './SemaOS/info_server.py'], stdout=subprocess.PIPE)
+    outputs = results.stdout.decode('utf-8')
+    disctionnaires = ast.literal_eval(outputs)
+    ip_public = disctionnaires
+
+    # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
+    if ip_public is None or not isinstance(ip_public, dict):
+        return "Aucune information sur le serveur disponible"
+
+    if session.get('speedtest_status') == 'go':
+        # Exécution du script 'server_speedtest.py' et récupération du dictionnaire de résultat
+        resultes = subprocess.run(['python', './SemaOS/server_speedtest.py'], stdout=subprocess.PIPE)
+        outputes = resultes.stdout.decode('utf-8')
+        disctionnairs = ast.literal_eval(outputes)
+        speedtest = disctionnairs
+
+        # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
+        if speedtest is None or not isinstance(speedtest, dict):
+            return "Aucune information sur le serveur disponible"
+    else:
+        speedtest = " "
+
+    if session.get('speedtest_status') == 'reset':
+        speedtest = " "
+
+    if session.get('scan_status') == 'scan':
+        # Exécution du script 'scan.py' et récupération du dictionnaire de résultat
+        resultes_scan = subprocess.run(['python', './SemaOS/scan_servers.py'], stdout=subprocess.PIPE)
+        outputes_scan = resultes_scan.stdout.decode('utf-8')
+        disctionnaires_scan = ast.literal_eval(outputes_scan)
+        scan = disctionnaires_scan
+        
+        # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
+        if scan is None or not isinstance(scan, dict):
+            return "Aucune information sur le serveur disponible"
     
+
+    else:
+        scan = " "
     
-    return render_template('Pages/SemaWeb/tools.html', materiel=materiel ,etat=etat)
+    if session.get('scan_status') == 'reset':
+        scan = " "
+
+    return render_template('Pages/SemaWeb/tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan=scan)
 
 @app.route('/propos')
 def about():

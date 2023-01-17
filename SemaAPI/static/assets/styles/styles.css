@@ -16,6 +16,7 @@ nav {
     padding: 15px;
     position: relative;
     z-index: 1;
+    display: flex;
 }
 nav a {
     color: #fff;
@@ -155,15 +156,6 @@ container-propos-title{
     padding-bottom: 10px;
 }
 
-.materiel-body-container{
-    background-color: #212F3D;
-    border-radius: 20px 20px 20px 20px;
-    height: 600px;
-    width: 400px;
-    margin-left: 100px;
-    margin-top: 50px;
-}
-
 .materiel-body{
     margin-left: 50px;
 }
@@ -180,10 +172,142 @@ container-propos-title{
     justify-content: center;
     border-radius: 20px 20px 10px 10px;
     background: #273746;
-    height: 70px;
-    width: 400px;
+    height: auto;
+    width: auto;
 }
 
 .A-materiel-body-container{
   margin-bottom: 40px;
 }
+
+.container-body-all{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 10%;
+}
+  
+.materiel-body-container{
+    height: 600px;
+    width: 1400px;
+    margin-top: 4%;
+    margin-left: 6%;
+    background-color: #212F3D;
+    border-radius: 20px 20px 20px 20px;
+}
+
+
+  
+@media only screen and (max-width: 3840px) {
+    .materiel-body-container {
+        width: auto;
+        height: auto;
+    }
+
+}
+
+.container-body-other{
+    height: 600px;
+    width: 1500px;
+    margin-top: 4%;
+    margin-left: 1%;
+    background-color: #212F3D;
+    border-radius: 20px 20px 20px 20px;
+    display: flex;
+
+}
+
+.container-body-script{
+    display: contents;
+}
+
+
+
+.container-body-speedtest{
+    background-color: #273746;
+    border-radius: 20px 20px 20px 20px;
+    width: 40%;
+    height: 94%;
+    margin-top: 1%;
+    margin-left: 1%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-body-scan{
+    background-color: #273746;
+    border-radius: 20px 20px 20px 20px;
+    width: 57%;
+    height: 94%;
+    margin-top: 1%;
+    margin-left: 1%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-title-speedtest{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 20px;
+    background-color:  #2C3E50;
+    border-radius: 20px 20px 20px 20px;
+
+}
+
+.container-title-scan{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 20px;
+    background-color:  #2C3E50;
+    border-radius: 20px 20px 20px 20px;
+}
+
+.container-text1-speedtest{
+    margin-left: 5%;
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.container-block-speedtest{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 15%;
+    margin-top: 5%;
+    flex-direction: column;
+}
+
+.Bouttom-speedtest{
+    margin-top: 1%;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: row;
+}
+
+.buttom-body{
+    width: 175px;
+    height: 75px;
+    background-color: #1C2833;
+    font-size: 25px;
+    border-color: transparent;
+    border-radius: 20px 20px 20px 20px;
+    color: white;
+    font: bold;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+}
+
+.form2{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+}
+
