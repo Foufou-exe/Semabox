@@ -79,13 +79,9 @@
                                 {% endif %}
                             </div>
                             <div class="Bouttom-speedtest">
-                                <form action="{{ url_for('tools') }}" method="post">
-                                    <div>
-                                        <button class="buttom-body" name="go" type="submit">Go</button>
-                                    </div>
-                                    <div>
-                                        <button class="buttom-body" name="reset" type="submit">Reset</button>
-                                    </div>
+                                <form action="{{ url_for('tools') }}" method="post" class="form1">
+                                    <button class="buttom-body" name="go" type="submit">Go</button>
+                                    <button class="buttom-body" name="reset" type="submit">Reset</button>
                                 </form>
                             </div>
                         </div>
@@ -93,21 +89,38 @@
                             <div class="container-title-scan">
                                 <h1>Scan Nmap</h1>
                             </div>
-                            <div class="container-text-scan">
-                                {% for port, data in scan_results %}
-                                    <p>Port {{ port }} est {{ data['state'] }} et utilise le service {{ data['service'] }}</p>
-                                {% endfor %}
-                            </div>
-                            <div class="Bouttom-scan">
-                                <form action="{{ url_for('tools') }}" method="post" class="form2">
-                                    <div>
-                                        <button class="buttom-body-scan" name="scan" type="submit">Scan</button>
-                                    </div>
-                                    <div>
-                                        <button class="buttom-body-scan" name="reset" type="submit">Reset</button>
-                                    </div>
-                                </form>
-                            </div>
+                                {% if scan_results %}
+                                    <table class="tableau-scan">
+                                        <tr>
+                                            <th>Port</th>
+                                            {% for key, value in scan_results %}
+                                                <td>{{ value['port'] }}/tcp</td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <th>Etat</th>
+                                            {% for key, value in scan_results %}
+                                                <td>{{ value['state'] }}✅</td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <th>Service</th>
+                                            {% for key, value in scan_results %}
+                                                <td>{{ value['service'] }}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    </table>
+                                {% else %}
+                                <div class="container-text2-scan">
+                                    <p>Aucun Scan encours...</p><br>
+                                    <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Hourglass%20Not%20Done.png" alt="Hourglass Not Done" class="image-text-scan" />
+                                </div>
+                                {% endif %}
+                            <form action="{{ url_for('tools') }}" method="post" class="form2">
+                                    <button class="buttom-body-scan" name="scan" type="submit">Scan</button>
+                                    <br>
+                                    <button class="buttom-body-scan" name="reset" type="submit">Reset</button>
+                            </form>
                         </div>
                    </div>
                 </div>

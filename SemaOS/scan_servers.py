@@ -47,8 +47,8 @@ def scan_nmap()->str:
     )
 
 
-def api_scan_nmap()->dict:
-   
+def api_scan_nmap() -> dict:
+
     """
         Description:
             Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne un dictionnaire
@@ -63,17 +63,12 @@ def api_scan_nmap()->dict:
 
     # On scanne l'hôte en utilisant l'option -sS (SYN scan)
     nm.scan(host, arguments='-sS')
-    
-    # On construit le dictionnaire à partir des informations sur les ports ouverts
-    scan_results = {
-        port: {
-            'state': nm[host]['tcp'][port]['state'],
-            'service': nm[host]['tcp'][port]['name'],
-        }
-        for port in nm[host]['tcp']
-        if nm[host]['tcp'][port]['state'] == 'open'
-    }
 
+    scan_results = {
+        port: {'port': port, 'state': data['state'], 'service': data['name']}
+        for port, data in nm[host]['tcp'].items()
+        if data['state'] == 'open'
+    }
     print(scan_results)
 
 # Si ce fichier est exécuté directement, on appelle la fonction api_scan_nmap()

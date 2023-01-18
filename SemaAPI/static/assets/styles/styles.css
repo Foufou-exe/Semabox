@@ -194,17 +194,97 @@ container-propos-title{
     margin-left: 6%;
     background-color: #212F3D;
     border-radius: 20px 20px 20px 20px;
+    padding: 20px;
+    padding-bottom: 25px;
 }
 
 
   
-@media only screen and (max-width: 3840px) {
+/* @media only screen and (max-width: 3840px) {
     .materiel-body-container {
         width: auto;
         height: auto;
     }
 
+} */
+
+/* Règles pour les écrans de petite taille (ex: téléphones) */
+@media only screen and (max-width: 600px) {
+    /* Ajustez la taille du texte */
+    body {
+      font-size: 14px;
+    }
+
+    /* Ajustez la taille des images */
+    img {
+      max-width: 100%;
+    }
+    /* Ajustez l'espacement entre les éléments */
+    .container {
+      padding: 20px;
+    }
+    .materiel-body-container {
+        width: auto;
+        height: auto;
+    }
+    .container-body-other{
+        width: auto;
+        height: auto;
+    }
+    .buttom-body-scan{
+       width: auto;
+        height: auto;
+    }
+
 }
+  
+  /* Règles pour les écrans de taille moyenne (ex: tablettes) */
+@media only screen and (min-width: 450px) and (max-width: 1024px) {
+    /* Ajustez la taille des images */
+    img {
+      max-width: 100%;
+    }
+    /* Ajustez l'espacement entre les éléments */
+    .container {
+      padding: 20px;
+    }
+    .materiel-body-container {
+        width: 1800px;
+        height: auto;
+    }
+    .container-body-other{
+        width: 70%;
+        height: auto;
+    }
+    .buttom-body-scan{
+       width: auto;
+        height: auto;
+    }
+}
+  
+  /* Règles pour les écrans de grande taille (ex: ordinateurs) */
+@media only screen and (min-width: 1024px) {
+    /* Ajustez la taille du texte */
+    body {
+      font-size: 16px;
+    }
+    .materiel-body-container {
+        width: auto;
+        height: auto;
+    }
+    .container-body-other{
+        width: auto;
+        height: auto;
+    }
+    .buttom-body-scan{
+       width: auto;
+        height: auto;
+    }
+
+}
+
+
+
 
 .container-body-other{
     height: 600px;
@@ -214,7 +294,7 @@ container-propos-title{
     background-color: #212F3D;
     border-radius: 20px 20px 20px 20px;
     display: flex;
-
+    padding-bottom: 20px;
 }
 
 .container-body-script{
@@ -226,8 +306,8 @@ container-propos-title{
 .container-body-speedtest{
     background-color: #273746;
     border-radius: 20px 20px 20px 20px;
-    width: 40%;
-    height: 94%;
+    width: 30%;
+    height: auto;
     margin-top: 1%;
     margin-left: 1%;
     display: flex;
@@ -237,8 +317,8 @@ container-propos-title{
 .container-body-scan{
     background-color: #273746;
     border-radius: 20px 20px 20px 20px;
-    width: 57%;
-    height: 94%;
+    width: 67%;
+    height: auto;
     margin-top: 1%;
     margin-left: 1%;
     display: flex;
@@ -281,33 +361,86 @@ container-propos-title{
 }
 
 .Bouttom-speedtest{
-    margin-top: 1%;
+    margin-top: 20%;
     justify-content: space-around;
     display: flex;
     flex-direction: row;
 }
 
 .buttom-body{
-    width: 175px;
-    height: 75px;
+    width: 100px;
+    height: 50px;
     background-color: #1C2833;
     font-size: 25px;
     border-color: transparent;
     border-radius: 20px 20px 20px 20px;
     color: white;
-    font: bold;
+}
+
+.form1{
+    margin-top: 5%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    align-content: center;
 }
 
 .form2{
     display: flex;
-    flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-evenly;
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 100px;
+    flex-direction: row;
 }
 
+.buttom-body-scan{
+    width: 100px;
+    height: 50px;
+    background-color: #1C2833;
+    font-size: 25px;
+    border-color: transparent;
+    border-radius: 20px 20px 20px 20px;
+    color: white;
+    float: left;
+    margin: 0 auto;
+}
+
+
+
+.container-text2-scan{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 200%;
+    width: 500px;
+    align-content: center;
+    margin: 0 auto;
+}
+
+.image-text-scan{
+    width: 10%;
+
+}
+
+.tableau-scan{
+    margin: 0 auto;
+}
+
+
+
+td {
+    border: 1px solid black;
+    background-color: #17202A;
+    padding: 10px;
+}
+
+tr{
+    border: 3px solid black;
+    background-color: #17202A;
+    padding: 10px;
+} 
+
+tbody{
+
+    padding: 10px;
+    margin-top: 100px;
+    display: table;
+}

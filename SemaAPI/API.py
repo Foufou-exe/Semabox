@@ -42,11 +42,11 @@ sys.path.append('./SemaOS')
 
 # Importe de nos modules Python personnalisés
 from info_server import get_ip_address as ip
-
+from scan_servers import api_scan_nmap 
 
 # Création de l'application Flask
 app = Flask(__name__, template_folder='template')
-app.secret_key = '96735805964411ed8598cd1c1ad8becc'
+app.secret_key = "./SemaAPI/secret_key"
 
 # Définition d'une route qui accepte les méthodes POST
 @app.route('/api/<script>', methods=['POST'])
@@ -217,23 +217,26 @@ def tools():
         speedtest = " "
 
     if session.get('scan_status') == 'scan':
-        # Exécution du script 'scan.py' et récupération du dictionnaire de résultat
+        #Exécution du script 'scan.py' et récupération du dictionnaire de résultat
         resultes_scan = subprocess.run(['python', './SemaOS/scan_servers.py'], stdout=subprocess.PIPE)
         outputes_scan = resultes_scan.stdout.decode('utf-8')
-        disctionnaires_scan = ast.literal_eval(outputes_scan)
-        scan = disctionnaires_scan
+        disctionnairees = ast.literal_eval(outputes_scan)
+        scan = disctionnairees
+
+        if not isinstance(scan, (dict, list, tuple)):
+            raise ValueError("scan_results is not a valid iterable")
         
         # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
         if scan is None or not isinstance(scan, dict):
             return "Aucune information sur le serveur disponible"
         
-    else:
-        scan = " "
     
     if session.get('scan_status') == 'reset':
-        scan = " "
+        scan = {}
         
-    print(scan.items())
+
+    print(scan)
+    print(type(scan))
     return render_template('Pages/SemaWeb/tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
 
 @app.route('/propos')
