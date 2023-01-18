@@ -2,14 +2,14 @@
 
 # Importation des librairies nécessaires
 import requests
-import icmplib
 import time
+import icmplib
 
 # Définition des constantes
 TEST_FILE_URL = "http://ipv4.download.thinkbroadband.com/50MB.zip"
 UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media"
 FILE_PATH = "SemaOS\download\TESTMB.zip"
-HOST = "ipv4.download.thinkbroadband.com"
+HOST = "google.com"
 
 # Définition des fonctions
 def get_download_speed(test_file_url=TEST_FILE_URL)->str:
@@ -84,11 +84,7 @@ def api_speedtest()->dict:
     ping = get_ping()
     result = {"download_speed": download_speed, "upload_speed": upload_speed, "ping": ping}
     print(result)
-  
 
 if __name__ == "__main__":
     api_speedtest()
-
-
-
 

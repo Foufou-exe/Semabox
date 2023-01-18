@@ -16,6 +16,8 @@
 
 # Importation des modules Pythons nécessaires
 import os
+import time
+import subprocess
 import sys
 import tkinter as tk
 import tkinter.font as tkFont
@@ -27,8 +29,10 @@ sys.path.append('./SemaOS')  # On ajoute le chemin 'Semabox/SemaOS' au path de s
 from generation_UID import creation_dossier, generate_id, lire_fichier  # Import des fonctions du module 'generation_UID'
 from info_server import get_dns, get_hostname, get_ip_address, get_version_semabox  # Import des fonctions du module 'info_server'
 from scan_servers import scan_nmap  # Import de la fonction du module 'scan_servers'
-from server_speedtest import get_download_speed, get_ping, get_upload_speed  # Import des fonctions du module 'server_speedtest'
+from server_speedtest import get_download_speed, get_upload_speed  # Import des fonctions du module 'server_speedtest'
 from update_code import *  # Import de la fonction du module 'update_code'
+from ping import get_ping  # Import de la fonction du module 'ping'
+from latence import get_latency  # Import de la fonction du module 'latence'
 
 # Création de la fenêtre principale (main window)
 class App:
@@ -47,7 +51,9 @@ class App:
         host = get_hostname()  # On récupère le nom d'hôte (hostname) du système
         ip = get_ip_address()  # On récupère l'adresse IP de l'hôte
         dns_resolv = get_dns(ip)  # On récupère le nom de domaine associé à l'adresse IP de l'hôte
-
+        self.ping = 0 # On initialise la variable ping à 0
+        self.latency = 0 # On initialise la variable latency à 0
+        
         # Configuration de la fenêtre
         root.title("Semabox")  # Titre de la fenêtre
         width=1280  # Largeur de la fenêtre
@@ -111,8 +117,9 @@ class App:
         Button_scan_nmap.place(x=770,y=380,width=107,height=36)
 
 
-        self.Text_Label_Ping=tk.Label(root, font=font2 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text="PING :" + "" + " ms")
+        self.Text_Label_Ping=tk.Label(root, font=font2 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text="Ping : " + "" + " ms | Latence : " + "" + " ms")
         self.Text_Label_Ping.place(x=940,y=440,width=338,height=46)
+        self.update_ping_latency()
 
         self.Text_Label_Montant=tk.Label(root, font=font2 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text="Débit Montant : " + "" + " mb/s")
         self.Text_Label_Montant.place(x=940,y=480,width=339,height=48)
@@ -202,15 +209,12 @@ class App:
             Fonction: Button_speedtest_command
                 Description : Permets de lancer le speedtest et d'afficher les résultats dans les labels
         """ 
-        # Execution de la fonction "get_ping" et stockage du résultat dans la variable "ping"
-        ping = get_ping()
+        
         # Execution de la fonction "get_download_speed" et stockage du résultat dans la variable "download"
         download = get_download_speed()
         # Execution de la fonction "get_upload_speed" et stockage du résultat dans la variable "upload"
         upload = get_upload_speed()
         
-        # Mise à jour du texte du label "Text_Label_Ping" avec le contenu de la variable "ping"
-        self.Text_Label_Ping["text"] = f"PING : {ping} ms"
         # Mise à jour du texte du label "Text_Label_Montant" avec le contenu de la variable "download"
         self.Text_Label_Montant["text"] = f"Débit Montant : {download} mb/s"
         # Mise à jour du texte du label "Text_Label_Descendant" avec le contenu de la variable "upload"
@@ -234,18 +238,24 @@ class App:
                 Description : Effacer les résultats du Speedtest
         """
         # Mise à jour du texte du label "Text_Label_Ping" avec la chaîne "PING :" suivie d'une chaîne vide suivie de " ms"
-        self.Text_Label_Ping["text"] = "PING :" + "" + " ms"
+        # self.Text_Label_Ping["text"] = "PING :" + "" + " ms | Latence : " + "" + " ms"
         # Mise à jour du texte du label "Text_Label_Montant" avec la chaîne "Débit Montant : " suivie d'une chaîne vide suivie de " mb/s"
         self.Text_Label_Montant["text"] = "Débit Montant : " + "" + " mb/s"
          # Mise à jour du texte du label "Text_Label_Descendant" avec la chaîne "Débit Descendant : " suivie d'une chaîne vide suivie de " mb/s"
         self.Text_Label_Descendant["text"] = "Débit Descendant : " + "" + " mb/s"
         
+    def update_ping_latency(self):
+        self.ping = get_ping()
+        self.latency = get_latency()
+        self.Text_Label_Ping["text"] = f"PING : {self.ping} ms | Latence : {self.latency} ms"
+        root.after(1000, self.update_ping_latency)
 
         
 # Si le script est exécuté directement (et non importé par un autre script)
 if __name__ == "__main__":
     # Création d'une instance de la classe Tk (fenêtre principale de l'application)
     root = tk.Tk()
+    
     # Si le dossier "SEMABOX_UID" n'existe pas
     if not os.path.exists("./SemaOS/Semabox_UID"):
         # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"

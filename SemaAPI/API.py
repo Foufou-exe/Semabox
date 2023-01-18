@@ -42,7 +42,8 @@ sys.path.append('./SemaOS')
 
 # Importe de nos modules Python personnalisés
 from info_server import get_ip_address as ip
-from scan_servers import api_scan_nmap 
+
+# from latence import get_latency
 
 # Création de l'application Flask
 app = Flask(__name__, template_folder='template')
@@ -205,7 +206,7 @@ def tools():
         resultes = subprocess.run(['python', './SemaOS/server_speedtest.py'], stdout=subprocess.PIPE)
         outputes = resultes.stdout.decode('utf-8')
         disctionnairs = ast.literal_eval(outputes)
-        speedtest = disctionnairs
+        speedtest = disctionnairs       
 
         # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
         if speedtest is None or not isinstance(speedtest, dict):
@@ -234,9 +235,6 @@ def tools():
     if session.get('scan_status') == 'reset':
         scan = {}
         
-
-    print(scan)
-    print(type(scan))
     return render_template('Pages/SemaWeb/tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
 
 @app.route('/propos')
