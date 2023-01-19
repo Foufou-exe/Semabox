@@ -85,7 +85,7 @@ def api_speedtest()->dict:
     result = {"download_speed": download_speed, "upload_speed": upload_speed, "ping": ping}
     print(result)
 
-def cli_speedtest()->str:
+def cli_get_speedtest()->dict:
     """
         Calcule la vitesse de téléchargement, d'envoi et de ping.
         
@@ -94,7 +94,8 @@ def cli_speedtest()->str:
     """
     download_speed = get_download_speed()
     upload_speed = get_upload_speed()
-    return f"Download speed: {download_speed} Mbps\nUpload speed: {upload_speed} Mbps"
+    ping = get_ping()
+    return {"Débit Montant": f'{download_speed} Mb/s', "Débit Descendant": f'{upload_speed} Mb/s', "Ping": f'{ping} ms'}
 
 if __name__ == "__main__":
     api_speedtest()

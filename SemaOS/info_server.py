@@ -83,9 +83,16 @@ def api_info_server(version,lire_uid,hostname,ip,dns,ip_public)->dict:
     }
     print(info_server)
     
-def cli_info_server():
-    return f"Nom de la Semabox : {get_hostname()}\nIP du Serveur : {get_ip_address()}\nIP Public : {get_public_ip()}\nDNS : {get_dns(get_ip_address())}\nUID : {lire_fichier()}\nVersion de Semabox : {get_version_semabox()}"
-
+def cli_get_info_server():
+    return {
+        'Hostname': get_hostname(),
+        'IP': get_ip_address(),
+        'IP Public': get_public_ip(),
+        'DNS': get_dns(get_ip_address()),
+        'UID': lire_fichier(),
+        'Version Semabox': get_version_semabox()
+    }
+    
 # Si ce fichier est exécuté directement, on appelle la fonction api_info_server()
 if __name__ == "__main__":
     api_info_server(

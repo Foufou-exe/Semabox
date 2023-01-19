@@ -8,15 +8,16 @@
         platform - Ce module permet de récupérer des informations sur le système d'exploitation du serveur (nom, version, etc.).
 
     Fonctions:
-        get_server_info() - Cette fonction retourne un dictionnaire contenant des informations sur le serveur exécutant le script. 
+        get_info_system() - Cette fonction retourne un dictionnaire contenant des informations sur le serveur exécutant le script. 
         Les informations incluent le nombre de coeurs CPU, l'utilisation CPU, la quantité de mémoire RAM, le nombre de disques, le temps écoulé depuis l'allumage et le nom de l'OS.
+        cli_get_info_system
 """
 # Importation des modules Python nécessaires
 import psutil
 import platform
 
 # Définition des fonctions
-def get_server_info()->dict:
+def get_info_system()->dict:
     """
         Description:
             Cette fonction retourne un dictionnaire contenant des informations sur le serveur exécutant le script. Les informations incluent le nombre de coeurs CPU, l'utilisation CPU, la quantité de mémoire RAM, le nombre de disques, le temps écoulé depuis l'allumage et le nom de l'OS.
@@ -64,7 +65,7 @@ def get_server_info()->dict:
     # Retour du dictionnaire
     print(resultat)
 
-def cli_get_server_info()->str:
+def cli_get_info_system()->dict:
     """
         Description:
             Cette fonction retourne un dictionnaire contenant des informations sur le serveur exécutant le script. Les informations incluent le nombre de coeurs CPU, l'utilisation CPU, la quantité de mémoire RAM, le nombre de disques, le temps écoulé depuis l'allumage et le nom de l'OS.
@@ -100,11 +101,18 @@ def cli_get_server_info()->str:
     # Conversion du temps écoulé en heures
     uptime_hours = int(uptime / 3600)
     
-    return f"Nom de l'OS : {os_name}🖥️\nNombre de Coeur CPU : {num_cpus}🫀\nUtilisation du CPU : {cpu_utilization}%\nTaille de la RAM : {ram_size} Go\nTaille du disque : {disk_size}💾 Go\nNombre de disque : {num_disks}\nTemps d'activité : {uptime_hours} heures",
-
+    return {
+        'Nombre de Coeur CPU': f"{num_cpus} 🫀",
+        'CPU utilisation': f"{cpu_utilization}% 📈",
+        'Taille RAM': f'{ram_size} Go',
+        'Taille du Disque': f'{disk_size} Go',
+        'Nombre de Disques': f'{num_disks} 💾',
+        'Allumée depuis': f'{uptime_hours} H 🕒',
+        'OS': f'{os_name} 🖥️'
+    }
 
 
 
 if __name__ == '__main__':
     # Affichage des informations du serveur
-    get_server_info()
+    get_info_system()
