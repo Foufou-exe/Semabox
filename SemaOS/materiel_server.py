@@ -64,6 +64,46 @@ def get_server_info()->dict:
     # Retour du dictionnaire
     print(resultat)
 
+def cli_get_server_info()->str:
+    """
+        Description:
+            Cette fonction retourne un dictionnaire contenant des informations sur le serveur exécutant le script. Les informations incluent le nombre de coeurs CPU, l'utilisation CPU, la quantité de mémoire RAM, le nombre de disques, le temps écoulé depuis l'allumage et le nom de l'OS.
+        
+        Returns:
+            dict: Un dictionnaire contenant les informations sur le serveur.
+    """
+    
+    # Récupération de l'utilisation CPU
+    cpu_utilization = psutil.cpu_percent()
+
+    # Récupération du nombre de coeurs CPU
+    num_cpus = psutil.cpu_count()
+
+    # Récupération de la quantité de mémoire RAM
+    memory = psutil.virtual_memory() 
+    ram_size = "{0:.2f}".format(memory.total / (1024 ** 3))
+
+    # Récupération du nombre de disques
+    num_disks = len(psutil.disk_partitions())
+    
+    # Récupération de la taille d'un disque spécifique
+    disk_path = '/'  # Le chemin du disque que vous voulez récupérer
+    usage = psutil.disk_usage(disk_path)
+    disk_size = int(usage.total / (1024 ** 3))
+    
+    # Récupération du nom de l'OS
+    os_name = platform.system()
+
+    # Récupération du temps écoulé depuis l'allumage
+    uptime = psutil.boot_time()
+
+    # Conversion du temps écoulé en heures
+    uptime_hours = int(uptime / 3600)
+    
+    return f"Nom de l'OS : {os_name}🖥️\nNombre de Coeur CPU : {num_cpus}🫀\nUtilisation du CPU : {cpu_utilization}%\nTaille de la RAM : {ram_size} Go\nTaille du disque : {disk_size}💾 Go\nNombre de disque : {num_disks}\nTemps d'activité : {uptime_hours} heures",
+
+
+
 
 if __name__ == '__main__':
     # Affichage des informations du serveur

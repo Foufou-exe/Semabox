@@ -16,8 +16,6 @@
 
 # Importation des modules Pythons nécessaires
 import os
-import time
-import subprocess
 import sys
 import tkinter as tk
 import tkinter.font as tkFont
@@ -25,7 +23,7 @@ from tkinter.ttk import *
 from tkinter import messagebox
 
 # Importation des modules perso
-sys.path.append('./SemaOS')  # On ajoute le chemin 'Semabox/SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
+sys.path.append('./SemaOS')  # On ajoute le chemin './SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
 from generation_UID import creation_dossier, generate_id, lire_fichier  # Import des fonctions du module 'generation_UID'
 from info_server import get_dns, get_hostname, get_ip_address, get_version_semabox  # Import des fonctions du module 'info_server'
 from scan_servers import scan_nmap  # Import de la fonction du module 'scan_servers'

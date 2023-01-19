@@ -63,12 +63,6 @@ def get_version_semabox()->str:
         return f.readline()
     
 def get_public_ip()->str:
-    # url = "https://api.ipify.org"
-    # response = requests.get(url)
-    # if response.status_code == 200:
-    #     return response.text
-    # else:
-    #     return "Unable to fetch public IP."
     response = requests.get("http://ipinfo.io/json")
     data = response.json()
     return data["ip"]
@@ -89,6 +83,8 @@ def api_info_server(version,lire_uid,hostname,ip,dns,ip_public)->dict:
     }
     print(info_server)
     
+def cli_info_server():
+    return f"Nom de la Semabox : {get_hostname()}\nIP du Serveur : {get_ip_address()}\nIP Public : {get_public_ip()}\nDNS : {get_dns(get_ip_address())}\nUID : {lire_fichier()}\nVersion de Semabox : {get_version_semabox()}"
 
 # Si ce fichier est exécuté directement, on appelle la fonction api_info_server()
 if __name__ == "__main__":
