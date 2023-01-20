@@ -22,6 +22,7 @@ import tkinter.font as tkFont
 from tkinter.ttk import *
 from tkinter import messagebox
 
+
 # Importation des modules perso
 sys.path.append('./SemaOS')  # On ajoute le chemin './SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
 from generation_UID import creation_dossier, generate_id, lire_fichier  # Import des fonctions du module 'generation_UID'
@@ -31,7 +32,7 @@ from server_speedtest import get_download_speed, get_upload_speed  # Import des 
 from update_code import *  # Import de la fonction du module 'update_code'
 from ping import get_ping  # Import de la fonction du module 'ping'
 from latence import get_latency  # Import de la fonction du module 'latence'
-
+from scan_other_servers import cli_scan_machine  # Import de la fonction du module 'scan_other_servers'
 # Création de la fenêtre principale (main window)
 class App:
     # Constructeur de la classe App
@@ -44,6 +45,10 @@ class App:
             Enfin, le constructeur crée plusieurs widgets Tkinter pour afficher du texte et des couleurs de fond.
     """
     def __init__(self, root):
+        """
+            Initialisation de la classe Semabox qui gère l'interface graphique de l'application.
+            :param root: Fenêtre principale de l'application.
+        """
         # Déclaration des variables 
         ID = lire_fichier()  # On lit le fichier contenant l'identifiant unique généré par la fonction generate_id()
         host = get_hostname()  # On récupère le nom d'hôte (hostname) du système
@@ -107,13 +112,10 @@ class App:
 
         self.Resultat_Scan_Nmap_Label=tk.Label(root, font=font4 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text="")
         self.Resultat_Scan_Nmap_Label.place(x=0,y=130,width=722,height=587)
+        
 
         Color_Background_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#999999" ,justify="center" ,text="")
         Color_Background_Label.place(x=720,y=130,width=191,height=586)
-
-        Button_scan_nmap=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SCAN" ,command=self.Button_scan_nmap_command)
-        Button_scan_nmap.place(x=770,y=380,width=107,height=36)
-
 
         self.Text_Label_Ping=tk.Label(root, font=font2 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text="Ping : " + "" + " ms | Latence : " + "" + " ms")
         self.Text_Label_Ping.place(x=940,y=440,width=338,height=46)
@@ -131,9 +133,14 @@ class App:
         Button_speedtest=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SPEEDTEST" ,command=self.Button_speedtest_command)
         Button_speedtest.place(x=1050,y=610,width=125,height=40)
 
+        Button_scan_nmap=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SCAN DE PORT" ,command=self.Button_scan_nmap_command)
+        Button_scan_nmap.place(x=740,y=380,width=150,height=36)
+        
+        Button_scan_nmap_machine=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SCAN DE MACHINE" ,command=self.Button_scan_nmap_machine)
+        Button_scan_nmap_machine.place(x=725,y=320,width=180,height=36)
         
         Button_clear_nmap=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="CLEAR" ,command=self.Button_clear_nmap_command)
-        Button_clear_nmap.place(x=770,y=440,width=110,height=37)
+        Button_clear_nmap.place(x=750,y=440,width=110,height=37)
 
         Button_speedtest_clear=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="CLEAR" ,command=self.Button_speedtest_clear_command)
         Button_speedtest_clear.place(x=1050,y=660,width=128,height=40)
@@ -200,6 +207,15 @@ class App:
         # Mise à jour du texte du label "Resultat_Scan_Nmap_Label" avec le contenu de la variable "result_scan"
         self.Resultat_Scan_Nmap_Label["text"] = result_scan
 
+    def Button_scan_nmap_machine(self):
+        """
+            Fonction: Button_scan_nmap_machine
+                Description : Permets de lancer le scan de machine et d'afficher les résultats dans le label
+        """
+        # Execution de la fonction "scan_nmap" et stockage du résultat dans la variable "result_scan"
+        result_scan = cli_scan_machine()
+        # Mise à jour du texte du label "Resultat_Scan_Nmap_Label" avec le contenu de la variable "result_scan"
+        self.Resultat_Scan_Nmap_Label["text"] = result_scan
 
     # Fonction appelée lorsque le bouton "Button_speedtest" est cliqué
     def Button_speedtest_command(self):
@@ -235,8 +251,6 @@ class App:
             Fonction: Button_speedtest_clear_command
                 Description : Effacer les résultats du Speedtest
         """
-        # Mise à jour du texte du label "Text_Label_Ping" avec la chaîne "PING :" suivie d'une chaîne vide suivie de " ms"
-        # self.Text_Label_Ping["text"] = "PING :" + "" + " ms | Latence : " + "" + " ms"
         # Mise à jour du texte du label "Text_Label_Montant" avec la chaîne "Débit Montant : " suivie d'une chaîne vide suivie de " mb/s"
         self.Text_Label_Montant["text"] = "Débit Montant : " + "" + " mb/s"
          # Mise à jour du texte du label "Text_Label_Descendant" avec la chaîne "Débit Descendant : " suivie d'une chaîne vide suivie de " mb/s"

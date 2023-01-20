@@ -4,8 +4,9 @@ After=network.target
 
 [Service]
 User=root
+Restart=always
 WorkingDirectory=/Semabox/SemaAPI
-ExecStart=/Semabox/SemaAPI/API.py
+ExecStart=python /Semabox/SemaAPI/API.py
 
 [Install]
 WantedBy=multi-user.target

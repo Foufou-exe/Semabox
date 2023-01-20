@@ -14,6 +14,7 @@ import socket
 import platform
 import sys
 import requests
+import ipaddress
 
 
 # Ajout du chemin vers le dossier Application pour qu'on puisse importer nos modules
@@ -32,13 +33,37 @@ def get_hostname()->str:
     
     return platform.node()
 
-def get_ip_address()->str:
-    
+def get_ip_address() -> str:
+
     """
         Cette fonction retourne l'adresse IP de la machine sur laquelle le code est exécuté.
     """
-    
+
     return socket.gethostbyname(socket.gethostname())
+
+
+def get_address_network(ip=get_ip_address()) -> str:
+
+    """
+        Description:
+            Cette fonction récupère l'adresse de réseau à partir d'une adresse IP et d'un masque de sous-réseau
+            
+        Args:
+            ip (str) : adresse IP
+            
+        Returns:
+            str : adresse de réseau
+    """
+
+    # Création d'un objet qui contient l'adresse IP et le masque de sous-réseau
+    ip_obj = ipaddress.IPv4Interface(ip+"/24")
+
+    # Récupération de l'adresse de réseau
+    network = ip_obj.network # l'adresse réseau
+    return network
+
+
+
 
 
 def get_dns(ip)->str:   
@@ -84,6 +109,14 @@ def api_info_server(version,lire_uid,hostname,ip,dns,ip_public)->dict:
     print(info_server)
     
 def cli_get_info_server():
+    
+    """
+        Description:
+            Cette fonction retourne un dictionnaire contenant les informations du serveur
+            
+        Returns:
+            dict: informations du serveur
+    """
     return {
         'Hostname': get_hostname(),
         'IP': get_ip_address(),
