@@ -40,8 +40,6 @@ import sys
 sys.path.append('./SemaOS')
 # On ajoute le chemin vers le dossier Semabox/SemaOS pour qu'on puisse importer nos modules
 
-# Importe de nos modules Python personnalisés
-from info_server import get_ip_address as ip
 
 # from latence import get_latency
 
@@ -298,5 +296,5 @@ def catch_all(path):
 
 if __name__ == '__main__':
     # on lance l'application Flask avec le mode debug activé et sur l'adresse IP de la machine ainsi que sur le port donnée
-    app.run(host=ip(),port=80,debug=False)
+    app.run(host="0.0.0.0",port=80,debug=False)
 
