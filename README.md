@@ -59,14 +59,19 @@ sudo ./install_prerequis.sh
 ```bash
 pip install -r requirement.txt
 ```
+#### **Etape 6**: On genere l'UID de la Semabox
 
-#### **Etape 6**: On déplace le fichier Semabox-api.service dans /etc/systemd/system
+```bash
+python install_manuel.py
+```
+
+#### **Etape 7**: On déplace le fichier Semabox-api.service dans /etc/systemd/system
 
 ```bash
 mv Semabox-api.service /etc/systemd/system
 ```
 
-#### **Etape 7**: On démarre le service et on l'active pour qu'il puisse redemarrer
+#### **Etape 8**: On démarre le service et on l'active pour qu'il puisse redemarrer
 
 ```bash
 systemctl start Semabox-api.service
