@@ -16,9 +16,9 @@ from prettytable import PrettyTable # Permet d'afficher les informations de mani
 from termcolor import colored # Permet de mettre en couleur les informations affichées
 import subprocess  # Permet d'exécuter des commandes système
 import sys # Permet d'ajouter des chemins au path de sys
-import time # Permet de gérer le temps
 import ast # Permet de convertir une chaîne de caractères en dictionnaire
-
+import platform # Permet de récupérer des informations sur le système
+import os # Permet de récupérer des informations sur le système
 
 # Importation des modules perso
 sys.path.append('./SemaOS')  # On ajoute le chemin './SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
@@ -47,6 +47,20 @@ def afficher_menu():
     table.add_row([colored("[", "green") + colored("5", "red") + colored("]", "green"), "Exit"])
     print(table)
     
+def clear_screen():
+    """
+        Efface l'écran
+    """
+    system_name = platform.system()
+    if system_name == "Windows":
+        # do something specific for Windows
+        os.system('cls')
+    elif system_name == "Linux":
+        # do something specific for Linux
+        os.system('clear')
+    else:
+        print(f"Unsupported operating system: {system_name}")
+
 def cli_info_server()->None:
     """
         Affiche les informations du serveur
@@ -134,11 +148,14 @@ def choix_menu() -> str:
     """
     reponse = input(colored("Voulez-vous continuer ?", "yellow") + (colored("[", "white")) + (colored("O", "green")) + (colored("/", "white")) + (colored("N", "red")) + colored("]", "white") + ": ")
     if reponse in ["O", "o"]:
+        clear_screen()
         menu()
     elif reponse in ["N", "n"]:
+        clear_screen()
         print(colored("Au revoir !", "red"))
         sys.exit()
     else:
+        clear_screen()
         print("Choix non valide.")
         choix_menu()
         
@@ -153,26 +170,30 @@ def choix_menu_scan() -> str:
     table_scan.add_row([colored("[", "green") + colored("3", "red") + colored("]", "green"), "Scan de Port d'une machine du réseau local"])
     table_scan.add_row([colored("[", "green") + colored("4", "red") + colored("]", "green"), "Retour au menu principal"])
     table_scan.add_row([colored("[", "green") + colored("5", "red") + colored("]", "green"), "Exit"])
+    clear_screen()
     print(table_scan)
          
 def menu()->None:
     """
         Affiche un menu avec les différentes options disponibles et permet à l'utilisateur de choisir une option pour effectuer une action spécifique.
     """
+    clear_screen()
     afficher_menu()
     print("\n")
     choix = input(colored("Entrez votre choix entre ", "yellow") + (colored("[", "white")) + (colored("1", "red")) + (colored("-", "white")) + (colored("5", "red")) + colored("]", "white") + ": ") 
     if choix == "1":
+        clear_screen()
         cli_info_server()
         choix_menu()
 
     elif choix == "2":
+        clear_screen()
         cli_materiel()
         choix_menu()
 
     elif choix == "3":
         choix_menu_scan()
-        choix_scan = input(colored("Entrez votre choix entre ", "yellow") + (colored("[", "white")) + (colored("1", "red")) + (colored("-", "white")) + (colored("2", "red")) + colored("]", "white") + ": ")
+        choix_scan = input(colored("Entrez votre choix entre ", "yellow") + (colored("[", "white")) + (colored("1", "red")) + (colored("-", "white")) + (colored("5", "red")) + colored("]", "white") + ": ")
         if choix_scan == "1":
             cli_scan()
             choix_menu()
@@ -186,17 +207,21 @@ def menu()->None:
             print(colored("Au revoir !", "red"))
             sys.exit()
         else:
+            clear_screen()
             print("Choix non valide.")
             choix_menu_scan()
 
     elif choix == "4":
+        clear_screen()
         cli_speedtest()
         choix_menu()
         
     elif choix == "5":
+        clear_screen()
         print(colored("Au revoir !", "red"))
         sys.exit()
     else:
+        clear_screen()
         print("Choix non valide.")
         afficher_menu()
         

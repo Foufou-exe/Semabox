@@ -135,7 +135,7 @@ def pre_installation():
     Description:
         Cette fonction exécute le script de génération d'un identifiant unique (UID) pour l'installation de SemaOS.
   """
-  subprocess.run(["python", "Semabox/SemaOS/generation_UID.py"])
+  subprocess.run(["python", "./SemaOS/generation_UID.py"])
   
   
   
