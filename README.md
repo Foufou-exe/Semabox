@@ -1,7 +1,7 @@
 <div align="center">
   <h1>Projet Semabox 🖥️</h1>
 
-  ![Logo](https://raw.githubusercontent.com/Foufou-exe/Semabox/dev/Logo_Banniere.png?token=GHSAT0AAAAAAB4HK6L2IT7ENQKQUILJACO4Y6MBA7Q)
+  ![Logo](https://raw.githubusercontent.com/Foufou-exe/Semabox/dev/Logo_Banniere.png?token=GHSAT0AAAAAAB4HK6L3Q7YMZ3A55OP43NYOY6NPIIQ)
 
 
  
