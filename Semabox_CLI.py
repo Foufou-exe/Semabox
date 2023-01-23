@@ -21,7 +21,8 @@ import platform # Permet de récupérer des informations sur le système
 import os # Permet de récupérer des informations sur le système
 
 # Importation des modules perso
-sys.path.append('./SemaOS')  # On ajoute le chemin './SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
+sys.path.append("..") # On retourne dans le dossier Principal Semabox
+sys.path.append("SemaOS") # On ajoute le chemin './SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
 from info_server import cli_get_info_server
 from materiel_server import cli_get_info_system
 from scan_servers import cli_get_scan_nmap
