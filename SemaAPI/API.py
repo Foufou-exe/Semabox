@@ -1,4 +1,3 @@
-
 # DOCUMENTATION DE L'APPLICATION FLASK
 """
     Description de l'application Flask:
@@ -6,13 +5,11 @@
     Ceci est une application Flask qui expose une API REST permettant d'exécuter des scripts Python et de retourner leur sortie sous forme de chaîne de caractères JSON. 
     
     L'API peut être accédée en utilisant trois méthodes HTTP : POST, GET et PUT.
-
     La fonction create_script exécute le script spécifié lorsqu'elle est accédée via une requête POST et retourne une représentation en chaîne de caractères JSON de la sortie du script. 
     
     La fonction get_script retourne la même représentation en chaîne de caractères JSON de la sortie du script lorsqu'elle est accédée via une requête GET. 
     
     La fonction update_script exécute le script spécifié lorsqu'elle est accédée via une requête PUT et retourne une représentation en chaîne de caractères JSON de la sortie du script.
-
     La sortie du script doit être un dictionnaire Python, sinon un message d'erreur sera retourné. 
     
     La fonction get_ip_address du module info_server est importée et utilisée dans les trois fonctions pour récupérer l'adresse IP du serveur.
@@ -35,12 +32,14 @@ import json
 
 from flask import Flask, render_template, jsonify, abort, Response, request, session
 import platform
+import sys
 
-# from latence import get_latency
+sys.path.append("SemaOS")
 
 # Création de l'application Flask
 app = Flask(__name__, template_folder='template')
 app.secret_key = "keys/secret_key"
+
 
 # Définition d'une route qui accepte les méthodes POST
 @app.route('/api/<script>', methods=['POST'])
@@ -53,13 +52,9 @@ def create_script(script):
             puis convertit le dictionnaire en une chaîne de caractères au format JSON
             et la renvoie avec l'en-tête 'Content-Type: application/json'
     """
-    if platform.system() == "Linux":
-        # Exécution du script en utilisant subprocess.run
-        result = subprocess.run(['sudo','python', f'/Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
-        
-    elif platform.system() == "Windows":
-        # Exécution du script en utilisant subprocess.run
-        result = subprocess.run(['python', f'./SemaOS/{script}'], stdout=subprocess.PIPE)
+
+    # Exécution du script en utilisant subprocess.run
+    result = subprocess.run(['python', f'SemaOS/{script}'], stdout=subprocess.PIPE)
     
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
@@ -88,12 +83,9 @@ def get_script(script):
             puis convertit le dictionnaire en une chaîne de caractères au format JSON
             et la renvoie avec l'en-tête 'Content-Type: application/json'
     """
-    if platform.system() == "Linux":
-        # Exécution du script en utilisant subprocess.run
-        result = subprocess.run(['sudo','python', f'/Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
-    elif platform.system() == "Windows":
-        # Exécution du script en utilisant subprocess.run
-        result = subprocess.run(['python', f'./SemaOS/{script}'], stdout=subprocess.PIPE)
+
+    # Exécution du script en utilisant subprocess.run
+    result = subprocess.run(['python', f'SemaOS/{script}'], stdout=subprocess.PIPE)
     
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
@@ -119,18 +111,15 @@ def index():
             Si le dictionnaire est vide, une erreur HTTP 404 est retournée avec un message d'erreur personnalisé "Aucune information sur le serveur disponible"
             La page html 'index.html' est ensuite rendue en utilisant les informations récupérées.
     """
-    if platform.system() == "Linux":
-        # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
-        result = subprocess.run(['sudo','python', '/Semabox/SemaOS/info_server.py'], stdout=subprocess.PIPE)
-    elif platform.system() == "Windows":
-        # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
-        result = subprocess.run(['python', './SemaOS/info_server.py'], stdout=subprocess.PIPE)
+
+    # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
+    result = subprocess.run(['python', 'SemaOS/info_server.py'], stdout=subprocess.PIPE)
         
     output = result.stdout.decode('utf-8')
     liste = ast.literal_eval(output)
     info_server = liste
     
-   # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
+# Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
     if info_server is None or not isinstance(info_server, dict):
         return "Aucune information sur le serveur disponible"
     
@@ -141,7 +130,6 @@ def index():
 def tools():
     """
         Cette fonction gère la page des outils en effectuant les étapes suivantes:
-
         - Elle vérifie la méthode HTTP utilisée (GET ou POST)
         - Si la méthode est POST, elle vérifie si les boutons 'go' ou 'reset' pour le test de vitesse, ou 'scan' ou 'reset' pour le scan réseau ont été soumis, et enregistre le statut correspondant dans les sessions.
         - Si la méthode est GET, elle réinitialise les statuts des sessions pour le test de vitesse et le scan réseau.
@@ -169,13 +157,10 @@ def tools():
         session['speedtest_status'] = 'reset'
         session['scan_status'] = 'reset'
 
-    if platform.system() == "Linux":
-        # Exécution du script 'materiel_server.py' et récupération du dictionnaire de résultat
-        result = subprocess.run(['sudo','python', '/Semabox/SemaOS/materiel_server.py'], stdout=subprocess.PIPE)
-    elif platform.system() == "Windows":
-        # Exécution du script 'materiel_server.py' et récupération du dictionnaire de résultat
-        result = subprocess.run(['python', './SemaOS/materiel_server.py'], stdout=subprocess.PIPE)
-    
+
+    # Exécution du script 'materiel_server.py' et récupération du dictionnaire de résultat
+    result = subprocess.run(['python', 'SemaOS/materiel_server.py'], stdout=subprocess.PIPE)
+
     output = result.stdout.decode('utf-8')
     liste = ast.literal_eval(output)
     materiel = liste
@@ -184,12 +169,8 @@ def tools():
     if materiel is None or not isinstance(materiel, dict):
         return "Aucune information sur le serveur disponible"
 
-    if platform.system() == "Linux":
-        # Exécution du script 'etat_server.py' et récupération du dictionnaire de résultat
-        result = subprocess.run(['sudo','python', '/Semabox/SemaOS/etat_server.py'], stdout=subprocess.PIPE)
-    elif platform.system() == "Windows":
-        # Exécution du script 'etat_server' et récupération du dictionnaire de résultat
-        result_script = subprocess.run(['python', './SemaOS/etat_server.py'], stdout=subprocess.PIPE)
+    # Exécution du script 'etat_server' et récupération du dictionnaire de résultat
+    result_script = subprocess.run(['python', 'SemaOS/etat_server.py'], stdout=subprocess.PIPE)
         
     output_script = result_script.stdout.decode('utf-8')
     disctionnaire = ast.literal_eval(output_script)
@@ -199,12 +180,9 @@ def tools():
     if etat is None or not isinstance(etat, dict):
         return "Aucune information sur le serveur disponible"
 
-    if platform.system() == "Linux":
-        # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
-        results = subprocess.run(['sudo','python', '/Semabox/SemaOS/info_server.py'], stdout=subprocess.PIPE)
-    elif platform.system() == "Windows":
-        # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
-        results = subprocess.run(['python', './SemaOS/info_server.py'], stdout=subprocess.PIPE)
+
+    # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
+    results = subprocess.run(['python', 'SemaOS/info_server.py'], stdout=subprocess.PIPE)
     
     outputs = results.stdout.decode('utf-8')
     disctionnaires = ast.literal_eval(outputs)
@@ -215,12 +193,9 @@ def tools():
         return "Aucune information sur le serveur disponible"
 
     if session.get('speedtest_status') == 'go':
-        if platform.system() == "Linux":
-            # Exécution du script 'server_speedtest.py' et récupération du dictionnaire de résultat
-            resultes = subprocess.run(['sudo','python', '/Semabox/SemaOS/server_speedtest.py'], stdout=subprocess.PIPE)
-        elif platform.system() == "Windows":
-            # Exécution du script 'server_speedtest.py' et récupération du dictionnaire de résultat
-            resultes = subprocess.run(['python', './SemaOS/server_speedtest.py'], stdout=subprocess.PIPE)
+
+        # Exécution du script 'server_speedtest.py' et récupération du dictionnaire de résultat
+        resultes = subprocess.run(['python', 'SemaOS/server_speedtest.py'], stdout=subprocess.PIPE)
             
         outputes = resultes.stdout.decode('utf-8')
         disctionnairs = ast.literal_eval(outputes)
@@ -236,12 +211,8 @@ def tools():
         speedtest = " "
 
     if session.get('scan_status') == 'scan':
-        if platform.system() == "Linux":
-            # Exécution du script 'scan.py' et récupération du dictionnaire de résultat
-            resultes_scan = subprocess.run(['sudo','python', '/Semabox/SemaOS/scan_servers.py'], stdout=subprocess.PIPE)
-        elif platform.system() == "Windows":
-            #Exécution du script 'scan.py' et récupération du dictionnaire de résultat
-            resultes_scan = subprocess.run(['python', './SemaOS/scan_servers.py'], stdout=subprocess.PIPE)
+
+        resultes_scan = subprocess.run(['python', 'SemaOS/scan_servers.py'], stdout=subprocess.PIPE)
             
         outputes_scan = resultes_scan.stdout.decode('utf-8')
         disctionnairees = ast.literal_eval(outputes_scan)
@@ -259,6 +230,9 @@ def tools():
         scan = {}
         
     return render_template('Pages/SemaWeb/tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
+
+
+
 
 @app.route('/propos')
 def about():
@@ -330,4 +304,3 @@ def catch_all(path):
 if __name__ == '__main__':
     # on lance l'application Flask avec le mode debug activé et sur l'adresse IP de la machine ainsi que sur le port donnée
     app.run(host="0.0.0.0",port=80,debug=False)
-

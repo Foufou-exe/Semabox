@@ -158,12 +158,22 @@ Allez clonez le Projet Semabox Ansible et lisez le **README**
 Commande pour run l'image via le registre de docker
 
 ```docker
-docker run -it --name semabox --restart always -p 2222:22 8080:80 -d foufoudu34/semabox:latest
+docker build -t semabox:latest .
+docker run -h semabox -dit --name semabox --network host --restart always -p 80:80 -p 22:22 -d semabox:latest bash
 ```
 Sinon utilisée le dockerfile qui se situe dans le projet sinon voici le code pour seulement avoir le dockerfile 
 
-```dockerfile
-
+```docker-compose.yml
+version: '3.3'
+services:
+    run:
+        container_name: semabox
+        network_mode: host
+        restart: always
+        ports:
+            - '80:80'
+            - '22:22'
+        image: foufoudu34/semabox:latest
 
 ```
 

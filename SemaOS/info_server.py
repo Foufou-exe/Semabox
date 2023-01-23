@@ -17,9 +17,9 @@ import requests
 import ipaddress
 
 
-
+sys.path.append("SemaOS")
 # Importe de nos modules Python personnalisés
-from SemaOS.generation_UID import lire_fichier
+from generation_UID import lire_fichier
 
 
 

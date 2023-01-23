@@ -17,9 +17,11 @@
 
 # Importation des modules Python nécessaires
 import nmap
+import sys
 
+sys.path.append("SemaOS")
 # Importation des modules Python personnalisés
-from SemaOS.info_server import get_ip_address
+from info_server import get_ip_address
 
 
 # Fonctions

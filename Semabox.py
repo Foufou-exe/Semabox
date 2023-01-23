@@ -24,16 +24,15 @@ from tkinter import messagebox
 
 
 # Importation des modules perso
-sys.path.append("..") # On retourne dans le dossier Principal Semabox
-sys.path.append("SemaOS") # On ajoute le chemin './SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
-from generation_UID import creation_dossier, generate_id, lire_fichier  # Import des fonctions du module 'generation_UID'
-from info_server import get_dns, get_hostname, get_ip_address, get_version_semabox  # Import des fonctions du module 'info_server'
-from scan_servers import scan_nmap  # Import de la fonction du module 'scan_servers'
-from server_speedtest import get_download_speed, get_upload_speed  # Import des fonctions du module 'server_speedtest'
-from update_code import *  # Import de la fonction du module 'update_code'
-from ping import get_ping  # Import de la fonction du module 'ping'
-from latence import get_latency  # Import de la fonction du module 'latence'
-from scan_other_servers import cli_scan_machine  # Import de la fonction du module 'scan_other_servers'
+
+from SemaOS.generation_UID import creation_dossier, generate_id, lire_fichier  # Import des fonctions du module 'generation_UID'
+from SemaOS.info_server import get_dns, get_hostname, get_ip_address, get_version_semabox  # Import des fonctions du module 'info_server'
+from SemaOS.scan_servers import scan_nmap  # Import de la fonction du module 'scan_servers'
+from SemaOS.server_speedtest import get_download_speed, get_upload_speed  # Import des fonctions du module 'server_speedtest'
+from SemaOS.update_code import *  # Import de la fonction du module 'update_code'
+from SemaOS.ping import get_ping  # Import de la fonction du module 'ping'
+from SemaOS.latence import get_latency  # Import de la fonction du module 'latence'
+from SemaOS.scan_other_servers import cli_scan_machine  # Import de la fonction du module 'scan_other_servers'
 # Création de la fenêtre principale (main window)
 class App:
     # Constructeur de la classe App

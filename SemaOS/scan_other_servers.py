@@ -4,9 +4,11 @@
 
 # Importation des modules Python nécessaires
 import nmap
+import sys
 
+sys.path.append("SemaOS")
 # Importation des modules Python personnalisés
-from SemaOS.info_server import get_address_network
+from info_server import get_address_network
 
 
 def scan_all_machine(network=get_address_network())->dict:

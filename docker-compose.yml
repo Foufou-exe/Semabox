@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+    run:
+        container_name: semabox
+        network_mode: host
+        restart: always
+        ports:
+            - '80:80'
+            - '22:22'
+        image: foufoudu34/semabox:latest
