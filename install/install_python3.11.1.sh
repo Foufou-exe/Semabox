@@ -14,8 +14,6 @@ sudo ./configure --enable-optimizations
 
 sudo make altinstall
 
-python3.11.1 --version
-
 cd /usr/bin
 
 sudo rm python

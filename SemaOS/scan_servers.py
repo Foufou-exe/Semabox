@@ -19,7 +19,7 @@
 import nmap
 
 # Importation des modules Python personnalisés
-from info_server import get_ip_address
+from SemaOS.info_server import get_ip_address
 
 
 # Fonctions

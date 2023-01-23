@@ -28,7 +28,7 @@ Les résultats de ces analyses peuvent être visualisés via une interface graph
 
 En résumé, la Semabox est un outil puissant pour surveiller la performance et la sécurité des serveurs, qui offre une vue d'ensemble complète des informations sur les serveurs surveillés et facilite la prise de décisions en matière de surveillance et de maintenance des serveurs.
 
-## Installation Mode Manuel 👩‍🌾
+## Installation sur Linux Mode Manuel 👩‍🌾
 
 #### **Etape 1**: On clone le projet 
 
@@ -57,25 +57,25 @@ sudo ./install_prerequis.sh
 #### **Etape 5**: On installe les librairies necessaires au bont fonctionnement de la Semabox
 
 ```bash
-pip install -r requirement.txt
+sudo pip install -r requirement.txt
 ```
 #### **Etape 6**: On genere l'UID de la Semabox
 
 ```bash
-python install_manuel.py
+sudo python install_manuel.py
 ```
 
 #### **Etape 7**: On déplace le fichier Semabox-api.service dans /etc/systemd/system
 
 ```bash
-mv Semabox-api.service /etc/systemd/system
+sudo mv Semabox-api.service /etc/systemd/system
 ```
 
 #### **Etape 8**: On démarre le service et on l'active pour qu'il puisse redemarrer
 
 ```bash
-systemctl start Semabox-api.service
-systemctl enable Semabox-api.service
+sudo systemctl start Semabox-api.service
+sudo systemctl enable Semabox-api.service
 ```
 
 #### L'installation est termine, vous pouvez retourner dans le dossier principal de la semabox et lance *Semabox.py* ( **si vous êtes sur Linux avec interfaces graphiques**) sinon lance *Semabox_CLI.py* pour **la version CLI** ou pour finir **la version Web**.
@@ -85,24 +85,86 @@ cd ..
 ```
 **Version Graphiques** :
 ```bash
-python Semabox.py
+sudo python Semabox.py
 ```
 
 **Version CLI** :
 ```bash
-python Semabox_CLI.py
+sudo python Semabox_CLI.py
 ```
 
 **Version Web** :
 ```bash
 http://localhost:80/
 ```
+## Installation sur Windows Mode Manuel 👩‍🌾
+
+#### **Etape 1**: On clone le projet 
+
+```cmd
+git clone https://github.com/Foufou-exe/Semabox.git
+```
+#### **Etape 2**: Maintenant tu te rend dans le repertoire **install** 
+
+```bash
+cd Semabox/install
+```
+
+### **Important**: *L'Etape 3* On installe **python 3.11.1** à faire si votre python n'est pas égale ou supperieur à cette version 
+
+```cmd
+https://www.python.org/ftp/python/3.11.1/python-3.11.1-embed-amd64.zip
+```
+#### **Etape 4**: On installe les librairies necessaires au bont fonctionnement de la Semabox
+
+```cmd
+pip install -r requirement.txt
+```
+#### **Etape 6**: On genere l'UID de la Semabox
+
+```cmd
+ python install_manuel.py
+```
+
+#### L'installation est termine, vous pouvez retourner dans le dossier principal de la semabox et lance *Semabox.py* ( **si vous êtes sur Linux avec interfaces graphiques**) sinon lance *Semabox_CLI.py* pour **la version CLI** ou pour finir **la version Web**.
+Retour dans le dossier Principal :
+```cmd
+cd ..
+```
+**Version Graphiques** :
+```cmd
+python Semabox.py
+```
+
+**Version CLI** :
+```cmd
+python Semabox_CLI.py
+```
+
+**Version Web** :
+```html
+http://localhost:80/
+```
+
 ## Installation Automatisée 🤖
 
 Allez clonez le Projet Semabox Ansible et lisez le **README**
 
 ```bash
   git clone https://github.com/Foufou-exe/Semabox-Ansible.git
+```
+## Docker 🐳
+
+Commande pour run l'image via le registre de docker
+
+```docker
+docker run -it --name semabox --restart always -p 2222:22 8080:80 -d foufoudu34/semabox:latest
+```
+Sinon utilisée le dockerfile qui se situe dans le projet sinon voici le code pour seulement avoir le dockerfile 
+
+```dockerfile
+
+
 ```
 
 ## Support

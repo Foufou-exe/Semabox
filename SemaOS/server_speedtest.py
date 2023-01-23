@@ -4,11 +4,16 @@
 import requests
 import time
 import icmplib
+import platform
 
 # Définition des constantes
 TEST_FILE_URL = "http://ipv4.download.thinkbroadband.com/50MB.zip"
 UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media"
-FILE_PATH = "SemaOS\download\TESTMB.zip"
+if platform.system() == "Windows":
+    FILE_PATH = "SemaOS\download\TESTMB.zip"
+elif platform.system() == "Linux":
+    FILE_PATH = "download/TESTMB.zip"
+    
 HOST = "google.com"
 
 # Définition des fonctions

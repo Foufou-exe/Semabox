@@ -34,18 +34,13 @@ import json
 
 
 from flask import Flask, render_template, jsonify, abort, Response, request, session
-
-# Ajoutez le chemin vers le dossier Semabox/SemaOS
-import sys
-sys.path.append('./SemaOS')
-# On ajoute le chemin vers le dossier Semabox/SemaOS pour qu'on puisse importer nos modules
-
+import platform
 
 # from latence import get_latency
 
 # Création de l'application Flask
 app = Flask(__name__, template_folder='template')
-app.secret_key = "./SemaAPI/secret_key"
+app.secret_key = "keys/secret_key"
 
 # Définition d'une route qui accepte les méthodes POST
 @app.route('/api/<script>', methods=['POST'])
@@ -58,9 +53,13 @@ def create_script(script):
             puis convertit le dictionnaire en une chaîne de caractères au format JSON
             et la renvoie avec l'en-tête 'Content-Type: application/json'
     """
-    
-    # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', f'./SemaOS/{script}'], stdout=subprocess.PIPE)
+    if platform.system() == "Linux":
+        # Exécution du script en utilisant subprocess.run
+        result = subprocess.run(['sudo','python', f'/Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
+        
+    elif platform.system() == "Windows":
+        # Exécution du script en utilisant subprocess.run
+        result = subprocess.run(['python', f'./SemaOS/{script}'], stdout=subprocess.PIPE)
     
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
@@ -89,8 +88,12 @@ def get_script(script):
             puis convertit le dictionnaire en une chaîne de caractères au format JSON
             et la renvoie avec l'en-tête 'Content-Type: application/json'
     """
-    # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', f'./SemaOS/{script}'], stdout=subprocess.PIPE)
+    if platform.system() == "Linux":
+        # Exécution du script en utilisant subprocess.run
+        result = subprocess.run(['sudo','python', f'/Semabox/SemaOS/{script}'], stdout=subprocess.PIPE)
+    elif platform.system() == "Windows":
+        # Exécution du script en utilisant subprocess.run
+        result = subprocess.run(['python', f'./SemaOS/{script}'], stdout=subprocess.PIPE)
     
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
@@ -116,8 +119,13 @@ def index():
             Si le dictionnaire est vide, une erreur HTTP 404 est retournée avec un message d'erreur personnalisé "Aucune information sur le serveur disponible"
             La page html 'index.html' est ensuite rendue en utilisant les informations récupérées.
     """
-    # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
-    result = subprocess.run(['python', './SemaOS/info_server.py'], stdout=subprocess.PIPE)
+    if platform.system() == "Linux":
+        # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
+        result = subprocess.run(['sudo','python', '/Semabox/SemaOS/info_server.py'], stdout=subprocess.PIPE)
+    elif platform.system() == "Windows":
+        # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
+        result = subprocess.run(['python', './SemaOS/info_server.py'], stdout=subprocess.PIPE)
+        
     output = result.stdout.decode('utf-8')
     liste = ast.literal_eval(output)
     info_server = liste
@@ -161,8 +169,13 @@ def tools():
         session['speedtest_status'] = 'reset'
         session['scan_status'] = 'reset'
 
-    # Exécution du script 'materiel_server.py' et récupération du dictionnaire de résultat
-    result = subprocess.run(['python', './SemaOS/materiel_server.py'], stdout=subprocess.PIPE)
+    if platform.system() == "Linux":
+        # Exécution du script 'materiel_server.py' et récupération du dictionnaire de résultat
+        result = subprocess.run(['sudo','python', '/Semabox/SemaOS/materiel_server.py'], stdout=subprocess.PIPE)
+    elif platform.system() == "Windows":
+        # Exécution du script 'materiel_server.py' et récupération du dictionnaire de résultat
+        result = subprocess.run(['python', './SemaOS/materiel_server.py'], stdout=subprocess.PIPE)
+    
     output = result.stdout.decode('utf-8')
     liste = ast.literal_eval(output)
     materiel = liste
@@ -171,8 +184,13 @@ def tools():
     if materiel is None or not isinstance(materiel, dict):
         return "Aucune information sur le serveur disponible"
 
-    # Exécution du script 'etat_server' et récupération du dictionnaire de résultat
-    result_script = subprocess.run(['python', './SemaOS/etat_server.py'], stdout=subprocess.PIPE)
+    if platform.system() == "Linux":
+        # Exécution du script 'etat_server.py' et récupération du dictionnaire de résultat
+        result = subprocess.run(['sudo','python', '/Semabox/SemaOS/etat_server.py'], stdout=subprocess.PIPE)
+    elif platform.system() == "Windows":
+        # Exécution du script 'etat_server' et récupération du dictionnaire de résultat
+        result_script = subprocess.run(['python', './SemaOS/etat_server.py'], stdout=subprocess.PIPE)
+        
     output_script = result_script.stdout.decode('utf-8')
     disctionnaire = ast.literal_eval(output_script)
     etat = disctionnaire
@@ -181,8 +199,13 @@ def tools():
     if etat is None or not isinstance(etat, dict):
         return "Aucune information sur le serveur disponible"
 
-    # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
-    results = subprocess.run(['python', './SemaOS/info_server.py'], stdout=subprocess.PIPE)
+    if platform.system() == "Linux":
+        # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
+        results = subprocess.run(['sudo','python', '/Semabox/SemaOS/info_server.py'], stdout=subprocess.PIPE)
+    elif platform.system() == "Windows":
+        # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
+        results = subprocess.run(['python', './SemaOS/info_server.py'], stdout=subprocess.PIPE)
+    
     outputs = results.stdout.decode('utf-8')
     disctionnaires = ast.literal_eval(outputs)
     ip_public = disctionnaires
@@ -192,8 +215,13 @@ def tools():
         return "Aucune information sur le serveur disponible"
 
     if session.get('speedtest_status') == 'go':
-        # Exécution du script 'server_speedtest.py' et récupération du dictionnaire de résultat
-        resultes = subprocess.run(['python', './SemaOS/server_speedtest.py'], stdout=subprocess.PIPE)
+        if platform.system() == "Linux":
+            # Exécution du script 'server_speedtest.py' et récupération du dictionnaire de résultat
+            resultes = subprocess.run(['sudo','python', '/Semabox/SemaOS/server_speedtest.py'], stdout=subprocess.PIPE)
+        elif platform.system() == "Windows":
+            # Exécution du script 'server_speedtest.py' et récupération du dictionnaire de résultat
+            resultes = subprocess.run(['python', './SemaOS/server_speedtest.py'], stdout=subprocess.PIPE)
+            
         outputes = resultes.stdout.decode('utf-8')
         disctionnairs = ast.literal_eval(outputes)
         speedtest = disctionnairs       
@@ -208,8 +236,13 @@ def tools():
         speedtest = " "
 
     if session.get('scan_status') == 'scan':
-        #Exécution du script 'scan.py' et récupération du dictionnaire de résultat
-        resultes_scan = subprocess.run(['python', './SemaOS/scan_servers.py'], stdout=subprocess.PIPE)
+        if platform.system() == "Linux":
+            # Exécution du script 'scan.py' et récupération du dictionnaire de résultat
+            resultes_scan = subprocess.run(['sudo','python', '/Semabox/SemaOS/scan_servers.py'], stdout=subprocess.PIPE)
+        elif platform.system() == "Windows":
+            #Exécution du script 'scan.py' et récupération du dictionnaire de résultat
+            resultes_scan = subprocess.run(['python', './SemaOS/scan_servers.py'], stdout=subprocess.PIPE)
+            
         outputes_scan = resultes_scan.stdout.decode('utf-8')
         disctionnairees = ast.literal_eval(outputes_scan)
         scan = disctionnairees

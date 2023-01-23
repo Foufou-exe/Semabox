@@ -21,14 +21,13 @@ import platform # Permet de récupérer des informations sur le système
 import os # Permet de récupérer des informations sur le système
 
 # Importation des modules perso
-sys.path.append('./SemaOS')  # On ajoute le chemin './SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
-from info_server import cli_get_info_server
-from materiel_server import cli_get_info_system
-from scan_servers import cli_get_scan_nmap
-from server_speedtest import cli_get_speedtest
-from latence import cli_latence
-from ping import cli_ping
-from scan_other_servers import scan_all_machine
+from SemaOS.info_server import cli_get_info_server
+from SemaOS.materiel_server import cli_get_info_system
+from SemaOS.scan_servers import cli_get_scan_nmap
+from SemaOS.server_speedtest import cli_get_speedtest
+from SemaOS.latence import cli_latence
+from SemaOS.ping import cli_ping
+from SemaOS.scan_other_servers import scan_all_machine
 
 
 # Définition des fonctions
@@ -127,7 +126,11 @@ def cli_scan_port_machine():
         Scans les ports d'une machine donnée en entrée, affiche les résultats dans un tableau et demande à l'utilisateur s'il souhaite scanner une nouvelle machine
     """
     reponse = input(colored("Veuillez entrer l'adresse IP de la machine à scanner (exemple: 192.168.1.1): ", "yellow"))
-    results = subprocess.run(['python', f'./SemaOS/scan_port_other_servers.py','--ip',reponse], stdout=subprocess.PIPE)
+    if platform.system() == "Windows":
+        results = subprocess.run(['python', f'SemaOS/scan_port_other_servers.py','--ip',reponse], stdout=subprocess.PIPE)
+    elif platform.system() == "Linux":
+        results = subprocess.run(['sudo','python', f'/Semabox/SemaOS/scan_port_other_servers.py','--ip',reponse], stdout=subprocess.PIPE)
+        
     outputs = results.stdout.decode('utf-8')
     disctionnaires = ast.literal_eval(outputs)
     scan_machine_table = PrettyTable()
