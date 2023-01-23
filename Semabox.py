@@ -24,7 +24,8 @@ from tkinter import messagebox
 
 
 # Importation des modules perso
-sys.path.append('./SemaOS')  # On ajoute le chemin './SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
+sys.path.append("..") # On retourne dans le dossier Principal Semabox
+sys.path.append("SemaOS") # On ajoute le chemin './SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
 from generation_UID import creation_dossier, generate_id, lire_fichier  # Import des fonctions du module 'generation_UID'
 from info_server import get_dns, get_hostname, get_ip_address, get_version_semabox  # Import des fonctions du module 'info_server'
 from scan_servers import scan_nmap  # Import de la fonction du module 'scan_servers'
