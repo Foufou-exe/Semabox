@@ -37,7 +37,8 @@ from flask import Flask, render_template, jsonify, abort, Response, request, ses
 
 # Ajoutez le chemin vers le dossier Semabox/SemaOS
 import sys
-sys.path.append('./SemaOS')
+sys.path.append("..") # On retourne dans le dossier Principal Semabox
+sys.path.append("SemaOS") # On ajoute le chemin './SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
 # On ajoute le chemin vers le dossier Semabox/SemaOS pour qu'on puisse importer nos modules
 
 
