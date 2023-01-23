@@ -17,8 +17,8 @@ import requests
 import ipaddress
 
 
-# Ajout du chemin vers le dossier Application pour qu'on puisse importer nos modules
-sys.path.append('./SemaOS')
+sys.path.append("..") # On retourne dans le dossier Principal Semabox
+sys.path.append("SemaOS") # On ajoute le chemin './SemaOS' au path de sys pour pouvoir importer les modules de ce répertoire
 
 # Importe de nos modules Python personnalisés
 from generation_UID import lire_fichier
