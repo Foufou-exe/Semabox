@@ -1,7 +1,7 @@
 <div align="center">
   <h1>Projet Semabox 🖥️</h1>
 
-  ![Logo](https://github.com/Foufou-exe/Semabox/blob/dev/Logo_Banniere.png?raw=true)
+  ![Logo](https://github.com/Foufou-exe/Semabox/blob/dev/.github/Logo_Banniere.png?raw=true)
 
 
  
@@ -87,16 +87,20 @@ cd ..
 ```bash
 sudo python Semabox.py
 ```
+![Logo](https://github.com/Foufou-exe/Semabox/blob/dev/.github/Semabox.png?raw=true)
 
 **Version CLI** :
 ```bash
 sudo python Semabox_CLI.py
 ```
+![Logo](https://github.com/Foufou-exe/Semabox/blob/dev/.github/Semabox_CLI.png?raw=true)
 
 **Version Web** :
 ```bash
 http://localhost:80/
 ```
+![Logo](https://github.com/Foufou-exe/Semabox/blob/dev/.github/SemaWEB.png?raw=true)
+
 ## Installation sur Windows Mode Manuel 👩‍🌾
 
 #### **Etape 1**: On clone le projet 
@@ -135,16 +139,19 @@ cd ..
 ```cmd
 python Semabox.py
 ```
+![Logo](https://github.com/Foufou-exe/Semabox/blob/dev/.github/Semabox.png?raw=true)
 
 **Version CLI** :
 ```cmd
 python Semabox_CLI.py
 ```
+![Logo](https://github.com/Foufou-exe/Semabox/blob/dev/.github/Semabox_CLI.png?raw=true)
 
 **Version Web** :
 ```html
 http://localhost:80/
 ```
+![Logo](https://github.com/Foufou-exe/Semabox/blob/dev/.github/SemaWEB.png?raw=true)
 
 ## Installation Automatisée 🤖
 
