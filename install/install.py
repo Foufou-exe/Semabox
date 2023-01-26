@@ -57,6 +57,7 @@ import subprocess
 
 
 
+
 # Importe de nos modules Python personnalisés
 from SemaOS.info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns_semabox, get_version_semabox as version_semabox, get_public_ip as ip_public
 from SemaOS.generation_UID import lire_fichier as uid
@@ -113,7 +114,7 @@ def add_bdd_record(sema_id, sema_hostname, sema_ip, sema_ip_public, sema_dns, se
   cursor = cnx.cursor()
 
   # Construction la déclaration INSERT
-  insert_stmt = "INSERT INTO box (sema_id, sema_hostname, sema_ip, sema_ip_public, sema_dns, sema_version) VALUES (%s, %s, %s, %s, %s)"
+  insert_stmt = "INSERT INTO box (sema_id, sema_hostname, sema_ip, sema_ip_public, sema_dns, sema_version) VALUES (%s, %s, %s, %s, %s, %s)"
 
   # Execution de la requête avec les valeurs à insérer dans la base de données
   cursor.execute(insert_stmt, (sema_id, sema_hostname, sema_ip, sema_ip_public, sema_dns, sema_version))
@@ -128,13 +129,15 @@ def add_bdd_record(sema_id, sema_hostname, sema_ip, sema_ip_public, sema_dns, se
 
 
 
+
 def pre_installation():
   """
     Description:
         Cette fonction exécute le script de génération d'un identifiant unique (UID) pour l'installation de SemaOS.
   """
-  subprocess.run(["python", "./SemaOS/generation_UID.py"])
-  
+  file_path = os.path.join("SemaOS","generation_UID.py")
+  subprocess.run(["python", file_path])
+
   
   
 if __name__ == "__main__":
