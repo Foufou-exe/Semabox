@@ -126,11 +126,9 @@ def cli_scan_port_machine():
         Scans les ports d'une machine donnée en entrée, affiche les résultats dans un tableau et demande à l'utilisateur s'il souhaite scanner une nouvelle machine
     """
     reponse = input(colored("Veuillez entrer l'adresse IP de la machine à scanner (exemple: 192.168.1.1): ", "yellow"))
-    if platform.system() == "Windows":
-        results = subprocess.run(['python', f'SemaOS/scan_port_other_servers.py','--ip',reponse], stdout=subprocess.PIPE)
-    elif platform.system() == "Linux":
-        results = subprocess.run(['sudo','python', f'/Semabox/SemaOS/scan_port_other_servers.py','--ip',reponse], stdout=subprocess.PIPE)
-        
+    file_path = os.path.join("SemaOS","scan_port_other_servers.py")
+    results = subprocess.run(['python', file_path,'--ip',reponse], stdout=subprocess.PIPE)
+      
     outputs = results.stdout.decode('utf-8')
     disctionnaires = ast.literal_eval(outputs)
     scan_machine_table = PrettyTable()

@@ -19,18 +19,26 @@ def creation_dossier(id_semabox):
         Paramètres :
             - id_semabox (str) : identifiant à écrire dans le fichier "UID.txt".
     """
+    # Définir un nom de dossier
+    folder_name = "Semabox_UID"
+    # Utiliser os.path.join pour construire le chemin absolu
+    folder_path = os.path.join("SemaOS",folder_name)
     # Création du dossier "Semabox_UID"
-    os.mkdir("SemaOS/Semabox_UID")
+    os.mkdir(folder_path)
 
+    # Utiliser os.path.join pour construire le chemin absolu
+    file_path = os.path.join(folder_path,"UID.txt")
     # Création du fichier "UID.txt" dans le dossier "Semabox_UID" et écriture de l'identifiant dedans
-    with open("SemaOS/Semabox_UID/UID.txt", "w") as f:
+    with open(file_path, "w") as f:
         f.write(id_semabox)
 
 def lire_fichier():
     """
         Cette fonction lit le fichier "UID.txt" dans le dossier "Semabox_UID" et retourne son contenu.
     """
-    with open("SemaOS/Semabox_UID/UID.txt", "r") as f:
+    # Utiliser os.path.join pour construire le chemin absolu
+    file_path = os.path.join("SemaOS","Semabox_UID","UID.txt")
+    with open(file_path, "r") as f:
         return f.readline()
     
 def check_file():
@@ -39,11 +47,13 @@ def check_file():
         Si le fichier n'existe pas, on appelle la fonction creation_dossier() avec un identifiant généré par generate_id().
         Sinon, on appelle la fonction lire_fichier().
     """
-    if not os.path.exists("SemaOS/Semabox_UID/UID.txt"):
+    # Utiliser os.path.join pour construire le chemin absolu
+    file_path = os.path.join("SemaOS","Semabox_UID","UID.txt")
+    if not os.path.exists(file_path):
         creation_dossier(generate_id())
     else:
         print(lire_fichier())
-
+        
 # Si ce fichier est exécuté directement, on appelle la fonction creation_dossier() avec un identifiant généré par generate_id()
 if __name__ == "__main__":
     check_file()

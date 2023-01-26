@@ -15,6 +15,7 @@ import platform
 import sys
 import requests
 import ipaddress
+import os
 
 
 sys.path.append("SemaOS")
@@ -81,8 +82,8 @@ def get_version_semabox()->str:
     """
         Cette fonction retourne la version de SemaBox en lisant le fichier "version.txt" dans le répertoire "Application/modules".
     """
-    
-    with open("SemaOS/version.txt", "r") as f:
+    file_path = os.path.join("SemaOS","version.txt")
+    with open(file_path, "r") as f:
         return f.readline()
     
 def get_public_ip()->str:
