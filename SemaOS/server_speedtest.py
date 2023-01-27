@@ -12,7 +12,7 @@ UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media"
 if platform.system() == "Windows":
     FILE_PATH = "SemaOS\download\TESTMB.zip"
 elif platform.system() == "Linux":
-    FILE_PATH = "download/TESTMB.zip"
+    FILE_PATH = "download\TESTMB.zip"
     
 HOST = "google.com"
 
