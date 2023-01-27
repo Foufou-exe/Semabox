@@ -91,7 +91,11 @@ def get_version_semabox()->str:
     """
         Cette fonction retourne la version de SemaBox en lisant le fichier "version.txt" dans le répertoire "Application/modules".
     """
-    file_path = os.path.join("Semabox", "SemaOS", "version.txt")
+    if os.name == 'nt': # Windows
+        file_path = os.path.join("Semabox", "SemaOS", "version.txt")
+    else: # Linux ou autre
+        file_path = os.path.join("/Semabox/SemaOS", "version.txt")
+
     with open(file_path, "r") as f:
         return f.readline()
     

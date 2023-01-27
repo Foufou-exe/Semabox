@@ -28,6 +28,7 @@ from SemaOS.server_speedtest import cli_get_speedtest
 from SemaOS.latence import cli_latence
 from SemaOS.ping import cli_ping
 from SemaOS.scan_other_servers import scan_all_machine
+from SemaOS.update_code import *
 
 
 # Définition des fonctions
@@ -205,6 +206,10 @@ def menu()->None:
             cli_scan_all_machine()
             cli_scan_port_machine()
         elif choix_scan == "4":
+            clear_screen()
+            choix_menu()
+            
+        elif choix_scan == "5":
             print(colored("Au revoir !", "red"))
             sys.exit()
         else:
@@ -229,5 +234,6 @@ def menu()->None:
         
 
 if __name__ == "__main__":
+    check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
     menu()
 

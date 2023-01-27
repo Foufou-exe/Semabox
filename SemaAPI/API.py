@@ -142,7 +142,7 @@ def index():
         return "Aucune information sur le serveur disponible"
     
     
-    return render_template('/Pages/SemaWeb/index.html', info_server=info_server)
+    return render_template('Pages/SemaWeb/index.html', info_server=info_server)
 
 @app.route('/tools', methods=['GET', 'POST'])
 def tools():
