@@ -41,7 +41,7 @@ sys.path.append("SemaOS")
 app = Flask(__name__, template_folder='template')
 app.secret_key = "keys/secret_key"
 
-os.chdir('..') # On se déplace dans le dossier parent
+
 
 # Définition d'une route qui accepte les méthodes POST
 @app.route('/api/<script>', methods=['POST'])
@@ -55,7 +55,12 @@ def create_script(script):
             et la renvoie avec l'en-tête 'Content-Type: application/json'
     """
 
-    file_path = os.path.join("Semabox/SemaOS", script)
+    # Définir le chemin d'accès au fichier en fonction du système d'exploitation
+    if os.name == 'nt': # Windows
+        file_path = os.path.join("SemaOS", script)
+    else: # Linux ou autre
+        file_path = os.path.join("/Semabox/SemaOS", script)
+        
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
     
@@ -87,7 +92,11 @@ def get_script(script):
             et la renvoie avec l'en-tête 'Content-Type: application/json'
     """
 
-    file_path = os.path.join("Semabox/SemaOS", script)
+        # Définir le chemin d'accès au fichier en fonction du système d'exploitation
+    if os.name == 'nt': # Windows
+        file_path = os.path.join("SemaOS", script)
+    else: # Linux ou autre
+        file_path = os.path.join("/Semabox/SemaOS", script)
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
     
@@ -115,8 +124,12 @@ def index():
             Si le dictionnaire est vide, une erreur HTTP 404 est retournée avec un message d'erreur personnalisé "Aucune information sur le serveur disponible"
             La page html 'index.html' est ensuite rendue en utilisant les informations récupérées.
     """
+    # Définir le chemin d'accès au fichier en fonction du système d'exploitation
+    if os.name == 'nt': # Windows
+        file_path = os.path.join("SemaOS", "info_server.py")
+    else: # Linux ou autre
+        file_path = os.path.join("/Semabox/SemaOS", "info_server.py")
 
-    file_path = os.path.join("Semabox/SemaOS", "info_server.py") # Chemin du script à exécuter
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
         
@@ -129,7 +142,7 @@ def index():
         return "Aucune information sur le serveur disponible"
     
     
-    return render_template('Pages/SemaWeb/index.html', info_server=info_server)
+    return render_template('/Pages/SemaWeb/index.html', info_server=info_server)
 
 @app.route('/tools', methods=['GET', 'POST'])
 def tools():
@@ -162,8 +175,22 @@ def tools():
         session['speedtest_status'] = 'reset'
         session['scan_status'] = 'reset'
 
+    # Définir le chemin d'accès au fichier en fonction du système d'exploitation
+    if os.name == 'nt': # Windows
+        file_path = os.path.join("SemaOS", "materiel_server.py")
+        file_p = os.path.join("SemaOS", "etat_server.py")
+        files_paths = os.path.join("SemaOS", "info_server.py")
+        files_pat = os.path.join("SemaOS", "server_speedtest.py")
+        files_pa = os.path.join("SemaOS", "scan_servers.py")
+    else: # Linux ou autre
+        file_path = os.path.join("/Semabox/SemaOS", "materiel_server.py")
+        file_p = os.path.join("/Semabox/SemaOS", "etat_server.py")
+        files_paths = os.path.join("/Semabox/SemaOS", "info_server.py")
+        files_pat = os.path.join("/Semabox/SemaOS", "server_speedtest.py")
+        files_pa = os.path.join("/Semabox/SemaOS", "scan_servers.py")
+        
+        
 
-    file_path = os.path.join("Semabox/SemaOS", "materiel_server.py")
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
 
@@ -175,9 +202,9 @@ def tools():
     if materiel is None or not isinstance(materiel, dict):
         return "Aucune information sur le serveur disponible"
  
-    file_paths = os.path.join("Semabox/SemaOS", "etat_server.py")
+
     # Exécution du script en utilisant subprocess.run
-    result_script = subprocess.run(['python', file_paths], stdout=subprocess.PIPE)
+    result_script = subprocess.run(['python', file_p], stdout=subprocess.PIPE)
         
     output_script = result_script.stdout.decode('utf-8')
     disctionnaire = ast.literal_eval(output_script)
@@ -188,7 +215,7 @@ def tools():
         return "Aucune information sur le serveur disponible"
 
 
-    files_paths = os.path.join("Semabox/SemaOS", "info_server.py")
+
     # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
     results = subprocess.run(['python', files_paths], stdout=subprocess.PIPE)
     
@@ -202,7 +229,6 @@ def tools():
 
     if session.get('speedtest_status') == 'go':
 
-        files_pat = os.path.join("Semabox/SemaOS", "server_speedtest.py")
         # Exécution du script 'server_speedtest.py' et récupération du dictionnaire de résultat
         resultes = subprocess.run(['python', files_pat], stdout=subprocess.PIPE)
             
@@ -221,8 +247,8 @@ def tools():
 
     if session.get('scan_status') == 'scan':
 
-        files_pat = os.path.join("Semabox/SemaOS", "scan_servers.py")
-        resultes_scan = subprocess.run(['python', files_pat], stdout=subprocess.PIPE)
+
+        resultes_scan = subprocess.run(['python', files_pa], stdout=subprocess.PIPE)
             
         outputes_scan = resultes_scan.stdout.decode('utf-8')
         disctionnairees = ast.literal_eval(outputes_scan)
