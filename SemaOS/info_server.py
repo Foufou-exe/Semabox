@@ -32,6 +32,9 @@ def get_hostname()->str:
     
     return platform.node()
 
+
+
+
 def get_ip_address() -> str:
 
     """
@@ -39,6 +42,8 @@ def get_ip_address() -> str:
     """
 
     return socket.gethostbyname(socket.gethostname())
+
+
 
 
 def get_address_network(ip=get_ip_address()) -> str:
@@ -77,19 +82,30 @@ def get_dns(ip)->str:
     dns_resulte = socket.gethostbyaddr(ip)
     return dns_resulte[0] + "".join(".cma4.box")
 
+
+
+
+
 def get_version_semabox()->str:
     
     """
         Cette fonction retourne la version de SemaBox en lisant le fichier "version.txt" dans le répertoire "Application/modules".
     """
-    file_path = os.path.join("SemaOS","version.txt")
+    file_path = os.path.join("Semabox", "SemaOS", "version.txt")
     with open(file_path, "r") as f:
         return f.readline()
+    
+    
+    
     
 def get_public_ip()->str:
     response = requests.get("http://ipinfo.io/json")
     data = response.json()
     return data["ip"]
+
+
+
+
 
 def api_info_server(version,lire_uid,hostname,ip,dns,ip_public)->dict:
     
@@ -106,6 +122,9 @@ def api_info_server(version,lire_uid,hostname,ip,dns,ip_public)->dict:
         'version_semabox': version
     }
     print(info_server)
+    
+    
+    
     
 def cli_get_info_server():
     
@@ -125,6 +144,9 @@ def cli_get_info_server():
         'Version Semabox': get_version_semabox()
     }
     
+    
+    
+    
 # Si ce fichier est exécuté directement, on appelle la fonction api_info_server()
 if __name__ == "__main__":
     api_info_server(
@@ -135,3 +157,4 @@ if __name__ == "__main__":
         dns=get_dns(get_ip_address()),
         ip_public=get_public_ip()
     )
+

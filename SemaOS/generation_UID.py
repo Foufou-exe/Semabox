@@ -4,6 +4,8 @@
 import os
 import uuid
 
+os.chdir('..') # On se déplace dans le dossier parent
+
 def generate_id():
     """
         Cette fonction génère un identifiant unique (UUID) et le retourne sous forme de chaîne de caractères.
@@ -22,7 +24,7 @@ def creation_dossier(id_semabox):
     # Définir un nom de dossier
     folder_name = "Semabox_UID"
     # Utiliser os.path.join pour construire le chemin absolu
-    folder_path = os.path.join("SemaOS",folder_name)
+    folder_path = os.path.join("Semabox/SemaOS",folder_name)
     # Création du dossier "Semabox_UID"
     os.mkdir(folder_path)
 
@@ -37,7 +39,7 @@ def lire_fichier():
         Cette fonction lit le fichier "UID.txt" dans le dossier "Semabox_UID" et retourne son contenu.
     """
     # Utiliser os.path.join pour construire le chemin absolu
-    file_path = os.path.join("SemaOS","Semabox_UID","UID.txt")
+    file_path = os.path.join("Semabox/SemaOS","Semabox_UID","UID.txt")
     with open(file_path, "r") as f:
         return f.readline()
     
@@ -48,7 +50,7 @@ def check_file():
         Sinon, on appelle la fonction lire_fichier().
     """
     # Utiliser os.path.join pour construire le chemin absolu
-    file_path = os.path.join("SemaOS","Semabox_UID","UID.txt")
+    file_path = os.path.join("Semabox/SemaOS","Semabox_UID","UID.txt")
     if not os.path.exists(file_path):
         creation_dossier(generate_id())
     else:
