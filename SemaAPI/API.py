@@ -32,10 +32,9 @@ import os
 
 
 from flask import Flask, render_template, jsonify, abort, Response, request, session
-import platform
-import sys
 
-sys.path.append("SemaOS")
+
+
 
 # Création de l'application Flask
 app = Flask(__name__, template_folder='template')
