@@ -19,6 +19,7 @@
 import subprocess
 import ast
 import json
+import os
 
 """
     Description de la Librairie Flask:
@@ -41,6 +42,7 @@ app = Flask(__name__, template_folder='template')
 app.secret_key = "keys/secret_key"
 
 
+
 # Définition d'une route qui accepte les méthodes POST
 @app.route('/api/<script>', methods=['POST'])
 def create_script(script):
@@ -52,9 +54,9 @@ def create_script(script):
             puis convertit le dictionnaire en une chaîne de caractères au format JSON
             et la renvoie avec l'en-tête 'Content-Type: application/json'
     """
-
+    file_path = os.path.join("SemaOS", script)
     # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', f'SemaOS/{script}'], stdout=subprocess.PIPE)
+    result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
     
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
@@ -84,8 +86,9 @@ def get_script(script):
             et la renvoie avec l'en-tête 'Content-Type: application/json'
     """
 
+    file_path = os.path.join("SemaOS", script)
     # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', f'SemaOS/{script}'], stdout=subprocess.PIPE)
+    result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
     
     # Récupération de la sortie standard du script exécuté
     output = result.stdout.decode('utf-8')
@@ -112,8 +115,9 @@ def index():
             La page html 'index.html' est ensuite rendue en utilisant les informations récupérées.
     """
 
-    # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
-    result = subprocess.run(['python', 'SemaOS/info_server.py'], stdout=subprocess.PIPE)
+    file_path = os.path.join("SemaOS", "info_server.py")
+    # Exécution du script en utilisant subprocess.run
+    result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
         
     output = result.stdout.decode('utf-8')
     liste = ast.literal_eval(output)
@@ -158,8 +162,9 @@ def tools():
         session['scan_status'] = 'reset'
 
 
-    # Exécution du script 'materiel_server.py' et récupération du dictionnaire de résultat
-    result = subprocess.run(['python', 'SemaOS/materiel_server.py'], stdout=subprocess.PIPE)
+    file_path = os.path.join("SemaOS", "materiel_server.py")
+    # Exécution du script en utilisant subprocess.run
+    result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
 
     output = result.stdout.decode('utf-8')
     liste = ast.literal_eval(output)
@@ -169,8 +174,9 @@ def tools():
     if materiel is None or not isinstance(materiel, dict):
         return "Aucune information sur le serveur disponible"
 
-    # Exécution du script 'etat_server' et récupération du dictionnaire de résultat
-    result_script = subprocess.run(['python', 'SemaOS/etat_server.py'], stdout=subprocess.PIPE)
+    file_paths = os.path.join("SemaOS", "etat_server.py")
+    # Exécution du script en utilisant subprocess.run
+    result_script = subprocess.run(['python', file_paths], stdout=subprocess.PIPE)
         
     output_script = result_script.stdout.decode('utf-8')
     disctionnaire = ast.literal_eval(output_script)
@@ -181,8 +187,9 @@ def tools():
         return "Aucune information sur le serveur disponible"
 
 
+    files_paths = os.path.join("SemaOS", "info_server.py")
     # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
-    results = subprocess.run(['python', 'SemaOS/info_server.py'], stdout=subprocess.PIPE)
+    results = subprocess.run(['python', files_paths], stdout=subprocess.PIPE)
     
     outputs = results.stdout.decode('utf-8')
     disctionnaires = ast.literal_eval(outputs)
@@ -193,9 +200,9 @@ def tools():
         return "Aucune information sur le serveur disponible"
 
     if session.get('speedtest_status') == 'go':
-
+        files_pat = os.path.join("SemaOS", "server_speedtest.py")
         # Exécution du script 'server_speedtest.py' et récupération du dictionnaire de résultat
-        resultes = subprocess.run(['python', 'SemaOS/server_speedtest.py'], stdout=subprocess.PIPE)
+        resultes = subprocess.run(['python', files_pat], stdout=subprocess.PIPE)
             
         outputes = resultes.stdout.decode('utf-8')
         disctionnairs = ast.literal_eval(outputes)
@@ -211,8 +218,8 @@ def tools():
         speedtest = " "
 
     if session.get('scan_status') == 'scan':
-
-        resultes_scan = subprocess.run(['python', 'SemaOS/scan_servers.py'], stdout=subprocess.PIPE)
+        files_pat = os.path.join("SemaOS", "scan_servers.py")
+        resultes_scan = subprocess.run(['python', files_pat], stdout=subprocess.PIPE)
             
         outputes_scan = resultes_scan.stdout.decode('utf-8')
         disctionnairees = ast.literal_eval(outputes_scan)
