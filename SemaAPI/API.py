@@ -54,7 +54,7 @@ def create_script(script):
             puis convertit le dictionnaire en une chaîne de caractères au format JSON
             et la renvoie avec l'en-tête 'Content-Type: application/json'
     """
-    file_path = os.path.join("SemaOS", script)
+    file_path = os.path.join("." ,"SemaOS", script)
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
     
@@ -86,7 +86,7 @@ def get_script(script):
             et la renvoie avec l'en-tête 'Content-Type: application/json'
     """
 
-    file_path = os.path.join("SemaOS", script)
+    file_path = os.path.join("." ,"SemaOS", script)
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
     
@@ -115,7 +115,7 @@ def index():
             La page html 'index.html' est ensuite rendue en utilisant les informations récupérées.
     """
 
-    file_path = os.path.join("SemaOS", "info_server.py")
+    file_path = os.path.join("." ,"SemaOS", "info_server.py")
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
         
@@ -162,7 +162,7 @@ def tools():
         session['scan_status'] = 'reset'
 
 
-    file_path = os.path.join("SemaOS", "materiel_server.py")
+    file_path = os.path.join("." ,"SemaOS", "materiel_server.py")
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
 
@@ -174,7 +174,7 @@ def tools():
     if materiel is None or not isinstance(materiel, dict):
         return "Aucune information sur le serveur disponible"
 
-    file_paths = os.path.join("SemaOS", "etat_server.py")
+    file_paths = os.path.join(".." ,"SemaOS", "etat_server.py")
     # Exécution du script en utilisant subprocess.run
     result_script = subprocess.run(['python', file_paths], stdout=subprocess.PIPE)
         
@@ -187,7 +187,7 @@ def tools():
         return "Aucune information sur le serveur disponible"
 
 
-    files_paths = os.path.join("SemaOS", "info_server.py")
+    files_paths = os.path.join("." ,"SemaOS", "info_server.py")
     # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
     results = subprocess.run(['python', files_paths], stdout=subprocess.PIPE)
     
@@ -200,7 +200,7 @@ def tools():
         return "Aucune information sur le serveur disponible"
 
     if session.get('speedtest_status') == 'go':
-        files_pat = os.path.join("SemaOS", "server_speedtest.py")
+        files_pat = os.path.join("." ,"SemaOS", "server_speedtest.py")
         # Exécution du script 'server_speedtest.py' et récupération du dictionnaire de résultat
         resultes = subprocess.run(['python', files_pat], stdout=subprocess.PIPE)
             
@@ -218,7 +218,7 @@ def tools():
         speedtest = " "
 
     if session.get('scan_status') == 'scan':
-        files_pat = os.path.join("SemaOS", "scan_servers.py")
+        files_pat = os.path.join("." ,"SemaOS", "scan_servers.py")
         resultes_scan = subprocess.run(['python', files_pat], stdout=subprocess.PIPE)
             
         outputes_scan = resultes_scan.stdout.decode('utf-8')

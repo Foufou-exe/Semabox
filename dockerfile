@@ -28,7 +28,7 @@ RUN python install/install_manuel.py
 EXPOSE 22
 EXPOSE 80
 
-ENTRYPOINT [ "python" , "/Semabox/SemaAPI/API.py" ]
+# ENTRYPOINT [ "python" , "/Semabox/SemaAPI/API.py" ]
 
 
 
