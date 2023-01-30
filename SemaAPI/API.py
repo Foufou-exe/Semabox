@@ -16,10 +16,20 @@
 """
 
 # Import des différents modules Python
-import subprocess
-import ast
-import json
-import os
+import subprocess # Module qui permet d'exécuter des commandes système
+import ast # Module qui permet de convertir une chaîne de caractères en dictionnaire Python
+import json # Module qui permet de convertir un dictionnaire Python en une chaîne de caractères JSON
+import sys 
+import os 
+
+# Ajout du chemin d'accès au dossier parent
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+
+from SemaOS.info_server import *
+from SemaOS.materiel_server import *
+from SemaOS.etat_server import *
+from SemaOS.server_speedtest import *
+from SemaOS.scan_servers import *
 
 """
     Description de la Librairie Flask:
@@ -42,16 +52,12 @@ app.secret_key = "keys/secret_key"
 
 
 
-# Définition d'une route qui accepte les méthodes POST
-@app.route('/api/<script>', methods=['POST'])
-def create_script(script):
+# Définition d'une route qui accepte les méthodes POST , GET
+@app.route('/api/<script>', methods=['POST', 'GET'])
+def create_script(script)->dict:
     """
         Description de la fonction create_script:
-            Cette fonction crée un script en l'exécutant à l'aide de subprocess.run,
-            puis récupère la sortie standard du script exécuté, la convertit en un dictionnaire Python,
-            vérifie si le dictionnaire est valide et non vide,
-            puis convertit le dictionnaire en une chaîne de caractères au format JSON
-            et la renvoie avec l'en-tête 'Content-Type: application/json'
+            Cette fonction exécute le script spécifié en utilisant subprocess.run et retourne une représentation en chaîne de caractères JSON de la sortie du script.
     """
 
     # Définir le chemin d'accès au fichier en fonction du système d'exploitation
@@ -79,28 +85,25 @@ def create_script(script):
     # Retour de la chaîne de caractères au format JSON avec l'en-tête 'Content-Type: application/json'
     return jsonify(result_script_json=result_script_json)
 
-# Définition d'une route qui accepte les méthodes GET
-@app.route('/api/<script>', methods=['GET'])
-def get_script(script):
+# Définition d'une route qui accepte les méthodes POST, GET
+@app.route('/api/scan_port_other_servers.py/<arg>/<ip>', methods=['POST', 'GET'])
+def add_script(ip, arg):
     """
-        Description de la fonction get_script: 
-            Cette fonction récupère un script en l'exécutant à l'aide de subprocess.run,
-            puis récupère la sortie standard du script exécuté, la convertit en un dictionnaire Python,
-            vérifie si le dictionnaire est valide et non vide,
-            puis convertit le dictionnaire en une chaîne de caractères au format JSON
-            et la renvoie avec l'en-tête 'Content-Type: application/json'
+        Description de la fonction create_script:
+            Cette fonction exécute le script spécifié en utilisant subprocess.run et retourne une représentation en chaîne de caractères JSON de la sortie du script.
     """
-
-        # Définir le chemin d'accès au fichier en fonction du système d'exploitation
+    ip_add = str(ip)
+    # Définir le chemin d'accès au fichier en fonction du système d'exploitation
     if os.name == 'nt': # Windows
-        file_path = os.path.join("SemaOS", script)
+        file_path = os.path.join("SemaOS/scan_port_other_servers.py")
     else: # Linux ou autre
-        file_path = os.path.join("/Semabox/SemaOS", script)
+        file_path = os.path.join("/Semabox/SemaOS/scan_port_other_servers.py")
+        
     # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
+    result = subprocess.run(['python', file_path, arg, ip],stdout=subprocess.PIPE)
     
     # Récupération de la sortie standard du script exécuté
-    output = result.stdout.decode('utf-8')
+    output = result.stdout.decode("utf-8")
     
     # Conversion de la sortie du script en un dictionnaire Python
     result_script = ast.literal_eval(output)
@@ -123,18 +126,8 @@ def index():
             Si le dictionnaire est vide, une erreur HTTP 404 est retournée avec un message d'erreur personnalisé "Aucune information sur le serveur disponible"
             La page html 'index.html' est ensuite rendue en utilisant les informations récupérées.
     """
-    # Définir le chemin d'accès au fichier en fonction du système d'exploitation
-    if os.name == 'nt': # Windows
-        file_path = os.path.join("SemaOS", "info_server.py")
-    else: # Linux ou autre
-        file_path = os.path.join("/Semabox/SemaOS", "info_server.py")
 
-    # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
-        
-    output = result.stdout.decode('utf-8')
-    liste = ast.literal_eval(output)
-    info_server = liste
+    info_server = cli_get_info_server()
     
 # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
     if info_server is None or not isinstance(info_server, dict):
@@ -146,18 +139,15 @@ def index():
 @app.route('/tools', methods=['GET', 'POST'])
 def tools():
     """
-        Cette fonction gère la page des outils en effectuant les étapes suivantes:
-        - Elle vérifie la méthode HTTP utilisée (GET ou POST)
-        - Si la méthode est POST, elle vérifie si les boutons 'go' ou 'reset' pour le test de vitesse, ou 'scan' ou 'reset' pour le scan réseau ont été soumis, et enregistre le statut correspondant dans les sessions.
-        - Si la méthode est GET, elle réinitialise les statuts des sessions pour le test de vitesse et le scan réseau.
-        - Elle exécute le script 'materiel_server.py' et récupère le résultat sous forme de dictionnaire, vérifie si le dictionnaire est valide et non vide, sinon renvoie un message d'erreur "Aucune information sur le serveur disponible".
-        - Elle exécute le script 'etat_server.py' et récupère le résultat sous forme de dictionnaire, vérifie si le dictionnaire est valide et non vide, sinon renvoie un message d'erreur "Aucune information sur le serveur disponible".
-        - Elle exécute le script 'info_server.py' et récupère le résultat sous forme de dictionnaire, vérifie si le dictionnaire est valide et non vide, sinon renvoie un message d'erreur "Aucune information sur le serveur disponible".
-        - Si le statut de la session pour le test de vitesse est 'go', elle exécute le script 'server_speedtest.py' et récupère le résultat sous forme de dictionnaire, vérifie si le dictionnaire est valide et non vide, sinon renvoie un message d'erreur "Aucune information sur le serveur disponible".
-        - Si le statut de la session pour le scan réseau est 'scan', elle exécute le script 'scan_servers.py' et récupère le résultat sous forme de dictionnaire, vérifie si le dictionnaire est valide et non vide, sinon renvoie un message d'erreur "Aucune information sur le serveur disponible".
-        Enfin, elle utilise les informations récupérées pour rendre les templates correspondants.
-            - En somme, cette fonction gère l'affichage des informations relatives à l'état du matériel, de l'état du serveur, de l'IP public, des résultats des tests de vitesse et des scans réseau sur la page des outils en se basant sur les actions de l'utilisateur et en vérifiant la validité des informations récupérées.
-            
+        La fonction tools implémente le point d'entrée '/tools' d'une application Flask et gère les requêtes GET et POST.
+
+        Pour les requêtes POST, elle met à jour les statuts speedtest_status et scan_status en fonction de la présence de 'go' ou 'reset' dans la requête.
+
+        Pour les requêtes GET, elle met à jour les statuts speedtest_status et scan_status en 'reset'.
+
+        Elle utilise les fonctions api_get_info_system, api_server_is_up, api_get_public_ip, api_web_speedtest et api_web_scan_nmap pour récupérer diverses informations sur le serveur. Si les informations récupérées ne sont pas valides (vides ou pas des objets dict), elle renvoie une erreur HTTP 404 avec un message d'erreur personnalisé.
+
+        Enfin, elle retourne une vue en utilisant le template 'Pages/SemaWeb/tools.html' avec les informations récupérées sur le serveur.
     """
     if request.method == 'POST':
         if 'go' in request.form:
@@ -174,66 +164,31 @@ def tools():
         session['speedtest_status'] = 'reset'
         session['scan_status'] = 'reset'
 
-    # Définir le chemin d'accès au fichier en fonction du système d'exploitation
-    if os.name == 'nt': # Windows
-        file_path = os.path.join("SemaOS", "materiel_server.py")
-        file_p = os.path.join("SemaOS", "etat_server.py")
-        files_paths = os.path.join("SemaOS", "info_server.py")
-        files_pat = os.path.join("SemaOS", "server_speedtest.py")
-        files_pa = os.path.join("SemaOS", "scan_servers.py")
-    else: # Linux ou autre
-        file_path = os.path.join("/Semabox/SemaOS", "materiel_server.py")
-        file_p = os.path.join("/Semabox/SemaOS", "etat_server.py")
-        files_paths = os.path.join("/Semabox/SemaOS", "info_server.py")
-        files_pat = os.path.join("/Semabox/SemaOS", "server_speedtest.py")
-        files_pa = os.path.join("/Semabox/SemaOS", "scan_servers.py")
-        
-        
-
-    # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
-
-    output = result.stdout.decode('utf-8')
-    liste = ast.literal_eval(output)
-    materiel = liste
+    # Appel de la fonction api_get_info_system() pour récupérer les informations relatives au serveur
+    materiel = api_get_info_system()
 
     # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
     if materiel is None or not isinstance(materiel, dict):
         return "Aucune information sur le serveur disponible"
  
 
-    # Exécution du script en utilisant subprocess.run
-    result_script = subprocess.run(['python', file_p], stdout=subprocess.PIPE)
-        
-    output_script = result_script.stdout.decode('utf-8')
-    disctionnaire = ast.literal_eval(output_script)
-    etat = disctionnaire
+    # Appel de la fonction api_server_is_up() pour récupérer les informations relatives à l'état du serveur
+    etat = api_server_is_up()
 
     # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
     if etat is None or not isinstance(etat, dict):
         return "Aucune information sur le serveur disponible"
 
-
-
-    # Exécution du script 'info_server.py' et récupération du dictionnaire de résultat
-    results = subprocess.run(['python', files_paths], stdout=subprocess.PIPE)
-    
-    outputs = results.stdout.decode('utf-8')
-    disctionnaires = ast.literal_eval(outputs)
-    ip_public = disctionnaires
+    # Appel de la fonction api_get_public_ip() pour récupérer les informations relatives à l'IP public
+    ip_public = api_get_public_ip()
 
     # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
     if ip_public is None or not isinstance(ip_public, dict):
         return "Aucune information sur le serveur disponible"
 
     if session.get('speedtest_status') == 'go':
-
-        # Exécution du script 'server_speedtest.py' et récupération du dictionnaire de résultat
-        resultes = subprocess.run(['python', files_pat], stdout=subprocess.PIPE)
-            
-        outputes = resultes.stdout.decode('utf-8')
-        disctionnairs = ast.literal_eval(outputes)
-        speedtest = disctionnairs       
+        # Appel de la fonction api_web_speedtest() pour récupérer les informations relatives au test de vitesse
+        speedtest = api_web_speedtest()       
 
         # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
         if speedtest is None or not isinstance(speedtest, dict):
@@ -245,13 +200,8 @@ def tools():
         speedtest = " "
 
     if session.get('scan_status') == 'scan':
-
-
-        resultes_scan = subprocess.run(['python', files_pa], stdout=subprocess.PIPE)
-            
-        outputes_scan = resultes_scan.stdout.decode('utf-8')
-        disctionnairees = ast.literal_eval(outputes_scan)
-        scan = disctionnairees
+        # Appel de la fonction api_web_scan_nmap() pour récupérer les informations relatives au scan réseau
+        scan = api_web_scan_nmap()
 
         if not isinstance(scan, (dict, list, tuple)):
             raise ValueError("scan_results is not a valid iterable")
@@ -265,8 +215,6 @@ def tools():
         scan = {}
         
     return render_template('Pages/SemaWeb/tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
-
-
 
 
 @app.route('/propos')

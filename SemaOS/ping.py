@@ -26,9 +26,10 @@ def cli_ping():
         icmp = icmplib.ping("google.com", count=1)
         return { "ping" : int(icmp.avg_rtt)}
     
-def run_cli_ping():
-    thread = threading.Thread(target=cli_ping())
-    thread.start()     
+def api_ping():
+
+    icmp = icmplib.ping("google.com", count=1)
+    return { "ping" : int(icmp.avg_rtt)}
         
         
 if __name__ == "__main__":

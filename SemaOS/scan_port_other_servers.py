@@ -41,7 +41,7 @@ def api_scan_port_other_machine(ip_args) -> dict:
     nm = nmap.PortScanner()
 
     # Adresse IP de l'hôte à scanner
-    host = ip_args
+    host = str(ip_args)
 
     # On scanne l'hôte en utilisant l'option -sS (SYN scan)
     nm.scan(host, arguments='-sS')

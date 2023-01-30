@@ -16,11 +16,12 @@
 
 # Importation des modules Pythons nécessaires
 import os
-import sys
 import tkinter as tk
 import tkinter.font as tkFont
+import platform
 from tkinter.ttk import *
 from tkinter import messagebox
+
 
 
 # Importation des modules perso
@@ -152,11 +153,14 @@ class App:
         # root.config(menu=self.menu) définit le menu créé à la ligne 1 comme menu pour la fenêtre principale.
         root.config(menu=self.menu)
         
-        # root.iconbitmap('./Semabox/SemaOS/assets/images/developer.ico') définit l'icône de la fenêtre principale avec le fichier situé à ./Semabox/SemaOS/assets/images/developer.ico
-        root.iconbitmap('./SemaOS/assets/images/developer.png')
+        if platform.system() == "Windows":
+            # root.iconbitmap('./Semabox/SemaOS/assets/images/developer.ico') définit l'icône de la fenêtre principale avec le fichier situé à ./Semabox/SemaOS/assets/images/developer.ico
+            root.iconbitmap('SemaOS/assets/images/icons8_code.ico')
+            root.tk.call('source','SemaOS/assets/themes/azure.tcl')
+        else:
+            root.iconbitmap('/Semabox/SemaOS/assets/images/icons8_code.xpm')
+            root.tk.call('source','/Semabox/SemaOS/assets/themes/azure.tcl')
         
-        # root.tk.call('source','./Semabox/SemaOS/assets/themes/azure.tcl') Exécute le code Tcl à partir du fichier ./Semabox/SemaOS/assets/themes/azure.tcl sur l'instance Tk de la fenêtre principale.
-        root.tk.call('source','./SemaOS/assets/themes/azure.tcl')
         # root.tk.call("set_theme", "dark") définit le thème en noir pour l'instance Tk de la fenêtre principale
         root.tk.call("set_theme", "dark")
         
@@ -274,7 +278,7 @@ if __name__ == "__main__":
             # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
             creation_dossier(generate_id())
     else:
-        if not os.path.exists("Semabox/SemaOS/Semabox_UID"):
+        if not os.path.exists("/Semabox/SemaOS/Semabox_UID"):
             # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
             creation_dossier(generate_id())
     # Création d'une instance de la classe "App" avec en paramètre la fenêtre principale "root"

@@ -54,6 +54,7 @@ import dns.query
 import dns.update
 import mysql.connector
 import subprocess
+import os
 
 
 
@@ -135,6 +136,7 @@ def pre_installation():
     Description:
         Cette fonction exécute le script de génération d'un identifiant unique (UID) pour l'installation de SemaOS.
   """
+  os.chdir('..') # On se déplace dans le dossier parent
   file_path = os.path.join("SemaOS","generation_UID.py")
   subprocess.run(["python", file_path])
 

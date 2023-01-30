@@ -1,27 +1,33 @@
 import subprocess
-
-import threading
-
+import sys
 
 
-def get_latency()->str:
+
+def get_latency() -> str:
     """
         Description:
             Cette fonction récupère la latence en effectuant un ping sur google.com
             
         Returns:
             str: Latence en ms
-    """
+    """    # Déterminer la plateforme d'exécution
+    platform = "linux" if "linux" in sys.platform else "windows"
+    # Effectuer un ping
     while True:
-        # Effectuer un ping
         ping = subprocess.run(["ping", "-n", "1", "google.com"], capture_output=True, text=True)
         # Récupérer la latence
         result = ping.stdout.split()[15]
-        return result.split("=")[1]
-        
+        try:
+            if platform == "linux":
+                latency = result.split("=")[1]
+            else:
+                latency = result.split("=")[1]
+        except IndexError:
+            latency = None
+        return latency
 
 
-def cli_latence():
+def api_get_latence():
     """
         Description:
             Cette fonction effectue un ping sur google.com et retourne la latence dans un dictionnaire
@@ -29,21 +35,12 @@ def cli_latence():
         Returns:
             dict: {"latency": latence en ms}
     """
-    while True:
-        # Effectuer un ping
-        ping = subprocess.run(["ping", "-n", "1", "google.com"], capture_output=True, text=True)
-        # Récupérer la latence
-        result = ping.stdout.split()[15]
-        return { "latency": result.split("=")[1]}
-
-def run_cli_latency():
-    """
-        Description:
-            Cette fonction lance un thread qui appelle la fonction cli_latency en boucle
-    """
-    thread = threading.Thread(target=cli_latence())
-    thread.start()
+    
+    ping = subprocess.run(["ping", "-n", "1", "google.com"], capture_output=True, text=True)
+    # Récupérer la latence
+    result = ping.stdout.split()[15]
+    return { "latency": result.split("=")[1]}
 
     
 if __name__ == "__main__":
-    run_cli_latency()
+   api_get_latence()

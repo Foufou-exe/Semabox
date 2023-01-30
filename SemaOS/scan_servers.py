@@ -48,6 +48,30 @@ def scan_nmap()->str:
         if nm[host]['tcp'][port]['state'] == 'open'
     )
 
+def api_web_scan_nmap() -> dict:
+
+    """
+        Description:
+            Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne un dictionnaire
+            contenant les informations sur les ports ouverts.
+    """
+    
+    # Création d'un objet nmap.PortScanner()
+    nm = nmap.PortScanner()
+
+    # Adresse IP de l'hôte à scanner
+    host = get_ip_address()
+
+    # On scanne l'hôte en utilisant l'option -sS (SYN scan)
+    nm.scan(host, arguments='-sS')
+
+    scan_results = {
+        port: {'port': port, 'state': data['state'], 'service': data['name']}
+        for port, data in nm[host]['tcp'].items()
+        if data['state'] == 'open'
+    }
+    return scan_results
+
 
 def api_scan_nmap() -> dict:
 

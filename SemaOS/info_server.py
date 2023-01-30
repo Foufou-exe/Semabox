@@ -12,15 +12,15 @@
 # Import des modules Python nécessaires
 import socket
 import platform
-import sys
 import requests
 import ipaddress
+import psutil
 import os
-
+import netifaces
 
 
 # Importe de nos modules Python personnalisés
-from generation_UID import lire_fichier
+from SemaOS.generation_UID import lire_fichier
 
 
 
@@ -33,6 +33,24 @@ def get_hostname()->str:
     return platform.node()
 
 
+def get_interface_openvpn()->str:
+        
+    """
+        Cette fonction retourne le nom de l'interface réseau utilisée par OpenVPN.
+    """
+    for process in psutil.process_iter():
+        if process.name() == "openvpn":
+            for conn in process.connections():
+                if conn.type == socket.SOCK_STREAM:
+                    openvpn = conn.raddr.interface
+                    
+    if openvpn:
+        addresses = netifaces.ifaddresses(openvpn)
+    if netifaces.AF_INET in addresses:
+        for link in addresses[netifaces.AF_INET]:
+            return link['addr']
+        
+    
 
 
 def get_ip_address() -> str:
@@ -107,11 +125,13 @@ def get_public_ip()->str:
     data = response.json()
     return data["ip"]
 
+def api_get_public_ip(ip=get_public_ip())->dict:
+    return {"ip_public": ip}
 
 
 
 
-def api_info_server(version,lire_uid,hostname,ip,dns,ip_public)->dict:
+def api_info_server(version=get_version_semabox(),lire_uid=lire_fichier(),hostname=get_hostname(),ip=get_ip_address(),dns=get_dns(get_ip_address()),ip_public=get_public_ip())->dict:
     
     """
         Description:
@@ -130,7 +150,7 @@ def api_info_server(version,lire_uid,hostname,ip,dns,ip_public)->dict:
     
     
     
-def cli_get_info_server():
+def cli_get_info_server(version=get_version_semabox(),lire_uid=lire_fichier(),hostname=get_hostname(),ip=get_ip_address(),dns=get_dns(get_ip_address()),ip_public=get_public_ip()):
     
     """
         Description:
@@ -140,12 +160,12 @@ def cli_get_info_server():
             dict: informations du serveur
     """
     return {
-        'Hostname': get_hostname(),
-        'IP': get_ip_address(),
-        'IP Public': get_public_ip(),
-        'DNS': get_dns(get_ip_address()),
-        'UID': lire_fichier(),
-        'Version Semabox': get_version_semabox()
+        'hostname': hostname,
+        'ip': ip,
+        'ip_public': ip_public,
+        'dns': dns,
+        'uid': lire_uid,
+        'version_semabox': version
     }
     
     
@@ -153,12 +173,5 @@ def cli_get_info_server():
     
 # Si ce fichier est exécuté directement, on appelle la fonction api_info_server()
 if __name__ == "__main__":
-    api_info_server(
-        version=get_version_semabox(),
-        lire_uid=lire_fichier(),
-        hostname=get_hostname(),
-        ip=get_ip_address(),
-        dns=get_dns(get_ip_address()),
-        ip_public=get_public_ip()
-    )
+    api_info_server()
 
