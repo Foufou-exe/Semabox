@@ -25,34 +25,20 @@ from SemaOS.info_server import get_ip_address
 
 
 # Fonctions
-def scan_nmap()->str:
-    
-    """
-        Description:
-            Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne une chaîne de caractères contenant les informations sur les ports ouverts.
-    """
-    
-    # Création d'un objet nmap.PortScanner()
+def scan_nmap() -> str:
     nm = nmap.PortScanner()
-
-    # Adresse IP de l'hôte à scanner
     host = get_ip_address()
-
-    # On scanne l'hôte en utilisant l'option -sS (SYN scan)
     nm.scan(host, arguments='-sS')
-    
-    port = None
-    
-    # On construit la chaîne de caractères à partir des informations sur les ports ouverts
+    result = ''
     for host in nm.all_hosts():
-        if nm[host].has_tcp(port):
-            for port in nm[host]['tcp']:
-                if nm[host]['tcp'][port]['state'] == 'open':
-                    result += f"\nPort {port}/tcp | OPEN | service : {nm[host]['tcp'][port]['name']}"
+        if nm[host].all_tcp():
+            for port, info in nm[host]['tcp'].items():
+                if info['state'] == 'open':
+                    result += f"\nPort {port}/tcp | OPEN | service : {info['name']}"
         else:
             result += f"\nNo open TCP ports found on {host}"
-            
     return result
+
 
 def api_web_scan_nmap() -> dict:
 
