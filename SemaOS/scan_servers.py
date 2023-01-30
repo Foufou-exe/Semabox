@@ -21,7 +21,7 @@ import sys
 
 sys.path.append("SemaOS")
 # Importation des modules Python personnalisés
-from SemaOS.info_server import get_ip_address
+from info_server import get_ip_address
 
 
 # Fonctions
@@ -102,16 +102,17 @@ def cli_get_scan_nmap() -> dict:
 
     # Adresse IP de l'hôte à scanner
     host = get_ip_address()
-
-    # On scanne l'hôte en utilisant l'option -sS (SYN scan)
+    
     nm.scan(host, arguments='-sS')
+    # On scanne l'hôte en utilisant l'option -sS (SYN scan)
 
-    return {
-        port: {'port': f'{port}/tcp', 'state': data['state'] + '✅', 'service': data['name']}
+    scan_results = {
+        port: {'port': port, 'state': data['state'], 'service': data['name']}
         for port, data in nm[host]['tcp'].items()
         if data['state'] == 'open'
     }
+    return scan_results
 
 # Si ce fichier est exécuté directement, on appelle la fonction api_scan_nmap()
 if __name__ == "__main__":
-    api_scan_nmap()
+    print(cli_get_scan_nmap())
