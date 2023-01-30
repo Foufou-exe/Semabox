@@ -41,6 +41,8 @@ def scan_nmap()->str:
     # On scanne l'hôte en utilisant l'option -sS (SYN scan)
     nm.scan(host, arguments='-sS')
     
+    port = None
+    
     # On construit la chaîne de caractères à partir des informations sur les ports ouverts
     for host in nm.all_hosts():
         if nm[host].has_tcp(port):
