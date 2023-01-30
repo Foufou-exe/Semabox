@@ -23,7 +23,7 @@ def creation_dossier(id_semabox):
     """
 
     if os.name == 'nt': # Windows
-        file_path = os.path.join("Semabox", "SemaOS", "Semabox_UID")
+        file_path = os.path.join("SemaOS", "Semabox_UID")
     else: # Linux ou autre
         file_path = os.path.join("/Semabox/SemaOS", "Semabox_UID")
     # Création du dossier "Semabox_UID"
@@ -40,7 +40,7 @@ def lire_fichier():
         Cette fonction lit le fichier "UID.txt" dans le dossier "Semabox_UID" et retourne son contenu.
     """
     if os.name == 'nt': # Windows
-        file_path = os.path.join("Semabox", "SemaOS", "Semabox_UID","UID.txt")
+        file_path = os.path.join("SemaOS", "Semabox_UID","UID.txt")
     else: # Linux ou autre
         file_path = os.path.join("/Semabox/SemaOS", "Semabox_UID","UID.txt")
         
@@ -55,7 +55,7 @@ def check_file():
     """
     # Utiliser os.path.join pour construire le chemin absolu
     if os.name == 'nt': # Windows
-        file_path = os.path.join("Semabox", "SemaOS", "Semabox_UID","UID.txt")
+        file_path = os.path.join("SemaOS", "Semabox_UID","UID.txt")
     else: # Linux ou autre
         file_path = os.path.join("/Semabox/SemaOS", "Semabox_UID","UID.txt")
         

@@ -20,7 +20,7 @@ import os
 
 
 # Importe de nos modules Python personnalisés
-from SemaOS.generation_UID import lire_fichier
+from generation_UID import lire_fichier
 
 
 
@@ -92,7 +92,7 @@ def get_version_semabox()->str:
         Cette fonction retourne la version de SemaBox en lisant le fichier "version.txt" dans le répertoire "Application/modules".
     """
     if os.name == 'nt': # Windows
-        file_path = os.path.join("Semabox", "SemaOS", "version.txt")
+        file_path = os.path.join("SemaOS", "version.txt")
     else: # Linux ou autre
         file_path = os.path.join("/Semabox/SemaOS", "version.txt")
 

@@ -269,9 +269,14 @@ if __name__ == "__main__":
     root = tk.Tk()
     
     # Si le dossier "SEMABOX_UID" n'existe pas
-    if not os.path.exists("./SemaOS/Semabox_UID"):
-        # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
-        creation_dossier(generate_id())
+    if platform.system() == "Windows":
+        if not os.path.exists("SemaOS/Semabox_UID"):
+            # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
+            creation_dossier(generate_id())
+    else:
+        if not os.path.exists("Semabox/SemaOS/Semabox_UID"):
+            # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
+            creation_dossier(generate_id())
     # Création d'une instance de la classe "App" avec en paramètre la fenêtre principale "root"
     app = App(root)
     
