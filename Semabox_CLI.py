@@ -25,7 +25,6 @@ from SemaOS.info_server import cli_get_info_server
 from SemaOS.materiel_server import cli_get_info_system
 from SemaOS.scan_servers import cli_get_scan_nmap
 from SemaOS.server_speedtest import cli_get_speedtest
-from SemaOS.latence import cli_latence
 from SemaOS.ping import cli_ping
 from SemaOS.scan_other_servers import scan_all_machine
 from SemaOS.update_code import *
