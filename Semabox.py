@@ -118,7 +118,7 @@ class App:
         Color_Background_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#999999" ,justify="center" ,text="")
         Color_Background_Label.place(x=720,y=130,width=191,height=586)
 
-        self.Text_Label_Ping=tk.Label(root, font=font2 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text="Ping : " + "" + " ms | Latence : " + "" + " ms")
+        self.Text_Label_Ping=tk.Label(root, font=font2 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text="Ping : " + "" + " ms ")
         self.Text_Label_Ping.place(x=940,y=440,width=338,height=46)
         self.update_ping_latency()
 
@@ -158,7 +158,7 @@ class App:
             root.iconbitmap('SemaOS/assets/images/icons8_code.ico')
             root.tk.call('source','SemaOS/assets/themes/azure.tcl')
         else:
-            root.iconbitmap('/Semabox/SemaOS/assets/images/icons8_code.xpm')
+            root.tk.call('wm', 'iconphoto', root._w, tk.PhotoImage(file='/Semabox/SemaOS/assets/images/code.png'))
             root.tk.call('source','/Semabox/SemaOS/assets/themes/azure.tcl')
         
         # root.tk.call("set_theme", "dark") définit le thème en noir pour l'instance Tk de la fenêtre principale
@@ -262,8 +262,7 @@ class App:
         
     def update_ping_latency(self):
         self.ping = get_ping()
-        self.latency = get_latency()
-        self.Text_Label_Ping["text"] = f"PING : {self.ping} ms | Latence : {self.latency} ms"
+        self.Text_Label_Ping["text"] = f"PING : {self.ping} ms"
         root.after(1000, self.update_ping_latency)
 
         

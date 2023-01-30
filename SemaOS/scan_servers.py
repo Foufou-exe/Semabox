@@ -42,11 +42,15 @@ def scan_nmap()->str:
     nm.scan(host, arguments='-sS')
     
     # On construit la chaîne de caractères à partir des informations sur les ports ouverts
-    return "".join(
-        f"\nPort {port}/tcp | OPEN | service : {nm[host]['tcp'][port]['name']}"
-        for port in nm[host]['tcp']
-        if nm[host]['tcp'][port]['state'] == 'open'
-    )
+    for host in nm.all_hosts():
+        if nm[host].has_tcp():
+            for port in nm[host]['tcp']:
+                if nm[host]['tcp'][port]['state'] == 'open':
+                    result += f"\nPort {port}/tcp | OPEN | service : {nm[host]['tcp'][port]['name']}"
+        else:
+            result += f"\nNo open TCP ports found on {host}"
+            
+    return result
 
 def api_web_scan_nmap() -> dict:
 

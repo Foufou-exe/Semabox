@@ -14,9 +14,8 @@ import socket
 import platform
 import requests
 import ipaddress
-import psutil
 import os
-import netifaces
+
 
 
 # Importe de nos modules Python personnalisés
@@ -33,22 +32,22 @@ def get_hostname()->str:
     return platform.node()
 
 
-def get_interface_openvpn()->str:
+# def get_interface_openvpn()->str:
         
-    """
-        Cette fonction retourne le nom de l'interface réseau utilisée par OpenVPN.
-    """
-    for process in psutil.process_iter():
-        if process.name() == "openvpn":
-            for conn in process.connections():
-                if conn.type == socket.SOCK_STREAM:
-                    openvpn = conn.raddr.interface
+#     """
+#         Cette fonction retourne le nom de l'interface réseau utilisée par OpenVPN.
+#     """
+#     for process in psutil.process_iter():
+#         if process.name() == "openvpn":
+#             for conn in process.connections():
+#                 if conn.type == socket.SOCK_STREAM:
+#                     openvpn = conn.raddr.interface
                     
-    if openvpn:
-        addresses = netifaces.ifaddresses(openvpn)
-    if netifaces.AF_INET in addresses:
-        for link in addresses[netifaces.AF_INET]:
-            return link['addr']
+#     if openvpn:
+#         addresses = netifaces.ifaddresses(openvpn)
+#     if netifaces.AF_INET in addresses:
+#         for link in addresses[netifaces.AF_INET]:
+#             return link['addr']
         
     
 
