@@ -41,14 +41,16 @@ from SemaOS.scan_servers import *
 """
 
 
-from flask import Flask, render_template, jsonify, abort, Response, request, session
+from flask import Flask, render_template, jsonify, abort, Response, request, session # Import des modules Flask
+from flask_caching  import Cache # Import du module Flask-Cache
 
 
 
 
 # Création de l'application Flask
-app = Flask(__name__)
-app.secret_key = "keys/secret_key"
+app = Flask(__name__) 
+app.secret_key = "keys/secret_key" # Clé secrète pour la session
+cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 300}) # Configuration du cache
 
 
 
@@ -85,6 +87,9 @@ def create_script(script)->dict:
     # Retour de la chaîne de caractères au format JSON avec l'en-tête 'Content-Type: application/json'
     return jsonify(result_script_json=result_script_json)
 
+
+
+
 # Définition d'une route qui accepte les méthodes POST, GET
 @app.route('/api/scan_port_other_servers.py/<arg>/<ip>', methods=['POST', 'GET'])
 def add_script(ip, arg):
@@ -118,7 +123,16 @@ def add_script(ip, arg):
     # Retour de la chaîne de caractères au format JSON avec l'en-tête 'Content-Type: application/json'
     return jsonify(result_script_json=result_script_json)
 
-@app.route('/')
+
+
+
+
+
+
+
+
+@app.route('/') # Définition d'une route qui accepte les méthodes GET
+@cache.cached() # Cache la page html
 def index():
     """
         Description de la fonction index:
@@ -136,7 +150,17 @@ def index():
     
     return render_template('Pages/SemaWEB/index.html', info_server=info_server)
 
-@app.route('/tools', methods=['GET', 'POST'])
+
+
+
+
+
+
+
+
+
+@app.route('/tools', methods=['GET', 'POST']) # Définition d'une route qui accepte les méthodes POST, GET
+@cache.cached() # Cache la page html
 def tools():
     """
         La fonction tools implémente le point d'entrée '/tools' d'une application Flask et gère les requêtes GET et POST.
@@ -217,7 +241,13 @@ def tools():
     return render_template('Pages/SemaWeb/tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
 
 
-@app.route('/propos')
+
+
+
+
+
+@app.route('/propos') # Définition d'une route qui accepte les méthodes GET
+@cache.cached() # Cache la page html
 def about():
     """ 
         Description:
@@ -226,10 +256,16 @@ def about():
     return render_template('Pages/SemaWeb/propos.html')
 
 
+
+
+
+
+
 # Fonction Erreur d'affichage
 
 # Définit un gestionnaire d'erreur pour le code d'erreur HTTP 404 (page non trouvée)
-@app.errorhandler(404)
+@app.errorhandler(404) # Définition d'une route qui accepte les méthodes GET
+@cache.cached() # Cache la page html
 def page_not_found(error):
     """
         Description:
@@ -239,8 +275,14 @@ def page_not_found(error):
     # Retourne la réponse générée par le template de la page d'erreur HTTP 404, ainsi que le code d'erreur 404
     return render_template('ErrorPages/HTTP404.html'), 404
 
+
+
+
+
+
 # Définit un gestionnaire d'erreur pour le code d'erreur HTTP 400 (requête incorrecte)
-@app.errorhandler(400)
+@app.errorhandler(400) # Définition d'une route qui accepte les méthodes GET
+@cache.cached() # Cache la page html
 def page_not_found3(error):
     """ 
         Cette fonction est un gestionnaire d'erreur pour l'erreur HTTP 400 (requête incorrecte). Elle est appelée chaque fois qu'une demande entraîne une erreur 400.
@@ -249,8 +291,15 @@ def page_not_found3(error):
     # Retourne la réponse générée par le template de la page d'erreur HTTP 400, ainsi que le code d'erreur 400
     return render_template('ErrorPages/HTTP400.html'), 400
 
+
+
+
+
+
+
 # Définit un gestionnaire d'erreur pour le code d'erreur HTTP 500 (erreur interne du serveur)
-@app.errorhandler(500)
+@app.errorhandler(500) # Définition d'une route qui accepte les méthodes GET
+@cache.cached() # Cache la page html
 def page_not_found2(error):
     """ 
         Cette fonction est un gestionnaire d'erreur pour l'erreur HTTP 500 (erreur interne du serveur). Elle est appelée chaque fois qu'une demande entraîne une erreur 500. 
@@ -259,8 +308,15 @@ def page_not_found2(error):
     # Retourne la réponse générée par le template de la page d'erreur HTTP 500, ainsi que le code d'erreur 500
     return render_template('ErrorPages/HTTP500.html'), 500
 
+
+
+
+
+
+
 # Définit un gestionnaire d'erreur pour le code d'erreur HTTP 501 (fonctionnalité non implémentée)
-@app.errorhandler(501)
+@app.errorhandler(501) # Définition d'une route qui accepte les méthodes GET
+@cache.cached() # Cache la page html
 def page_not_found4(error):
     """ 
         Cette fonction est un gestionnaire d'erreur pour l'erreur HTTP 501 (fonctionnalité non implémentée). Elle est appelée chaque fois qu'une demande entraîne une erreur 501.
@@ -268,7 +324,15 @@ def page_not_found4(error):
     # Retourne la réponse générée par le template de la page d'erreur HTTP 501, ainsi que le code d'erreur 501
     return render_template('ErrorPages/HTTP501.html'), 501
 
-@app.errorhandler(404)
+
+
+
+
+
+
+
+@app.errorhandler(404) # Définition d'une route qui accepte les méthodes GET
+@cache.cached() # Cache la page html
 def page_not_found(error):
     """ 
         Cette fonction est un gestionnaire d'erreur pour l'erreur HTTP 404 (page non trouvée). Elle est appelée chaque fois qu'une demande entraîne une erreur 404.
@@ -276,13 +340,29 @@ def page_not_found(error):
     # Si la ressource n'a pas été modifiée, renvoyer une réponse avec le code d'erreur 304
     return Response(render_template('ErrorPages/HTTP304.html'), status=304)
 
-@app.route('/<path:path>')
+
+
+
+
+
+
+
+
+@app.route('/<path:path>') # Définition d'une route qui accepte les méthodes GET
+@cache.cached() # Cache la page html
 def catch_all(path):
     """ 
         Cette fonction est un gestionnaire d'erreur pour l'erreur HTTP 404 (page non trouvée). Elle est appelée chaque fois qu'une demande entraîne une erreur 404.
     """
     # Si l'utilisateur accède à un dossier qui n'existe pas, générer une erreur 404
     abort(404)
+    
+    
+    
+    
+    
+    
+    
 
 if __name__ == '__main__':
     # on lance l'application Flask avec le mode debug activé et sur l'adresse IP de la machine ainsi que sur le port donnée
