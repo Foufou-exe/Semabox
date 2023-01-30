@@ -32,7 +32,6 @@ from SemaOS.scan_servers import scan_nmap  # Import de la fonction du module 'sc
 from SemaOS.server_speedtest import get_download_speed, get_upload_speed  # Import des fonctions du module 'server_speedtest'
 from SemaOS.update_code import *  # Import de la fonction du module 'update_code'
 from SemaOS.ping import get_ping  # Import de la fonction du module 'ping'
-from SemaOS.latence import get_latency  # Import de la fonction du module 'latence'
 from SemaOS.scan_other_servers import cli_scan_machine  # Import de la fonction du module 'scan_other_servers'
 # Création de la fenêtre principale (main window)
 class App:
@@ -56,7 +55,6 @@ class App:
         ip = get_ip_address()  # On récupère l'adresse IP de l'hôte
         dns_resolv = get_dns(ip)  # On récupère le nom de domaine associé à l'adresse IP de l'hôte
         self.ping = 0 # On initialise la variable ping à 0
-        self.latency = 0 # On initialise la variable latency à 0
         
         # Configuration de la fenêtre
         root.title("Semabox")  # Titre de la fenêtre
