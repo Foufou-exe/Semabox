@@ -1,9 +1,0 @@
-language: python
-python:
-  - "3.11.1"
-
-install: 
-  - pip install -r install/requirement.txt
-
-script: 
-  - Semabox_CLI.py
