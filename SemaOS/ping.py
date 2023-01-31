@@ -5,7 +5,7 @@ import threading
 
 
 
-def get_ping()->int:
+def get_ping() -> int:
     """
         Envoie une requête ICMP et renvoie la durée du ping en millisecondes.
         
@@ -17,9 +17,7 @@ def get_ping()->int:
     """
     while True:
         icmp = icmplib.ping("google.com", count=1)
-        return int(icmp.avg_rtt)
-
-    
+        return int(icmp.avg_rtt)  
         
 def cli_ping():
     while True:
