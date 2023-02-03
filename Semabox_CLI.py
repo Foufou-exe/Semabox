@@ -230,9 +230,19 @@ def menu()->None:
         print("Choix non valide.")
         afficher_menu()
         
-        
+def verification_permission():
+    try:
+        if platform.system() == "Linux":
+            if not os.getuid() == 0:
+                print(colored("Vous devez être root pour lancer cette application !!","yellow"))
+                sys.exit()
+    except:
+        pass
+    
 
 if __name__ == "__main__":
+    
+    verification_permission()
     check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
     menu()
 

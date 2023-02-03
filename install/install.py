@@ -55,11 +55,12 @@ import dns.update
 import mysql.connector
 import subprocess
 import os
-
+import sys
 
 
 
 # Importe de nos modules Python personnalisés
+
 from SemaOS.info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns_semabox, get_version_semabox as version_semabox, get_public_ip as ip_public
 from SemaOS.generation_UID import lire_fichier as uid
 
@@ -143,7 +144,7 @@ def pre_installation():
   
   
 if __name__ == "__main__":
-  pre_installation()
+  #pre_installation()
   # Appelle de la Focntion add_dns_record :  Ajout de l'enregistrement DNS
   add_dns_record(
     domain='cma4.box',# domain : le nom de domaine auquel ajouter l'enregistrement
