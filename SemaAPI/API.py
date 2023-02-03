@@ -50,7 +50,7 @@ from flask_caching  import Cache # Import du module Flask-Cache
 # Création de l'application Flask
 app = Flask(__name__) 
 app.secret_key = "keys/secret_key" # Clé secrète pour la session
-cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 300}) # Configuration du cache
+cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 30}) # Configuration du cache
 
 
 
@@ -160,7 +160,6 @@ def index():
 
 
 @app.route('/tools', methods=['GET', 'POST']) # Définition d'une route qui accepte les méthodes POST, GET
-@cache.cached() # Cache la page html
 def tools():
     """
         La fonction tools implémente le point d'entrée '/tools' d'une application Flask et gère les requêtes GET et POST.
@@ -217,6 +216,7 @@ def tools():
         # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
         if speedtest is None or not isinstance(speedtest, dict):
             return "Aucune information sur le serveur disponible"
+        
     else:
         speedtest = " "
 

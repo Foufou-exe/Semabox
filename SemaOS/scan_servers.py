@@ -72,7 +72,7 @@ def api_web_scan_nmap() -> dict:
     
     except KeyError as e:
         if e.args[0] == 'tcp':
-            return {"message": "Aucun Port ouvert"}
+            return({"message": "Aucun Port ouvert"})
 
 
 
