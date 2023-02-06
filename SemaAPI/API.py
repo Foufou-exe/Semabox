@@ -21,6 +21,7 @@ import ast # Module qui permet de convertir une chaîne de caractères en dictio
 import json # Module qui permet de convertir un dictionnaire Python en une chaîne de caractères JSON
 import sys 
 import os 
+import logging # Module qui permet de gérer les logs
 
 # Ajout du chemin d'accès au dossier parent
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -51,6 +52,20 @@ from flask_caching  import Cache # Import du module Flask-Cache
 app = Flask(__name__) 
 app.secret_key = "keys/secret_key" # Clé secrète pour la session
 cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 30}) # Configuration du cache
+
+# Import du logging pour les logs
+logging.basicConfig(filename='SemaAPI/flask.log', level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+
+@app.after_request
+def after_request(response):
+    """
+        C'est une fonction Flask en Python avec le décorateur @app.after_request qui s'exécute après chaque requête HTTP. 
+        Il enregistre une chaîne contenant la méthode HTTP, l'URL et le code de statut de la réponse en utilisant la méthode info du journal associé à l'application Flask. 
+        Finalement, il retourne la réponse HTTP.
+    """
+    log_string = f'{request.method} {request.url} {response.status_code}'
+    app.logger.info(log_string)
+    return response
 
 
 
@@ -147,6 +162,7 @@ def index():
     if info_server is None or not isinstance(info_server, dict):
         return "Aucune information sur le serveur disponible"
     
+    app.logger.debug("request")
     
     return render_template('Pages/SemaWEB/index.html', info_server=info_server)
 
@@ -359,9 +375,7 @@ def catch_all(path):
     
     
     
-    
-    
-    
+
     
 
 if __name__ == '__main__':
