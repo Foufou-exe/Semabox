@@ -22,6 +22,7 @@ import json # Module qui permet de convertir un dictionnaire Python en une chaî
 import sys 
 import os 
 import logging # Module qui permet de gérer les logs
+import time # Module qui permet de gérer le temps
 
 # Ajout du chemin d'accès au dossier parent
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -53,9 +54,11 @@ app = Flask(__name__)
 app.secret_key = "keys/secret_key" # Clé secrète pour la session
 cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 30}) # Configuration du cache
 
+name_file = f'Flask_{time.strftime("%Y-%m-%d_%H")}.log' # Nom du fichier de logs
 # Import du logging pour les logs
-logging.basicConfig(filename='SemaAPI/flask.log', level=logging.INFO, format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.basicConfig(filename=f'SemaAPI/logs/{name_file}', format='%(asctime)s--[%(levelname)s] = %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
+# Définition de la fonction after_request qui s'exécute après chaque requête HTTP
 @app.after_request
 def after_request(response):
     """

@@ -60,9 +60,11 @@ import sys
 
 
 # Importe de nos modules Python personnalisés
+os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # Ajoute le chemin vers le dossier 'Semabox' afin de pouvoir importer nos modules Python personnalisés.
+sys.path.append("SemaOS") # Ajoute le chemin vers le dossier 'SemaOS' afin de pouvoir importer nos modules Python personnalisés.
 
-from SemaOS.info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns_semabox, get_version_semabox as version_semabox, get_public_ip as ip_public
-from SemaOS.generation_UID import lire_fichier as uid
+from info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns_semabox, get_version_semabox as version_semabox, get_public_ip as ip_public
+from generation_UID import lire_fichier as uid
 
 
 # Ajout d'un enregistrement DNS
@@ -137,34 +139,34 @@ def pre_installation():
     Description:
         Cette fonction exécute le script de génération d'un identifiant unique (UID) pour l'installation de SemaOS.
   """
-  os.chdir('..') # On se déplace dans le dossier parent
+  # On se déplace dans le dossier parent
   file_path = os.path.join("SemaOS","generation_UID.py")
   subprocess.run(["python", file_path])
 
   
   
 if __name__ == "__main__":
-  #pre_installation()
+  pre_installation()
   # Appelle de la Focntion add_dns_record :  Ajout de l'enregistrement DNS
-  add_dns_record(
-    domain='cma4.box',# domain : le nom de domaine auquel ajouter l'enregistrement
-    ip_dns='192.168.100.253', # serveur_dns : l'adresse IP du serveur DNS auquel envoyer la requête
-    host=hostname(),# hostname : le nom de l'hôte à ajouter 
-    new_ip=ip(), # ip : l'adresse IP de l'hôte à ajouter
-    enregistrement='A', # enregistrement : le type d'enregistrement (A, AAAA, etc.)
-    ttl=300 
-  ) # ttl : le temps de vie (en secondes) de l'enregistrement
+  # add_dns_record(
+  #   domain='cma4.box',# domain : le nom de domaine auquel ajouter l'enregistrement
+  #   ip_dns='192.168.100.253', # serveur_dns : l'adresse IP du serveur DNS auquel envoyer la requête
+  #   host=hostname(),# hostname : le nom de l'hôte à ajouter 
+  #   new_ip=ip(), # ip : l'adresse IP de l'hôte à ajouter
+  #   enregistrement='A', # enregistrement : le type d'enregistrement (A, AAAA, etc.)
+  #   ttl=300 
+  # ) # ttl : le temps de vie (en secondes) de l'enregistrement
 
-  # Appelle de la Focntion add_bdd_record :  Insertion des données dans la base de données
-  add_bdd_record(
-    sema_id=uid(), # uid : l'identifiant unique de la semabox
-    sema_hostname=hostname(), # hostname : le nom de l'hôte de la semabox
-    sema_ip=ip(),
-    sema_ip_public=ip_public(), # ip_pubic : l'adresse IP publique de la semabox 
-    sema_dns=dns_semabox(ip()), #+ "".join(".cma4.box") , # ip : l'adresse IP de la semabox
-    sema_version=version_semabox(),  # version_semabox : la version de la semabox
-    user='semabox', # user : l'utilisateur de la base de données
-    password='Mspr_epsi1!', # password : le mot de passe de l'utilisateur
-    host='192.168.150.240', # host : l'adresse IP du serveur de la base de données
-    database='semabox' # database : le nom de la base de données
-  )
+  # # Appelle de la Focntion add_bdd_record :  Insertion des données dans la base de données
+  # add_bdd_record(
+  #   sema_id=uid(), # uid : l'identifiant unique de la semabox
+  #   sema_hostname=hostname(), # hostname : le nom de l'hôte de la semabox
+  #   sema_ip=ip(),
+  #   sema_ip_public=ip_public(), # ip_pubic : l'adresse IP publique de la semabox 
+  #   sema_dns=dns_semabox(ip()), #+ "".join(".cma4.box") , # ip : l'adresse IP de la semabox
+  #   sema_version=version_semabox(),  # version_semabox : la version de la semabox
+  #   user='semabox', # user : l'utilisateur de la base de données
+  #   password='Mspr_epsi1!', # password : le mot de passe de l'utilisateur
+  #   host='192.168.150.240', # host : l'adresse IP du serveur de la base de données
+  #   database='semabox' # database : le nom de la base de données
+  # )

@@ -55,9 +55,9 @@ def check_file():
     """
     # Utiliser os.path.join pour construire le chemin absolu
     if os.name == 'nt': # Windows
-        file_path = os.path.join("SemaOS", "Semabox_UID","UID.txt")
+        file_path = os.path.join("SemaOS/Semabox_UID")
     else: # Linux ou autre
-        file_path = os.path.join("/Semabox/SemaOS", "Semabox_UID","UID.txt")
+        file_path = os.path.join("/Semabox/SemaOS/Semabox_UID")
         
     if not os.path.exists(file_path):
         creation_dossier(generate_id())
