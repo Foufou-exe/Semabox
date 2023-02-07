@@ -24,6 +24,8 @@ RUN pip install -r install/requirement.txt
 # Install Manuel
 RUN python install/install_manuel.py 
 
+RUN rm -f Semabox.py
+
 # Expose ports
 EXPOSE 22
 EXPOSE 80
