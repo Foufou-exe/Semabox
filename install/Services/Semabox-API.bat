@@ -1,0 +1,7 @@
+@ECHO OFF
+
+REM Variables
+
+SET SERVICE_REPERTOIRE=..\Semabox\SemaAPI\API.py
+
+python %SERVICE_REPERTOIRE% 

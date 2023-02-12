@@ -10,6 +10,8 @@
         Il utilise également des concepts de threading pour lancer certaines fonctions en arrière-plan comme cli_latence. 
         Il permet de scanner des machines dans un réseau local.
 """
+
+import contextlib
 # Importation des modules Python
 from pyfiglet import figlet_format  # Permet de créer un titre décoré
 from prettytable import PrettyTable # Permet d'afficher les informations de manière structurée sous forme de tableau
@@ -231,13 +233,10 @@ def menu()->None:
         afficher_menu()
         
 def verification_permission():
-    try:
-        if platform.system() == "Linux":
-            if not os.getuid() == 0:
-                print(colored("Vous devez être root pour lancer cette application !!","yellow"))
-                sys.exit()
-    except:
-        pass
+    with contextlib.suppress(Exception):
+        if platform.system() == "Linux" and os.getuid() != 0:
+            print(colored("Vous devez être root pour lancer cette application !!","yellow"))
+            sys.exit()
     
 
 if __name__ == "__main__":

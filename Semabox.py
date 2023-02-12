@@ -14,15 +14,16 @@
         Le script termine en exécutant la boucle principale de Tkinter pour afficher la fenêtre et rendre possible l'interaction avec l'utilisateur.
 """
 
+
+import contextlib
 # Importation des modules Pythons nécessaires
-import ctypes
 import os
 import tkinter as tk
 import tkinter.font as tkFont
 import platform
 from tkinter.ttk import *
 from tkinter import messagebox
-import sys
+
 
 
 
@@ -267,12 +268,9 @@ class App:
         root.after(1000, self.update_ping_latency)
 
 def verification_permission():
-    try:
-        if platform.system() == "Linux":
-            if not os.getuid() == 0:
-                print("Vous devez être root pour lancer cette application")
-    except:
-        pass
+    with contextlib.suppress(Exception):
+        if platform.system() == "Linux" and os.getuid() != 0:
+            print("Vous devez être root pour lancer cette application")
     
 
     
@@ -281,10 +279,10 @@ def verification_permission():
 if __name__ == "__main__":
     
     verification_permission()
-    
+
     # Update du code
     check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
-    
+
     # Création d'une instance de la classe Tk (fenêtre principale de l'application)
     root = tk.Tk()
     # Si le dossier "SEMABOX_UID" n'existe pas
@@ -292,11 +290,10 @@ if __name__ == "__main__":
         if not os.path.exists("SemaOS/Semabox_UID"):
             # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
             creation_dossier(generate_id())
-    else:
-        if not os.path.exists("/Semabox/SemaOS/Semabox_UID"):
-            # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
-            creation_dossier(generate_id())
-            
+    elif not os.path.exists("/Semabox/SemaOS/Semabox_UID"):
+        # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
+        creation_dossier(generate_id())
+
     # Création d'une instance de la classe "App" avec en paramètre la fenêtre principale "root"
     app = App(root)
     # Lancement de la boucle principale de l'application
