@@ -184,6 +184,7 @@ def main():
     host='192.168.150.240', # host : l'adresse IP du serveur de la base de données
     database='semabox' # database : le nom de la base de données
   )
+
   
   
 if __name__ == "__main__":

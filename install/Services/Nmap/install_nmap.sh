@@ -4,8 +4,8 @@ nmap_version_root() {
     # Vérifier si apt-get est disponible
     if command -v apt-get &>/dev/null; then
     # Installer Nmap avec apt-get
-    apt-get update
-    apt-get install nmap
+    apt-get update -y
+    apt-get install nmap -y
 
     # Vérifier que Nmap est installé
     if command -v nmap &>/dev/null; then
@@ -17,8 +17,8 @@ nmap_version_root() {
     # Vérifier si yum est disponible
     elif command -v yum &>/dev/null; then
     # Installer Nmap avec yum
-    yum update
-    yum install nmap
+    yum update -y
+    yum install nmap -y
 
     # Vérifier que Nmap est installé
     if command -v nmap &>/dev/null; then
@@ -38,8 +38,8 @@ nmap_version_non_root() {
     # Vérifier si apt-get est disponible
     if command -v apt-get &>/dev/null; then
     # Installer Nmap avec apt-get
-    sudo apt-get update
-    sudo apt-get install nmap
+    sudo apt-get update -y
+    sudo apt-get install nmap -y
 
     # Vérifier que Nmap est installé
     if command -v nmap &>/dev/null; then
@@ -51,8 +51,8 @@ nmap_version_non_root() {
     # Vérifier si yum est disponible
     elif command -v yum &>/dev/null; then
     # Installer Nmap avec yum
-    sudo yum update
-    sudo yum install nmap
+    sudo yum update -y
+    sudo yum install nmap -y
 
     # Vérifier que Nmap est installé
     if command -v nmap &>/dev/null; then
@@ -74,9 +74,9 @@ if command -v nmap &>/dev/null; then
 fi
 
 if [ "$(id -u)" = "0" ]; then
-    nmap_version_root()
+    nmap_version_root
 else
-    nmap_version_non_root()
+    nmap_version_non_root
 fi
 
 
