@@ -65,3 +65,9 @@ else
     echo "Python 3.11.1 est déjà installée"
     python --version
 fi
+
+if [ "$(id -u)" = "0" ]; then
+  $package_manager install python3-tkinter -y
+else
+  sudo $package_manager install python3-tkinter -y
+fi
