@@ -61,7 +61,7 @@ name_file = f'Flask_{time.strftime("%Y-%m-%d_%H")}.log' # Nom du fichier de logs
 if os.name == 'nt': # Windows
     direction_file = f'SemaAPI/logs/{name_file}'
 else:
-    direction_file = f'logs/{name_file}'
+    direction_file = f'SemaAPI/logs/{name_file}'
 # Import du logging pour les logs
 logging.basicConfig(filename=direction_file, format='%(asctime)s--[%(levelname)s] = %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
