@@ -58,14 +58,24 @@ def define_os()->None:
         Retour: Aucun
     """
     if sys.platform == "linux":
-        execution_linux_1=subprocess.run(["bash", "Services", "create_service.sh"])
+        subprocess.run(["bash", "Services", "create_service.sh"])
     else:
-        execution_windows_1=subprocess.run(["Services", "create_service.bat"])
+        subprocess.run(["Services", "create_service.bat"])
 
-    
+def install_nmap()->None:
+    """
+        Description: Cette fonction permet d'installer Nmap sur Linux et windows.
+        Paramètres: Aucun
+        Retour: Aucun
+    """
+    if sys.platform == "linux":
+        subprocess.run(["bash", "Services/Nmap/install_nmap.sh"])
+    else:
+        subprocess.run(["Services", "Nmap" ,"install_nmap.ps1"])
 
 if __name__ == "__main__":
     define_permissions_linux()
     version_python()
+    install_nmap()
     define_os()
     pre_installation()

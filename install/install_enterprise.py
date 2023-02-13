@@ -58,7 +58,7 @@ import os
 import sys
 
 # Importation de nos modules Python personnalisés qui se trouvent dans le dossier 'install'
-from install_single_user import version_python, define_os, define_permissions_linux
+from install_single_user import version_python, define_os, define_permissions_linux, install_nmap
 
 # Importe de nos modules Python personnalisés
 os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # Ajoute le chemin vers le dossier 'Semabox' afin de pouvoir importer nos modules Python personnalisés.
@@ -158,6 +158,7 @@ def main():
   """
   define_permissions_linux()
   version_python()
+  install_nmap()
   define_os()
   pre_installation()
   #Appelle de la Focntion add_dns_record :  Ajout de l'enregistrement DNS
