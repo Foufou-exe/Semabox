@@ -23,8 +23,7 @@ import tkinter.font as tkFont
 import platform
 from tkinter.ttk import *
 from tkinter import messagebox
-
-
+from tkinter import *
 
 
 # Importation des modules perso
@@ -36,6 +35,7 @@ from SemaOS.server_speedtest import get_download_speed, get_upload_speed  # Impo
 from SemaOS.update_code import *  # Import de la fonction du module 'update_code'
 from SemaOS.ping import get_ping  # Import de la fonction du module 'ping'
 from SemaOS.scan_other_servers import cli_scan_machine  # Import de la fonction du module 'scan_other_servers'
+from SemaOS.scan_port_other_servers import scan_port_other_machine # Import de la fonction du module 'scan_port_other_servers'
 
 # Création de la fenêtre principale (main window)
 class App:
@@ -147,6 +147,15 @@ class App:
 
         Button_speedtest_clear=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="CLEAR" ,command=self.Button_speedtest_clear_command)
         Button_speedtest_clear.place(x=1050,y=660,width=128,height=40)
+            
+        self.tInput=Entry(root)
+        self.tInput.place(x=740,y=180,width=150,height=30)
+
+        self.Title_tInput=tk.Label(root, font=font3 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="IP de votre Réseaux")
+        self.Title_tInput.place(x=740,y=140,width=150,height=30)
+        
+        Button_scan_via_ip=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SCAN PORT IP" ,command=self.Button_scan_via_ip)
+        Button_scan_via_ip.place(x=740,y=220,width=150,height=36)
         
         # La ligne self.menu = tk.Menu(root) crée un menu tkinter et l'attribue à la variable self.menu. 
         # Cela permet de créer un menu dans la fenêtre principale.
@@ -267,6 +276,14 @@ class App:
         self.Text_Label_Ping["text"] = f"PING : {self.ping} ms"
         root.after(1000, self.update_ping_latency)
 
+    def getInputBoxValue(self):
+       return self.tInput.get()
+        
+
+    def Button_scan_via_ip(self):
+        result_scan2 = scan_port_other_machine(self.getInputBoxValue())
+        self.Resultat_Scan_Nmap_Label["text"] = result_scan2
+
 def verification_permission():
     with contextlib.suppress(Exception):
         if platform.system() == "Linux" and os.getuid() != 0:
@@ -298,3 +315,5 @@ if __name__ == "__main__":
     app = App(root)
     # Lancement de la boucle principale de l'application
     root.mainloop()    
+    
+    

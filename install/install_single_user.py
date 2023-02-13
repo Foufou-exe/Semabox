@@ -1,6 +1,7 @@
 #!/usr/bin/env python3.11.1
 
 # Ajout de modules Python
+import contextlib
 import sys
 import subprocess
 import os
@@ -29,7 +30,7 @@ def version_python()->None:
 
             
 
-def define_permissions_linux()->None:
+def define_permissions_linux() -> None:
     """
         Description: Cette fonction permet de définir les permissions d'exécution du script.
             - Si le script est exécuté sur Linux, on vérifie si l'utilisateur a les permissions d'exécution.
@@ -39,7 +40,7 @@ def define_permissions_linux()->None:
             - Si l'utilisateur n'a pas les permissions d'exécution, on demande à l'utilisateur de saisir son mot de passe pour lui accorder les permissions d'exécution.
             - Si l'utilisateur a les permissions d'exécution, le script continue son exécution.
     """
-    try:
+    with contextlib.suppress(Exception):
         if sys.platform == "linux":
             excution_permission=subprocess.run(["bash", "permission.sh"])
             if excution_permission.returncode == 0:
@@ -47,8 +48,6 @@ def define_permissions_linux()->None:
             else:
                 print("Permissions refusées")
                 subprocess.run(["bash", "permission.sh"])
-    except:
-        pass
 
 def define_os()->None:
     """

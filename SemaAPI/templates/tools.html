@@ -110,16 +110,36 @@
                                             {% endfor %}
                                         </tr>
                                     </table>
-                                {% else %}
+
+                                {% elif scanall_results %}
+                                    <table class="tableau-scan">
+                                        <tr>
+                                            <th>host</th>
+                                            {% for key, value in scanall_results %}
+                                                <td>{{ value['host'] }}</td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <th>Etat</th>
+                                            {% for key, value in scanall_results %}
+                                                <td>{{ value['state'] }}✅</td>
+                                            {% endfor %}
+                                        </tr>
+                                        <tr>
+                                            <th>hostname</th>
+                                            {% for key, value in scanall_results %}
+                                                <td>{{ value['hostname'] }}</td>
+                                            {% endfor %}
+                                        </tr>
+                                    </table>
+                                {% endif %}
                                 <div class="container-text2-scan">
-                                    <p>Aucun Scan encours...</p><br>
+                                    <p>Aucun Scan actuel...</p><br>
                                     <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Travel%20and%20places/Hourglass%20Not%20Done.png" alt="Hourglass Not Done" class="image-text-scan" />
                                 </div>
-                                {% endif %}
                             <form action="{{ url_for('tools') }}" method="post" class="form2">
-                                    <button class="buttom-body-scan" name="scan" type="submit">Scan</button>
-                                    <br>
-                                    <button class="buttom-body-scan" name="reset" type="submit">Reset</button>
+                                <button class="buttom-body-scan" name="scan" type="submit">Scan local</button>
+                                <button class="buttom-body-scan" name="reset" type="submit">Reset</button>
                             </form>
                         </div>
                    </div>

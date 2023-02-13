@@ -25,13 +25,15 @@ import logging # Module qui permet de gérer les logs
 import time # Module qui permet de gérer le temps
 
 # Ajout du chemin d'accès au dossier parent
-sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.append(os.path.join(os.path.dirname(__file__), "..")) # Ajout du chemin d'accès au dossier parent ( permet de retourné au dossier parent)
 
+# Import des modules Python personnalisés 
 from SemaOS.info_server import *
 from SemaOS.materiel_server import *
 from SemaOS.etat_server import *
 from SemaOS.server_speedtest import *
 from SemaOS.scan_servers import *
+from SemaOS.scan_other_servers import *
 
 """
     Description de la Librairie Flask:
@@ -42,8 +44,8 @@ from SemaOS.scan_servers import *
             abort = module qui permet de retourner une erreur HTTP
 """
 
-
-from flask import Flask, render_template, jsonify, abort, Response, request, session # Import des modules Flask
+# Import des modules Flask
+from flask import Flask, render_template, jsonify, abort, Response, request, session 
 from flask_caching  import Cache # Import du module Flask-Cache
 
 
@@ -53,7 +55,7 @@ from flask_caching  import Cache # Import du module Flask-Cache
 app = Flask(__name__) 
 app.secret_key = "keys/secret_key" # Clé secrète pour la session
 cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 30}) # Configuration du cache
-
+# Variable qui contient le nom du fichier de logs
 name_file = f'Flask_{time.strftime("%Y-%m-%d_%H")}.log' # Nom du fichier de logs
 # Import du logging pour les logs
 logging.basicConfig(filename=f'SemaAPI/logs/{name_file}', format='%(asctime)s--[%(levelname)s] = %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
@@ -167,7 +169,7 @@ def index():
     
     app.logger.debug("request")
     
-    return render_template('Pages/SemaWEB/index.html', info_server=info_server)
+    return render_template('index.html', info_server=info_server)
 
 
 
@@ -196,11 +198,12 @@ def tools():
             session['speedtest_status'] = 'go'
         elif 'reset' in request.form:
             session['speedtest_status'] = 'reset'
-            
+       
         if 'scan' in request.form:
             session['scan_status'] = 'scan'
         elif 'reset' in request.form:
             session['scan_status'] = 'reset'
+       
             
     if request.method == 'GET':
         session['speedtest_status'] = 'reset'
@@ -208,25 +211,25 @@ def tools():
 
     # Appel de la fonction api_get_info_system() pour récupérer les informations relatives au serveur
     materiel = api_get_info_system()
-
-    # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
-    if materiel is None or not isinstance(materiel, dict):
-        return "Aucune information sur le serveur disponible"
  
-
     # Appel de la fonction api_server_is_up() pour récupérer les informations relatives à l'état du serveur
     etat = api_server_is_up()
-
-    # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
-    if etat is None or not isinstance(etat, dict):
-        return "Aucune information sur le serveur disponible"
+    
+    
 
     # Appel de la fonction api_get_public_ip() pour récupérer les informations relatives à l'IP public
     ip_public = api_get_public_ip()
 
-    # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
+    # # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
     if ip_public is None or not isinstance(ip_public, dict):
         return "Aucune information sur le serveur disponible"
+    
+    if etat is None or not isinstance(etat, dict):
+        return "Aucune information sur le serveur disponible"
+
+    if materiel is None or not isinstance(materiel,dict):
+        return "Aucune information sur le serveur disponible"
+
 
     if session.get('speedtest_status') == 'go':
         # Appel de la fonction api_web_speedtest() pour récupérer les informations relatives au test de vitesse
@@ -235,7 +238,6 @@ def tools():
         # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
         if speedtest is None or not isinstance(speedtest, dict):
             return "Aucune information sur le serveur disponible"
-        
     else:
         speedtest = " "
 
@@ -256,8 +258,10 @@ def tools():
     
     if session.get('scan_status') == 'reset':
         scan = {}
+
+
         
-    return render_template('Pages/SemaWeb/tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
+    return render_template('tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
 
 
 
@@ -272,7 +276,7 @@ def about():
         Description:
             Cette fonction est un gestionnaire de route pour la page 'A propos'. Elle est appelée chaque fois qu'une demande est effectuée sur la page 'A propos'.
     """
-    return render_template('Pages/SemaWeb/propos.html')
+    return render_template('propos.html')
 
 
 
