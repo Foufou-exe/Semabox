@@ -56,16 +56,16 @@ app = Flask(__name__)
 app.secret_key = "keys/secret_key" # Clé secrète pour la session
 cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 30}) # Configuration du cache
 
-def init_logger():
-    # Variable qui contient le nom du fichier de logs
-    name_file = f'Flask_{time.strftime("%Y-%m-%d_%H")}.log' # Nom du fichier de logs
-    direction_file = f'SemaAPI/logs/{name_file}'
-    if os.name == 'linux':
-        if not os.path.exists(direction_file):
-            os.makedirs(direction_file)
-            subprocess.run(['chmod', '-R', '777', direction_file])
-    # Import du logging pour les logs
-    logging.basicConfig(filename=direction_file, format='%(asctime)s--[%(levelname)s] = %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+
+# Variable qui contient le nom du fichier de logs
+name_file = f'Flask_{time.strftime("%Y-%m-%d_%H")}.log' # Nom du fichier de logs
+direction_file = f'SemaAPI/logs/{name_file}'
+if os.name == 'linux':
+    if not os.path.exists(direction_file):
+        os.makedirs(direction_file)
+        subprocess.run(['chmod', '-R', '777', direction_file])
+# Import du logging pour les logs
+logging.basicConfig(filename=direction_file, format='%(asctime)s--[%(levelname)s] = %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 
