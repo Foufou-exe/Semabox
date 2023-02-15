@@ -45,7 +45,7 @@ from SemaOS.scan_other_servers import *
 """
 
 # Import des modules Flask
-from flask import Flask, render_template, jsonify, abort, Response, request, session 
+from flask import Flask, render_template, jsonify, abort, Response, request, session, stream_template 
 from flask_caching  import Cache # Import du module Flask-Cache
 
 
@@ -270,7 +270,7 @@ def tools():
 
 
         
-    return render_template('tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
+    return stream_template('tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
 
 
 
