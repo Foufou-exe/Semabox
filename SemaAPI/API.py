@@ -58,7 +58,7 @@ cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT":
 
 
 # Variable qui contient le nom du fichier de logs
-name_file = f'Flask_{time.strftime("%Y-%m-%d_%H")}.log' # Nom du fichier de logs
+name_file = f'Flask_{time.strftime("%Y_%m_%d_%H")}.log' # Nom du fichier de logs
 direction_file = f'SemaAPI/logs/{name_file}'
 if os.name == 'linux':
     if not os.path.exists(direction_file):
