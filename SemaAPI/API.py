@@ -45,7 +45,7 @@ from SemaOS.scan_other_servers import *
 """
 
 # Import des modules Flask
-from flask import Flask, render_template, jsonify, abort, Response, request, session, stream_template 
+from flask import Flask, render_template, jsonify, abort, Response, request, session 
 from flask_caching  import Cache # Import du module Flask-Cache
 
 
@@ -176,7 +176,6 @@ def index():
     if info_server is None or not isinstance(info_server, dict):
         return "Aucune information sur le serveur disponible"
     
-    app.logger.debug("request")
     
     return render_template('index.html', info_server=info_server)
 
@@ -270,7 +269,7 @@ def tools():
 
 
         
-    return stream_template('tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
+    return render_template('tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
 
 
 
