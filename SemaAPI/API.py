@@ -55,15 +55,19 @@ from flask_caching  import Cache # Import du module Flask-Cache
 app = Flask(__name__) 
 app.secret_key = "keys/secret_key" # Clé secrète pour la session
 cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 30}) # Configuration du cache
-# Variable qui contient le nom du fichier de logs
-name_file = f'Flask_{time.strftime("%Y-%m-%d_%H")}.log' # Nom du fichier de logs
 
-if os.name == 'nt': # Windows
+def init_logger():
+    # Variable qui contient le nom du fichier de logs
+    name_file = f'Flask_{time.strftime("%Y-%m-%d_%H")}.log' # Nom du fichier de logs
     direction_file = f'SemaAPI/logs/{name_file}'
-else:
-    direction_file = f'SemaAPI/logs/{name_file}'
-# Import du logging pour les logs
-logging.basicConfig(filename=direction_file, format='%(asctime)s--[%(levelname)s] = %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    if os.name == 'linux':
+        if not os.path.exists(direction_file):
+            os.makedirs(direction_file)
+            subprocess.run(['chmod', '-R', '777', direction_file])
+    # Import du logging pour les logs
+    logging.basicConfig(filename=direction_file, format='%(asctime)s--[%(levelname)s] = %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+
+
 
 # Définition de la fonction after_request qui s'exécute après chaque requête HTTP
 @app.after_request
