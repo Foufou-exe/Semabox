@@ -65,6 +65,7 @@ if os.name == 'linux':
         os.makedirs(direction_file)
         subprocess.run(['chmod', '-R', '777', direction_file])
 # Import du logging pour les logs
+
 logging.basicConfig(filename=direction_file, format='%(asctime)s--[%(levelname)s] = %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
