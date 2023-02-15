@@ -270,7 +270,7 @@ def tools():
 
 
         
-    return stream_template('tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
+    return stream_template('tools.htm', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
 
 
 
