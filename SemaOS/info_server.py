@@ -98,7 +98,7 @@ def get_dns(ip)->str:
     """
     
     dns_resulte = socket.gethostbyaddr(ip)
-    return dns_resulte[0] + "".join(".cma4.box")
+    return dns_resulte[0]
 
 
 
