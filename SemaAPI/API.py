@@ -63,8 +63,8 @@ direction_file = f'SemaAPI/logs/{name_file}'
 if os.name == 'linux':
     if not os.path.exists(direction_file):
         open(direction_file, 'w')
+        
 # Import du logging pour les logs
-
 logging.basicConfig(filename=direction_file, format='%(asctime)s--[%(levelname)s] = %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 

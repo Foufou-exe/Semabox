@@ -32,26 +32,7 @@ def get_hostname()->str:
     
     return platform.node()
 
-
-# def get_interface_openvpn()->str:
-        
-#     """
-#         Cette fonction retourne le nom de l'interface réseau utilisée par OpenVPN.
-#     """
-#     for process in psutil.process_iter():
-#         if process.name() == "openvpn":
-#             for conn in process.connections():
-#                 if conn.type == socket.SOCK_STREAM:
-#                     openvpn = conn.raddr.interface
-                    
-#     if openvpn:
-#         addresses = netifaces.ifaddresses(openvpn)
-#     if netifaces.AF_INET in addresses:
-#         for link in addresses[netifaces.AF_INET]:
-#             return link['addr']
-        
     
-
 
 def get_ip_address() -> str:
 
@@ -112,7 +93,7 @@ def get_version_semabox()->str:
     if os.name == 'nt': # Windows
         file_path = os.path.join("SemaOS", "version.txt")
     else: # Linux ou autre
-        file_path = os.path.join("/Semabox/SemaOS", "version.txt")
+        file_path = os.path.join("../Semabox/SemaOS", "version.txt")
 
     with open(file_path, "r") as f:
         return f.readline()

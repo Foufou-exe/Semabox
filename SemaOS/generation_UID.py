@@ -42,7 +42,7 @@ def lire_fichier():
     if os.name == 'nt': # Windows
         file_path = os.path.join("SemaOS", "Semabox_UID","UID.txt")
     else: # Linux ou autre
-        file_path = os.path.join("/Semabox/SemaOS", "Semabox_UID","UID.txt")
+        file_path = os.path.join("../Semabox/SemaOS", "Semabox_UID","UID.txt")
         
     with open(file_path, "r") as f:
         return f.readline()
@@ -57,7 +57,7 @@ def check_file():
     if os.name == 'nt': # Windows
         file_path = os.path.join("SemaOS/Semabox_UID")
     else: # Linux ou autre
-        file_path = os.path.join("/Semabox/SemaOS/Semabox_UID")
+        file_path = os.path.join("../Semabox/SemaOS/Semabox_UID")
         
     if not os.path.exists(file_path):
         creation_dossier(generate_id())
