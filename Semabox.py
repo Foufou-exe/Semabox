@@ -49,8 +49,21 @@ class App:
     """
     def __init__(self, root):
         """
-            Initialisation de la classe Semabox qui gère l'interface graphique de l'application.
-            :param root: Fenêtre principale de l'application.
+            Fonction d'initialisation de la classe App:
+                Description:
+                    Cette fonction initialise plusieurs variables en appelant des fonctions de lecture de fichier, de récupération de nom d'hôte, d'adresse IP et de nom de domaine associé à l'adresse IP de l'hôte.
+                    - ID: identifiant unique du système
+                    - host: nom d'hôte du système
+                    - ip: adresse IP du système
+                    - dns_resolv: nom de domaine associé à l'adresse IP du système
+                    - ping: variable initialisée à 0
+                    - self.ping: variable initialisée à 0
+                Paramètres:
+                    root: fenêtre principale de l'application
+                    self: instance de la classe App
+                Retour:
+                    Aucun
+            
         """
         # Déclaration des variables 
         ID = lire_fichier()  # On lit le fichier contenant l'identifiant unique généré par la fonction generate_id()
@@ -270,20 +283,51 @@ class App:
          # Mise à jour du texte du label "Text_Label_Descendant" avec la chaîne "Débit Descendant : " suivie d'une chaîne vide suivie de " mb/s"
         self.Text_Label_Descendant["text"] = "Débit Descendant : " + "" + " mb/s"
         
+        
     def update_ping_latency(self):
+        
+        """ Fonction : update_ping_latency
+            Description : Fonction qui permet de mettre à jour le ping
+                - def update_ping_latency(self): crée une nouvelle méthode appelée update_ping_latency et lorsqu'elle est appelée, elle met à jour le ping dans le label "Text_Label_Ping" et relance la fonction après 1 seconde
+                - self.ping = get_ping(): récupère le ping
+                - self.Text_Label_Ping["text"] = f"PING : {self.ping} ms": met à jour le texte du label "Text_Label_Ping" avec le ping
+                - root.after(1000, self.update_ping_latency): relance la fonction après 1 seconde
+                - return: None
+            Return: None
+            Paramètres: None
+            
+        """
         self.ping = get_ping()
         self.Text_Label_Ping["text"] = f"PING : {self.ping} ms"
         root.after(1000, self.update_ping_latency)
 
     def getInputBoxValue(self):
        return self.tInput.get()
+
         
 
     def Button_scan_via_ip(self):
+        """
+            Fonction: Button_scan_via_ip
+                Description : Permets de lancer le scan de machine et d'afficher les résultats dans le label
+                Return: None
+                Paramètres: None
+                
+        """
         result_scan2 = scan_port_other_machine(self.getInputBoxValue())
         self.Resultat_Scan_Nmap_Label["text"] = result_scan2
 
 def verification_permission():
+    """
+        Fonction: verification_permission
+            Description : Permets de vérifier si l'utilisateur est root
+                - def verification_permission(): crée une nouvelle méthode appelée verification_permission
+                - with contextlib.suppress(Exception): permet de supprimer les erreurs
+                - if platform.system() == "Linux" and os.getuid() != 0: vérifie si l'utilisateur est root
+                - print("Vous devez être root pour lancer cette application"): affiche un message d'erreur
+            Return: None
+            Paramètres: None
+    """
     with contextlib.suppress(Exception):
         if platform.system() == "Linux" and os.getuid() != 0:
             print("Vous devez être root pour lancer cette application")

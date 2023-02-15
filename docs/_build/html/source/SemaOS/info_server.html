@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>info_server module &mdash; Documentation Semabox 2.0.0</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Semabox
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">info_server module</a><ul>
+<li><a class="reference internal" href="#info_server.api_get_public_ip"><code class="docutils literal notranslate"><span class="pre">api_get_public_ip()</span></code></a></li>
+<li><a class="reference internal" href="#info_server.api_info_server"><code class="docutils literal notranslate"><span class="pre">api_info_server()</span></code></a></li>
+<li><a class="reference internal" href="#info_server.cli_get_info_server"><code class="docutils literal notranslate"><span class="pre">cli_get_info_server()</span></code></a></li>
+<li><a class="reference internal" href="#info_server.get_address_network"><code class="docutils literal notranslate"><span class="pre">get_address_network()</span></code></a></li>
+<li><a class="reference internal" href="#info_server.get_dns"><code class="docutils literal notranslate"><span class="pre">get_dns()</span></code></a></li>
+<li><a class="reference internal" href="#info_server.get_hostname"><code class="docutils literal notranslate"><span class="pre">get_hostname()</span></code></a></li>
+<li><a class="reference internal" href="#info_server.get_ip_address"><code class="docutils literal notranslate"><span class="pre">get_ip_address()</span></code></a></li>
+<li><a class="reference internal" href="#info_server.get_public_ip"><code class="docutils literal notranslate"><span class="pre">get_public_ip()</span></code></a></li>
+<li><a class="reference internal" href="#info_server.get_version_semabox"><code class="docutils literal notranslate"><span class="pre">get_version_semabox()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Semabox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">info_server module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/source/SemaOS/info_server.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-info_server">
+<span id="info-server-module"></span><h1>info_server module<a class="headerlink" href="#module-info_server" title="Lien permanent vers cette rubrique"></a></h1>
+<dl class="simple">
+<dt>Description:</dt><dd><p>Ce module contient des fonctions permettant de récupérer des informations sur le serveur sur lequel le code est exécuté. 
+Les informations incluent le nom d’hôte, l’adresse IP, l’adresse IP publique, le nom de domaine, l’uid généré par generation_UID.py et la version de Semabox. 
+Il contient également des fonctions pour redémarrer ou éteindre le serveur, et pour vérifier si le serveur est en ligne.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="info_server.api_get_public_ip">
+<span class="sig-prename descclassname"><span class="pre">info_server.</span></span><span class="sig-name descname"><span class="pre">api_get_public_ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'90.48.187.251'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#info_server.api_get_public_ip" title="Lien permanent vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="info_server.api_info_server">
+<span class="sig-prename descclassname"><span class="pre">info_server.</span></span><span class="sig-name descname"><span class="pre">api_info_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lire_uid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'328b2df8-1a59-4f2d-88f2-5375e037083c'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hostname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Alpha_Win'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'192.168.1.14'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Alpha_Win.home'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip_public</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'90.48.187.251'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#info_server.api_info_server" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><p>Cette fonction retourne un dictionnaire contenant des informations sur le serveur sur lequel le code est exécuté, telles que le nom d’hôte, l’adresse IP, l’adresse IP publique, le nom de domaine, l’uid généré par generation_UID.py et la version de Semabox.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="info_server.cli_get_info_server">
+<span class="sig-prename descclassname"><span class="pre">info_server.</span></span><span class="sig-name descname"><span class="pre">cli_get_info_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'2.0.0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lire_uid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'328b2df8-1a59-4f2d-88f2-5375e037083c'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hostname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Alpha_Win'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'192.168.1.14'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Alpha_Win.home'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip_public</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'90.48.187.251'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#info_server.cli_get_info_server" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><p>Cette fonction retourne un dictionnaire contenant les informations du serveur</p>
+</dd>
+<dt>Returns:</dt><dd><p>dict: informations du serveur</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="info_server.get_address_network">
+<span class="sig-prename descclassname"><span class="pre">info_server.</span></span><span class="sig-name descname"><span class="pre">get_address_network</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'192.168.1.14'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#info_server.get_address_network" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><p>Cette fonction récupère l’adresse de réseau à partir d’une adresse IP et d’un masque de sous-réseau</p>
+</dd>
+<dt>Args:</dt><dd><p>ip (str) : adresse IP</p>
+</dd>
+<dt>Returns:</dt><dd><p>str : adresse de réseau</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="info_server.get_dns">
+<span class="sig-prename descclassname"><span class="pre">info_server.</span></span><span class="sig-name descname"><span class="pre">get_dns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#info_server.get_dns" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Cette fonction retourne le nom de domaine associé à l’adresse IP spécifiée.</p>
+<dl class="simple">
+<dt>Paramètres :</dt><dd><ul class="simple">
+<li><p>ip (str) : adresse IP pour laquelle on souhaite récupérer le nom de domaine.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="info_server.get_hostname">
+<span class="sig-prename descclassname"><span class="pre">info_server.</span></span><span class="sig-name descname"><span class="pre">get_hostname</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#info_server.get_hostname" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Cette fonction retourne le nom d’hôte de la machine sur laquelle le code est exécuté.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="info_server.get_ip_address">
+<span class="sig-prename descclassname"><span class="pre">info_server.</span></span><span class="sig-name descname"><span class="pre">get_ip_address</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#info_server.get_ip_address" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Cette fonction retourne l’adresse IP de la machine sur laquelle le code est exécuté.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="info_server.get_public_ip">
+<span class="sig-prename descclassname"><span class="pre">info_server.</span></span><span class="sig-name descname"><span class="pre">get_public_ip</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#info_server.get_public_ip" title="Lien permanent vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="info_server.get_version_semabox">
+<span class="sig-prename descclassname"><span class="pre">info_server.</span></span><span class="sig-name descname"><span class="pre">get_version_semabox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#info_server.get_version_semabox" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Cette fonction retourne la version de SemaBox en lisant le fichier « version.txt » dans le répertoire « Application/modules ».</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Le Quadro.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

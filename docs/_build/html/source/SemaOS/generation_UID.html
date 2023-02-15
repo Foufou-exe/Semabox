@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>generation_UID module &mdash; Documentation Semabox 2.0.0</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Semabox
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">generation_UID module</a><ul>
+<li><a class="reference internal" href="#generation_UID.check_file"><code class="docutils literal notranslate"><span class="pre">check_file()</span></code></a></li>
+<li><a class="reference internal" href="#generation_UID.creation_dossier"><code class="docutils literal notranslate"><span class="pre">creation_dossier()</span></code></a></li>
+<li><a class="reference internal" href="#generation_UID.generate_id"><code class="docutils literal notranslate"><span class="pre">generate_id()</span></code></a></li>
+<li><a class="reference internal" href="#generation_UID.lire_fichier"><code class="docutils literal notranslate"><span class="pre">lire_fichier()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Semabox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">generation_UID module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/source/SemaOS/generation_UID.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-generation_UID">
+<span id="generation-uid-module"></span><h1>generation_UID module<a class="headerlink" href="#module-generation_UID" title="Lien permanent vers cette rubrique"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="generation_UID.check_file">
+<span class="sig-prename descclassname"><span class="pre">generation_UID.</span></span><span class="sig-name descname"><span class="pre">check_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#generation_UID.check_file" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Cette fonction vérifie si le fichier « UID.txt » existe dans le dossier « Semabox_UID ».
+Si le fichier n’existe pas, on appelle la fonction creation_dossier() avec un identifiant généré par generate_id().
+Sinon, on appelle la fonction lire_fichier().</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generation_UID.creation_dossier">
+<span class="sig-prename descclassname"><span class="pre">generation_UID.</span></span><span class="sig-name descname"><span class="pre">creation_dossier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_semabox</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generation_UID.creation_dossier" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Cette fonction crée un dossier nommé « Semabox_UID » et y crée un fichier texte nommé « UID.txt » contenant l’identifiant
+passé en paramètre.</p>
+<dl class="simple">
+<dt>Paramètres :</dt><dd><ul class="simple">
+<li><p>id_semabox (str) : identifiant à écrire dans le fichier « UID.txt ».</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generation_UID.generate_id">
+<span class="sig-prename descclassname"><span class="pre">generation_UID.</span></span><span class="sig-name descname"><span class="pre">generate_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#generation_UID.generate_id" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Cette fonction génère un identifiant unique (UUID) et le retourne sous forme de chaîne de caractères.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="generation_UID.lire_fichier">
+<span class="sig-prename descclassname"><span class="pre">generation_UID.</span></span><span class="sig-name descname"><span class="pre">lire_fichier</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#generation_UID.lire_fichier" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Cette fonction lit le fichier « UID.txt » dans le dossier « Semabox_UID » et retourne son contenu.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Le Quadro.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
