@@ -14,15 +14,14 @@
         Le script termine en exécutant la boucle principale de Tkinter pour afficher la fenêtre et rendre possible l'interaction avec l'utilisateur.
 """
 
-
-import contextlib
 # Importation des modules Pythons nécessaires
-import os
-import tkinter as tk
-import tkinter.font as tkFont
-import platform
-from tkinter.ttk import *
-from tkinter import messagebox
+import contextlib # Import du module 'contextlib'
+import os # Import du module 'os'
+import tkinter as tk # Import du module 'tkinter' pour l'interface graphique
+import tkinter.font as tkFont  # Import du module 'tkFont' pour la gestion des polices de caractères
+import platform # Import du module 'platform' pour la gestion des plateformes(Windows, Linux, Mac)
+from tkinter.ttk import *  # Import du module 'ttk' pour la gestion des widgets
+from tkinter import messagebox # Import du module 'messagebox' pour la gestion des messages d'alerte
 from tkinter import *
 
 

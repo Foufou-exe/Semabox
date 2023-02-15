@@ -47,69 +47,61 @@ Commande : **Windows** && **Linux**
 cd Semabox/install
 ```
 
-#### **Etape 3**: On donne les permissions d'executer au scripts d'installation
+#### **Etape 2 bis**: Pour Linux ,donner les permissions d'executions
 
-Commande : **Linux**
-
-```bash
-sudo chmod a+x *
-```
-
-### **Important**: *L'Etape 4* correspond à l'installation de **python 3.11.1** à faire si votre python n'est pas égale ou supperieur à cette version
-
-#### **Etape 4**: On lance **install_prerequis.sh** ( Installation de Python 3.11.1 )
-
-Commande : **Linux**
+Commande : **Windows** && **Linux**
 
 ```bash
-sudo ./install_python3.11.1.sh
+bash permission.sh
 ```
 
-Commande : **Windows** (à télécharger)
+#### **Etape 3**: On installe les prérequis pour le bon fonctionnement de la Semabox
 
-```html
-https://www.python.org/ftp/python/3.11.1/python-3.11.1-embed-amd64.zip
+##### *Pour les Simples utilisateurs* :
+
+```bash
+python install_single_user.py
 ```
 
-#### **Etape 5**: On installe les librairies necessaires au bont fonctionnement de la Semabox
+##### *Pour les entreprises* :
 
-Commande : **Linux**
+Penser à modifier le fichier **install_enterprise.py** dans la fonction `main()` :
+
+```Python
+  add_dns_record(
+    domain='votre domaine',# domain : le nom de domaine auquel ajouter l'enregistrement
+    ip_dns='IP de votre Serveur DNS', # serveur_dns : l'adresse IP du serveur DNS auquel envoyer la requête
+    host=hostname(),# hostname : le nom de l'hôte à ajouter 
+    new_ip=ip(), # ip : l'adresse IP de l'hôte à ajouter
+    enregistrement='A', # enregistrement : le type d'enregistrement (A, AAAA, etc.)
+    ttl=300 
+  ) # ttl : le temps de vie (en secondes) de l'enregistrement
+
+  add_bdd_record(
+    sema_id=uid(), # uid : l'identifiant unique de la semabox
+    sema_hostname=hostname(), # hostname : le nom de l'hôte de la semabox
+    sema_ip=ip(),
+    sema_ip_public=ip_public(), # ip_pubic : l'adresse IP publique de la semabox 
+    sema_dns=dns_semabox(ip()), #+ "".join(".cma4.box") , # ip : l'adresse IP de la semabox
+    sema_version=version_semabox(),  # version_semabox : la version de la semabox
+    user='Utilsateur de votre BDD', # user : l'utilisateur de la base de données
+    password='Le mot de passe associer', # password : le mot de passe de l'utilisateur
+    host='IP BDD', # host : l'adresse IP du serveur de la base de données
+    database='NOM DE LA BDD' # database : le nom de la base de données
+  )
+
+```
+
+##### Commande à faire : 
+
+```bash
+python install_enterprise.py
+```
+
+#### **Etape 2** : On installe les librairies necessaires au bont fonctionnement de la Semabox
 
 ```bash
 sudo pip install -r requirement.txt
-```
-
-Commande : **Windows**
-
-```cmd
-pip install -r requirement.txt
-```
-
-#### **Etape 6**: On genere l'UID de la Semabox
-
-Commande : **Linux**
-
-```bash
-sudo python install_manuel.py
-```
-
-Commande : **Windows**
-
-```cmd
-python install_manuel.py
-```
-
-#### **Etape 7**: On déplace le fichier Semabox-api.service dans /etc/systemd/system
-
-```bash
-sudo mv Semabox-api.service /etc/systemd/system
-```
-
-#### **Etape 8**: On démarre le service et on l'active pour qu'il puisse redemarrer
-
-```bash
-sudo systemctl start Semabox-api.service
-sudo systemctl enable Semabox-api.service
 ```
 
 #### L'installation est termine, vous pouvez retourner dans le dossier principal de la semabox et lance *Semabox.py* ( **si vous êtes sur Linux avec interfaces graphiques**) sinon lance *Semabox_CLI.py* pour **la version CLI** ou pour finir **la version Web**
@@ -123,7 +115,7 @@ cd ..
 **Version Graphiques** :
 
 ```bash
-sudo python Semabox.py
+python Semabox.py
 ```
 
 ![Logo](https://github.com/Foufou-exe/Semabox/blob/dev/.github/Semabox.png?raw=true)
@@ -131,7 +123,7 @@ sudo python Semabox.py
 **Version CLI** :
 
 ```bash
-sudo python Semabox_CLI.py
+python Semabox_CLI.py
 ```
 
 ![Logo](https://github.com/Foufou-exe/Semabox/blob/dev/.github/Semabox_CLI.png?raw=true)
@@ -183,9 +175,14 @@ En cas de problème, veuillez le signaler à cette adresse support@cma4.local .
 
 ## Auteur et Developpeur
 
-L'entreprise Quadro :
+#### L'entreprise Quadro
 
-Developpeur : [@Dylan L](https://github.com/thorbeorn),[@Thibaut M](https://github.com/Foufou-exe) ,[@Mathis L](https://github.com/mathislef34),[@Nicolas L](https://github.com/nicolasLlinares)
+Developpeur :
+
+- [@Dylan L](https://github.com/thorbeorn)
+- [@Thibaut M](https://github.com/Foufou-exe) 
+- [@Mathis L](https://github.com/mathislef34)
+- [@Nicolas L](https://github.com/nicolasLlinares)
 
 ## License
 
