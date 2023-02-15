@@ -67,7 +67,11 @@ else
 fi
 
 if [ "$(id -u)" = "0" ]; then
+  $package_manager install python3-tk -y
+  $package_manager install python3-pip -y
   $package_manager install python3-tkinter -y
 else
+  sudo $package_manager install python3-tk -y
+  sudo $package_manager install python3-pip -y
   sudo $package_manager install python3-tkinter -y
 fi
