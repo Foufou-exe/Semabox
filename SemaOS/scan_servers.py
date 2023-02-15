@@ -16,9 +16,10 @@
 """
 
 # Importation des modules Python nécessaires
-import nmap
-import sys
+import nmap # Pour scanner 
+import sys # Pour ajouter le chemin du module info_server.py
 
+# Ajout du chemin du module info_server.py
 sys.path.append("SemaOS")
 # Importation des modules Python personnalisés
 from info_server import get_ip_address
@@ -26,22 +27,22 @@ from info_server import get_ip_address
 
 # Fonctions
 def scan_nmap() -> str:
-    try:
-        nm = nmap.PortScanner()
-        host = get_ip_address()
-        nm.scan(host, arguments='-sS')
-        result = ''
-        for host in nm.all_hosts():
-            if nm[host].all_tcp():
-                for port, info in nm[host]['tcp'].items():
-                    if info['state'] == 'open':
-                        result += f"\nPort {port}/tcp | OPEN | service : {info['name']}"
-            else:
-                result += f"\nNo open TCP ports found on {host}"
-        return result
-    except KeyError as e:
+    try: 
+        nm = nmap.PortScanner() # Création d'un objet nmap.PortScanner()
+        host = get_ip_address() # Adresse IP de l'hôte à scanner
+        nm.scan(host, arguments='-sS') # On scanne l'hôte en utilisant l'option -sS (SYN scan)
+        result = '' # Chaîne de caractères contenant les résultats du scan
+        for host in nm.all_hosts(): # On parcourt tous les hôtes
+            if nm[host].all_tcp(): # Si l'hôte a des ports ouverts
+                for port, info in nm[host]['tcp'].items(): # On parcourt tous les ports ouverts
+                    if info['state'] == 'open': # Si le port est ouvert
+                        result += f"\nPort {port}/tcp | OPEN | service : {info['name']}" # On ajoute les informations sur le port à la chaîne de caractères
+            else: # Si l'hôte n'a pas de ports ouverts
+                result += f"\nNo open TCP ports found on {host}" # On ajoute les informations sur l'hôte à la chaîne de caractères
+        return result # Retourne une chaîne de caractères contenant les résultats du scan
+    except KeyError as e: # Erreur si l'hôte n'a pas de ports ouverts
         if e.args[0] == 'tcp':
-            return "Aucun Port ouvert"
+            return "Aucun Port ouvert" # Retourne une chaîne de caractères contenant les résultats du scan
 
 
 
@@ -55,7 +56,7 @@ def api_web_scan_nmap() -> dict:
     """
     try:
         # Création d'un objet nmap.PortScanner()
-        nm = nmap.PortScanner()
+        nm = nmap.PortScanner() 
 
         # Adresse IP de l'hôte à scanner
         host = get_ip_address()

@@ -1,10 +1,10 @@
-import nmap
-import argparse
+import nmap # Pour scanner 
+import argparse # Pour les arguments
     
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--ip", help="IP address to scan")
-args = parser.parse_args()
+parser = argparse.ArgumentParser() # Création d'un objet argparse.ArgumentParser()
+parser.add_argument("--ip", help="IP address to scan") # Ajout d'un argument
+args = parser.parse_args() # Récupération des arguments
 
 # Fonctions
 def scan_port_other_machine(ip_args)->str:

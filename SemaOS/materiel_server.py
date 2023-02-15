@@ -111,7 +111,7 @@ def cli_get_info_system()->dict:
         'Nombre de Disques': f'{num_disks} 💾',
         'Allumée depuis': f'{uptime_hours} H 🕒',
         'OS': f'{os_name} 🖥️'
-    }
+    } # Retour du dictionnaire
 
 def api_get_info_system()->dict:
     """
@@ -157,7 +157,7 @@ def api_get_info_system()->dict:
         'num_disks': num_disks,
         'uptime_hours': uptime_hours,
         'os_name': os_name
-    }
+    } # Retour du dictionnaire
 
 if __name__ == '__main__':
     # Affichage des informations du serveur

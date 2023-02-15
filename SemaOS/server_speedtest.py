@@ -6,15 +6,17 @@ import time
 import icmplib
 import os
 
-# Définition des constantes
-TEST_FILE_URL = "http://ipv4.download.thinkbroadband.com/50MB.zip"
-UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media"
-if os.name == 'nt' :
+# Définition des variables
+TEST_FILE_URL = "http://ipv4.download.thinkbroadband.com/50MB.zip" # Fichier de 50 MB
+UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media" # URL de téléchargement
+
+# Condition pour le chemin d'accès au fichier
+if os.name == 'nt' : # Windows
     FILE_PATH = "SemaOS\download\TESTMB.zip"
-else:
+else: # Linux ou autre
     FILE_PATH = "SemaOS/download/TESTMB.zip"
-    
-HOST = "google.com"
+
+HOST = "google.com" # Hôte à ping
 
 # Définition des fonctions
 def get_download_speed(test_file_url=TEST_FILE_URL)->str:
@@ -30,12 +32,12 @@ def get_download_speed(test_file_url=TEST_FILE_URL)->str:
     Raises:
         requests.exceptions.RequestException: Si une erreur se produit lors du téléchargement du fichier de test.
     """
-    download_start_time = time.time()
-    response = requests.get(test_file_url)
-    download_end_time = time.time()
-    elapsed_time = download_end_time - download_start_time
-    download_speed = len(response.content) / elapsed_time
-    return "{0:.2f}".format(download_speed / 1000000 * 8)
+    download_start_time = time.time() # Début du téléchargement
+    response = requests.get(test_file_url) # Téléchargement du fichier
+    download_end_time = time.time() # Fin du téléchargement
+    elapsed_time = download_end_time - download_start_time # Durée du téléchargement
+    download_speed = len(response.content) / elapsed_time # Vitesse de téléchargement
+    return "{0:.2f}".format(download_speed / 1000000 * 8) # Retourne la vitesse de téléchargement en mégabits par seconde
 
 def get_upload_speed(file_path=FILE_PATH, upload_url=UPLOAD_URL)->str:
     """
@@ -52,13 +54,13 @@ def get_upload_speed(file_path=FILE_PATH, upload_url=UPLOAD_URL)->str:
         requests.exceptions.RequestException: Si une erreur se produit lors de l'envoi du fichier.
         FileNotFoundError: Si le fichier spécifié par `file_path` n'existe pas.
     """
-    with open(file_path, 'rb') as file:
-        upload_start_time = time.time()
-        files = {'file': file}
-        response = requests.post(upload_url, files=files)
-        upload_end_time = time.time()
-        upload_speed = len(response.content) / (upload_end_time - upload_start_time)
-        return "{0:.2f}".format(upload_speed)
+    with open(file_path, 'rb') as file: # Ouverture du fichier
+        upload_start_time = time.time() # Début timer de l'envoi
+        files = {'file': file} # Fichier à envoyer
+        response = requests.post(upload_url, files=files) # Envoi du fichier
+        upload_end_time = time.time() # Fin timer de l'envoi
+        upload_speed = len(response.content) / (upload_end_time - upload_start_time) # Vitesse d'envoi
+        return "{0:.2f}".format(upload_speed) # Retourne la vitesse d'envoi en mégabits par seconde
 
 def get_ping(host=HOST)->int:
     """
@@ -73,9 +75,9 @@ def get_ping(host=HOST)->int:
     Raises:
         icmplib.exceptions.PingError: Si une erreur se produit lors de l'envoi de la requête ICMP.
     """
-    icmp = icmplib.ping(host, count=1)
-    ping = int(icmp.avg_rtt)
-    return ping
+    icmp = icmplib.ping(host, count=1) # Envoi de la requête ICMP, une seule fois
+    ping = int(icmp.avg_rtt) # Durée du ping
+    return ping # Retourne la durée du ping en millisecondes
 
 def api_speedtest()->dict:
     """
@@ -84,12 +86,12 @@ def api_speedtest()->dict:
     Returns:
         dict: Dictionnaire contenant les vitesses de téléchargement, d'envoi et de ping.
     """
-    download_speed = get_download_speed()
-    upload_speed = get_upload_speed()
-    ping = get_ping()
-    result = {"download_speed": download_speed, "upload_speed": upload_speed, "ping": ping}
-    print(result)
-    
+    download_speed = get_download_speed() # Vitesse de téléchargement
+    upload_speed = get_upload_speed() # Vitesse d'envoi
+    ping = get_ping() # Ping
+    result = {"download_speed": download_speed, "upload_speed": upload_speed, "ping": ping} # Dictionnaire contenant les vitesses de téléchargement, d'envoi et de ping
+    print(result) # Affichage du résultat
+     
 def api_web_speedtest()->dict:
     """
         Calcule la vitesse de téléchargement, d'envoi et de ping.
@@ -97,11 +99,11 @@ def api_web_speedtest()->dict:
         Returns:
             dict: Dictionnaire contenant les vitesses de téléchargement, d'envoi et de ping.
     """
-    download_speed = get_download_speed()
-    upload_speed = get_upload_speed()
-    ping = get_ping()
-    result = {"download_speed": download_speed, "upload_speed": upload_speed, "ping": ping}   
-    return result
+    download_speed = get_download_speed() # Vitesse de téléchargement
+    upload_speed = get_upload_speed() # Vitesse d'envoi
+    ping = get_ping() # Ping
+    result = {"download_speed": download_speed, "upload_speed": upload_speed, "ping": ping}    # Dictionnaire contenant les vitesses de téléchargement, d'envoi et de ping
+    return result # Retourne le résultat
 
 def cli_get_speedtest()->dict:
     """
@@ -110,10 +112,10 @@ def cli_get_speedtest()->dict:
         Returns:
             dict: Dictionnaire contenant les vitesses de téléchargement, d'envoi et de ping.
     """
-    download_speed = get_download_speed()
-    upload_speed = get_upload_speed()
-    ping = get_ping()
-    return {"Débit Montant": f'{download_speed} Mb/s', "Débit Descendant": f'{upload_speed} Mb/s', "Ping": f'{ping} ms'}
+    download_speed = get_download_speed() # Vitesse de téléchargement
+    upload_speed = get_upload_speed() # Vitesse d'envoi
+    ping = get_ping() # Ping
+    return {"Débit Montant": f'{download_speed} Mb/s', "Débit Descendant": f'{upload_speed} Mb/s', "Ping": f'{ping} ms'} # Retourne le résultat
 
 if __name__ == "__main__":
     api_speedtest()

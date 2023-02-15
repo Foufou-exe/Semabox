@@ -3,9 +3,7 @@
 # Description: Ce Script permet de scanner les ports ouverts sur l'hôte local.
 
 # Importation des modules Python nécessaires
-import nmap
-import sys
-
+import nmap # Pour scanner les ports
 
 # Importation des modules Python personnalisés
 from info_server import get_address_network
@@ -25,9 +23,9 @@ def scan_all_machine(network=get_address_network())->dict:
         host: {"host": host,"hostname" : nm[host].hostname() ,"state": nm[host].state()}
         for host in nm.all_hosts()
         if nm[host].state() == 'up'
-    }
+    } 
     
-    return scan_results
+    return scan_results # Retourne un dictionnaire contenant les résultats du scan
 
 def api_scan_machine(network=get_address_network())->dict:
     # Création d'un objet nmap.PortScanner()
@@ -45,13 +43,13 @@ def api_scan_machine(network=get_address_network())->dict:
         if nm[host].state() == 'up'
     }
     
-    print(scan_results)
+    print(scan_results) # Affiche les résultats du scan
     
 def cli_scan_machine()->str:
     return "".join(
         f"\n La Machine {machine['hostname']} en {machine['host']}  est {machine['state']}"
         for machine in scan_all_machine().values()
-    )
+    ) # Retourne une chaîne de caractères contenant les résultats du scan
     
 if __name__ == "__main__":
     api_scan_machine()

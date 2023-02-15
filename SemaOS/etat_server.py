@@ -1,10 +1,10 @@
 #!/usr/bin/env python3.11.1
 
 # Importe le module os
-import subprocess
+import subprocess  # Importe le module subprocess pour lancer des commandes shell
+import sys # Importe le module sys pour ajouter le chemin d'accès au module info_server.py
 
-import sys
-
+# Ajoute le chemin d'accès au module info_server.py
 sys.path.append("SemaOS")
 # Importe la fonction get_ip_address() du module info_server
 from info_server import get_ip_address
@@ -23,14 +23,12 @@ def server_is_up(host=get_ip_address()):
     """
 
     try:
-        response = subprocess.check_output(
-            f'ping -n 1 {host}', shell=True, universal_newlines=True
-        )
-        resultat1 = {"etat_semabox": "up"}
-        print(resultat1)
-    except subprocess.CalledProcessError as e:
-        resultat2 = {"etat_semabox": "down"}
-        print(resultat2)
+        subprocess.check_output(f'ping -n 1 {host}', shell=True, universal_newlines=True) # Envoie une requête ping au serveur
+        resultat1 = {"etat_semabox": "up"} # Si le serveur répond, retourne True
+        print(resultat1) # Affiche le résultat
+    except subprocess.CalledProcessError as e: # Si le serveur ne répond pas, retourne False
+        resultat2 = {"etat_semabox": "down"} # Si le serveur répond, retourne True
+        print(resultat2) # Affiche le résultat
 
 def api_server_is_up(host=get_ip_address()):
     """
@@ -45,14 +43,12 @@ def api_server_is_up(host=get_ip_address()):
     """
 
     try:
-        response = subprocess.check_output(
-            f'ping -n 1 {host}', shell=True, universal_newlines=True
-        )
-        resultat1 = {"etat_semabox": "up"}
-        return resultat1
-    except subprocess.CalledProcessError as e:
-        resultat2 = {"etat_semabox": "down"}
-        return resultat2
+        subprocess.check_output(f'ping -n 1 {host}', shell=True, universal_newlines=True) # Envoie une requête ping au serveur
+        resultat1 = {"etat_semabox": "up"} # Si le serveur répond, retourne True
+        return resultat1 # Affiche le résultat
+    except subprocess.CalledProcessError as e: # Si le serveur ne répond pas, retourne False
+        resultat2 = {"etat_semabox": "down"} # Si le serveur répond, retourne True
+        return resultat2 # Affiche le résultat
         
         
 # Si le module est exécuté directement (et non importé)

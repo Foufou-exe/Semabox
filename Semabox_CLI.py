@@ -37,16 +37,16 @@ def afficher_menu():
     """
         Affiche un menu avec les différentes options disponibles
     """
-    titre = figlet_format("Semabox CLI")
-    print(titre)
-    table = PrettyTable()
-    table.field_names = [colored("Options","yellow"), colored("Fonctionnalités", "yellow")]
-    table.add_row([colored("[", "green") + colored("1", "red") + colored("]", "green"), "Information Semabox"])
-    table.add_row([colored("[", "green") + colored("2", "red") + colored("]", "green"), "Information Système"])
-    table.add_row([colored("[", "green") + colored("3", "red") + colored("]", "green"), "Scan"])
-    table.add_row([colored("[", "green") + colored("4", "red") + colored("]", "green"), "Speedtest"])
-    table.add_row([colored("[", "green") + colored("5", "red") + colored("]", "green"), "Exit"])
-    print(table)
+    titre = figlet_format("Semabox CLI") # Création du titre
+    print(titre) # Affichage du titre
+    table = PrettyTable() # Création d'un tableau
+    table.field_names = [colored("Options","yellow"), colored("Fonctionnalités", "yellow")] # Ajout des titres des colonnes
+    table.add_row([colored("[", "green") + colored("1", "red") + colored("]", "green"), "Information Semabox"]) # Ajout d'une ligne
+    table.add_row([colored("[", "green") + colored("2", "red") + colored("]", "green"), "Information Système"]) # Ajout d'une ligne
+    table.add_row([colored("[", "green") + colored("3", "red") + colored("]", "green"), "Scan"]) # Ajout d'une ligne
+    table.add_row([colored("[", "green") + colored("4", "red") + colored("]", "green"), "Speedtest"]) # Ajout d'une ligne
+    table.add_row([colored("[", "green") + colored("5", "red") + colored("]", "green"), "Exit"])    # Ajout d'une ligne
+    print(table) # Affichage du tableau
     
 def clear_screen():
     """
@@ -60,7 +60,7 @@ def clear_screen():
         # do something specific for Linux
         os.system('clear')
     else:
-        print(f"Unsupported operating system: {system_name}")
+        print(f"Le systeme ne supporte pas : {system_name}")
 
 def cli_info_server()->None:
     """

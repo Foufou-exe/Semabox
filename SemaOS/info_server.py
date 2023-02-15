@@ -10,14 +10,14 @@
 
 
 # Import des modules Python nécessaires
-import socket
-import platform
-import requests
-import ipaddress
-import os
+import socket # Pour récupérer l'adresse IP
+import platform # Pour récupérer le nom d'hôte
+import requests # Pour récupérer l'adresse IP publique
+import ipaddress # Pour récupérer l'adresse de réseau
+import os # Pour les commandes shell
 import sys
 
-
+# Ajoute le chemin d'accès au module generation_UID.py
 sys.path.append("SemaOS")
 # Importe de nos modules Python personnalisés
 from generation_UID import lire_fichier
@@ -30,7 +30,7 @@ def get_hostname()->str:
         Cette fonction retourne le nom d'hôte de la machine sur laquelle le code est exécuté.
     """
     
-    return platform.node()
+    return platform.node() # Retourne le nom d'hôte
 
     
 
@@ -40,7 +40,7 @@ def get_ip_address() -> str:
         Cette fonction retourne l'adresse IP de la machine sur laquelle le code est exécuté.
     """
 
-    return socket.gethostbyname(socket.gethostname())
+    return socket.gethostbyname(socket.gethostname()) # Retourne l'adresse IP
 
 
 
@@ -78,7 +78,7 @@ def get_dns(ip)->str:
             - ip (str) : adresse IP pour laquelle on souhaite récupérer le nom de domaine.
     """
     
-    dns_resulte = socket.gethostbyaddr(ip)
+    dns_resulte = socket.gethostbyaddr(ip) # Récupère le nom de domaine associé à l'adresse IP
     return dns_resulte[0]
 
 
@@ -91,23 +91,23 @@ def get_version_semabox()->str:
         Cette fonction retourne la version de SemaBox en lisant le fichier "version.txt" dans le répertoire "Application/modules".
     """
     if os.name == 'nt': # Windows
-        file_path = os.path.join("SemaOS", "version.txt")
+        file_path = os.path.join("SemaOS", "version.txt") # Chemin vers le fichier "version.txt"
     else: # Linux ou autre
-        file_path = os.path.join("../Semabox/SemaOS", "version.txt")
+        file_path = os.path.join("../Semabox/SemaOS", "version.txt") # Chemin vers le fichier "version.txt"
 
-    with open(file_path, "r") as f:
-        return f.readline()
+    with open(file_path, "r") as f: # Ouvre le fichier "version.txt" en lecture
+        return f.readline() # Retourne la première ligne du fichier
     
     
     
     
 def get_public_ip()->str:
-    response = requests.get("http://ipinfo.io/json")
-    data = response.json()
-    return data["ip"]
+    response = requests.get("http://ipinfo.io/json") # Récupère les informations sur l'adresse IP publique
+    data = response.json() # Convertit les données au format JSON
+    return data["ip"] # Retourne l'adresse IP publique
 
-def api_get_public_ip(ip=get_public_ip())->dict:
-    return {"ip_public": ip}
+def api_get_public_ip(ip=get_public_ip())->dict: # Fonction qui retourne l'adresse IP publique sous forme de dictionnaire
+    return {"ip_public": ip} # Retourne l'adresse IP publique
 
 
 
@@ -125,8 +125,8 @@ def api_info_server(version=get_version_semabox(),lire_uid=lire_fichier(),hostna
         'dns': dns,
         'uid': lire_uid,
         'version_semabox': version
-    }
-    print(info_server)
+    } # Création d'un dictionnaire contenant les informations du serveur
+    print(info_server) # Affiche les informations du serveur
     
     
     
@@ -148,7 +148,7 @@ def cli_get_info_server(version=get_version_semabox(),lire_uid=lire_fichier(),ho
         'uid': lire_uid,
         'version_semabox': version
     }
-    
+    # Retourne un dictionnaire contenant les informations du serveur
     
     
     
