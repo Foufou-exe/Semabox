@@ -4,7 +4,7 @@
   ![Logo](https://github.com/Foufou-exe/Semabox/blob/dev/.github/Logo_Banniere.png?raw=true)
 
   [![License Propriétaire](https://img.shields.io/badge/License-Propri%C3%A9taire-green.svg)](https://github.com/Foufou-exe/Semabox/blob/main/license)
-  ![Version Python](https://img.shields.io/badge/Compatible-Python%203.11.1-yellow.svg)
+  ![Version Python](https://img.shields.io/badge/Compatible-Python%203.11%203.10-yellow.svg)
 
 </div>
 
