@@ -11,26 +11,6 @@
         Il permet de scanner des machines dans un réseau local.
 """
 
-import contextlib
-# Importation des modules Python
-from pyfiglet import figlet_format  # Permet de créer un titre décoré
-from prettytable import PrettyTable # Permet d'afficher les informations de manière structurée sous forme de tableau
-from termcolor import colored # Permet de mettre en couleur les informations affichées
-import subprocess  # Permet d'exécuter des commandes système
-import sys # Permet d'ajouter des chemins au path de sys
-import ast # Permet de convertir une chaîne de caractères en dictionnaire
-import platform # Permet de récupérer des informations sur le système
-import os # Permet de récupérer des informations sur le système
-
-# Importation des modules perso
-from info_server import cli_get_info_server
-from materiel_server import cli_get_info_system
-from scan_servers import cli_get_scan_nmap
-from server_speedtest import cli_get_speedtest
-from ping import cli_ping
-from scan_other_servers import scan_all_machine
-from update_code import *
-
 
 # Définition des fonctions
 def afficher_menu():
@@ -233,24 +213,9 @@ def menu()->None:
         afficher_menu()
         
 def verification_permission():
-    """
-        Fonction qui vérifie si l'utilisateur est root ou non
-        Description:
-            Si l'utilisateur n'est pas root, le programme s'arrête et affiche un message d'erreur
-        Retour:
-            Si l'utilisateur est root, le programme continue son exécution sinon on affiche un message d'erreur et on quitte le programme
-        Paramètres:
-            Aucun
-    """
     with contextlib.suppress(Exception):
         if platform.system() == "Linux" and os.getuid() != 0:
             print(colored("Vous devez être root pour lancer cette application !!","yellow"))
             sys.exit()
     
-
-if __name__ == "__main__":
-    
-    verification_permission()
-    check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
-    menu()
 

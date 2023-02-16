@@ -11,8 +11,7 @@ Bienvenue sur la documentation de Semabox
    :caption: Contents:
 
    source/install/modules
-   source/Semabox CLI/modules
-   source/Semabox_Graphique/modules
+   source/Semabox/modules
    source/SemaAPI/modules
    source/SemaOS/modules
    

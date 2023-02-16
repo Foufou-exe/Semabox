@@ -14,31 +14,7 @@
         Le script termine en exécutant la boucle principale de Tkinter pour afficher la fenêtre et rendre possible l'interaction avec l'utilisateur.
 """
 
-# Importation des modules Pythons nécessaires
-import contextlib # Import du module 'contextlib'
-import os # Import du module 'os'
-import tkinter as tk # Import du module 'tkinter' pour l'interface graphique
-import tkinter.font as tkFont  # Import du module 'tkFont' pour la gestion des polices de caractères
-import platform # Import du module 'platform' pour la gestion des plateformes(Windows, Linux, Mac)
-from tkinter.ttk import *  # Import du module 'ttk' pour la gestion des widgets
-from tkinter import messagebox # Import du module 'messagebox' pour la gestion des messages d'alerte
-from tkinter import *
-import sys
 
-
-
-# Importe de nos modules Python personnalisés
-os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # Ajoute le chemin vers le dossier 'Semabox' afin de pouvoir importer nos modules Python personnalisés.
-sys.path.append("SemaOS") # Ajoute le chemin vers le dossier 'SemaOS' afin de pouvoir importer nos modules Python personnalisés.
-# Importe nos modules Python personnalisés
-from update_code import check_code_gitlab_application, get_latest_commit_date
-from generation_UID import creation_dossier, generate_id, lire_fichier  # Import des fonctions du module 'generation_UID'
-from info_server import get_dns, get_hostname, get_ip_address, get_version_semabox  # Import des fonctions du module 'info_server'
-from scan_servers import scan_nmap  # Import de la fonction du module 'scan_servers'
-from server_speedtest import get_download_speed, get_upload_speed  # Import des fonctions du module 'server_speedtest'
-from ping import get_ping  # Import de la fonction du module 'ping'
-from scan_other_servers import cli_scan_machine  # Import de la fonction du module 'scan_other_servers'
-from scan_port_other_servers import scan_port_other_machine # Import de la fonction du module 'scan_port_other_servers'
 
 # Création de la fenêtre principale (main window)
 class App:
@@ -287,6 +263,7 @@ class App:
          # Mise à jour du texte du label "Text_Label_Descendant" avec la chaîne "Débit Descendant : " suivie d'une chaîne vide suivie de " mb/s"
         self.Text_Label_Descendant["text"] = "Débit Descendant : " + "" + " mb/s"
         
+        
     def update_ping_latency(self):
         
         """ Fonction : update_ping_latency
@@ -305,8 +282,8 @@ class App:
         root.after(1000, self.update_ping_latency)
 
     def getInputBoxValue(self):
-
        return self.tInput.get()
+
         
 
     def Button_scan_via_ip(self):
@@ -336,30 +313,5 @@ def verification_permission():
             print("Vous devez être root pour lancer cette application")
     
 
-    
-    
-# Si le script est exécuté directement (et non importé par un autre script)
-if __name__ == "__main__":
-    
-    verification_permission()
-
-    # Update du code
-    check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
-
-    # Création d'une instance de la classe Tk (fenêtre principale de l'application)
-    root = tk.Tk()
-    # Si le dossier "SEMABOX_UID" n'existe pas
-    if platform.system() == "Windows":
-        if not os.path.exists("SemaOS/Semabox_UID"):
-            # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
-            creation_dossier(generate_id())
-    elif not os.path.exists("/Semabox/SemaOS/Semabox_UID"):
-        # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
-        creation_dossier(generate_id())
-
-    # Création d'une instance de la classe "App" avec en paramètre la fenêtre principale "root"
-    app = App(root)
-    # Lancement de la boucle principale de l'application
-    root.mainloop()    
     
     

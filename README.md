@@ -146,26 +146,55 @@ Allez clonez le Projet Semabox Ansible et lisez le **README**
 
 ## Docker 🐳
 
+Création du network (Changez le macvlan par bridge si vous êtes sur Windows ou Mac)
+
+```docker
+docker network -d macvlan Network_Semabox -o parent=eth0
+```
+
 Commande pour run l'image via le registre de docker
 
 ```docker
-docker build -t semabox:latest .
-docker run -h semabox -dit --name semabox --network host --restart always -p 80:80 -p 22:22 -d semabox:latest bash
+docker run -h semabox -dit --name semabox --network Network_Semabox --restart always -p 8080:80 -p 2222:22 -d semabox:2.0.0
+```
+
+Accès au container
+
+```docker
+docker exec -it semabox bash
 ```
 
 Sinon utilisée le dockerfile qui se situe dans le projet sinon voici le code pour seulement avoir le dockerfile
 
 ```docker-compose.yml
-version: '3.3'
+version: '2.0'
 services:
-    run:
+    semabox:
         container_name: semabox
-        network_mode: host
+        image: foufoudu34/semabox:latest
         restart: always
         ports:
             - '80:80'
             - '22:22'
-        image: foufoudu34/semabox:latest
+        networks:
+            - semabox
+
+networks:
+    semabox:
+    # Changer macvlan par bridge si vous êtes sur Windows ou Mac OS car macvlan n'est pas supporté
+    # Pour Windows, il faut aussi changer le driver_opts: parent: eth0 par parent: Ethernet
+    # Pour Mac OS, il faut aussi changer le driver_opts: parent: eth0 par parent: en0
+        driver: macvlan
+        driver_opts:
+            parent: eth0
+        ipam:
+            config:
+                - subnet:
+                     # Changer les valeurs par celle de votre réseau pour que le container soit dans le même réseau que votre machine
+                    # Si vous êtes sur Windows ou Mac OS, mettez se que vous voulez, le container cominuquera avec votre machine via le port 80 mais il ne sera pas dans le même réseau
+                    gateway: <votregateway>
+                    ip_range: <votrevlan>
+                    aux_addresses: <votrevlan>
 
 ```
 

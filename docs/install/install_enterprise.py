@@ -49,23 +49,6 @@
       Appelle la fonction addBddRecord() pour ajouter un enregistrement pour la semabox dans la table 'box' de la base de données 'semabox'.
   
 """
-# Importation des modules Python nécessaires
-import dns.query
-import dns.update
-import mysql.connector
-import subprocess
-import os
-import sys
-
-# Importation de nos modules Python personnalisés qui se trouvent dans le dossier 'install'
-from install_single_user import *
-
-# Importe de nos modules Python personnalisés
-os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # Ajoute le chemin vers le dossier 'Semabox' afin de pouvoir importer nos modules Python personnalisés.
-sys.path.append("SemaOS") # Ajoute le chemin vers le dossier 'SemaOS' afin de pouvoir importer nos modules Python personnalisés.
-# Importe nos modules Python personnalisés
-from info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns_semabox, get_version_semabox as version_semabox, get_public_ip as ip_public
-from generation_UID import lire_fichier as uid
 
 
 # Ajout d'un enregistrement DNS

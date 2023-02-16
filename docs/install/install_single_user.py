@@ -1,14 +1,5 @@
 #!/usr/bin/env python3.11.1
 
-# Ajout de modules Python
-import contextlib
-import sys
-import subprocess
-import os
-
-# Ajout de modules personnalisés
-from install_enterprise import *
-
 def version_python()->None:
     """
         Description: Cette fonction permet de vérifier la version de Python utilisée.

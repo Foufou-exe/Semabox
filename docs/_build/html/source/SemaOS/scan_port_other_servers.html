@@ -43,8 +43,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../install/modules.html">install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Semabox%20CLI/modules.html">Semabox CLI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Semabox_Graphique/modules.html">Semabox_Graphique</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Semabox/modules.html">Semabox</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../SemaAPI/modules.html">SemaAPI</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">SemaOS</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="etat_server.html">etat_server module</a></li>
@@ -54,7 +53,11 @@
 <li class="toctree-l2"><a class="reference internal" href="ping.html">ping module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="restart_server.html">restart_server module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="scan_other_servers.html">scan_other_servers module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">scan_port_other_servers module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">scan_port_other_servers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scan_port_other_servers.api_scan_port_other_machine"><code class="docutils literal notranslate"><span class="pre">api_scan_port_other_machine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scan_port_other_servers.scan_port_other_machine"><code class="docutils literal notranslate"><span class="pre">scan_port_other_machine()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="scan_servers.html">scan_servers module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="server_speedtest.html">server_speedtest module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="update_code.html">update_code module</a></li>
@@ -87,8 +90,27 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="scan-port-other-servers-module">
-<h1>scan_port_other_servers module<a class="headerlink" href="#scan-port-other-servers-module" title="Lien permanent vers cette rubrique"></a></h1>
+  <section id="module-scan_port_other_servers">
+<span id="scan-port-other-servers-module"></span><h1>scan_port_other_servers module<a class="headerlink" href="#module-scan_port_other_servers" title="Lien permanent vers cette rubrique"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="scan_port_other_servers.api_scan_port_other_machine">
+<span class="sig-prename descclassname"><span class="pre">scan_port_other_servers.</span></span><span class="sig-name descname"><span class="pre">api_scan_port_other_machine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip_args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#scan_port_other_servers.api_scan_port_other_machine" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><p>Cette fonction scanne les ports ouverts sur l’hôte local en utilisant l’outil nmap et retourne un dictionnaire
+contenant les informations sur les ports ouverts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="scan_port_other_servers.scan_port_other_machine">
+<span class="sig-prename descclassname"><span class="pre">scan_port_other_servers.</span></span><span class="sig-name descname"><span class="pre">scan_port_other_machine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip_args</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#scan_port_other_servers.scan_port_other_machine" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="simple">
+<dt>Description:</dt><dd><p>Cette fonction scanne les ports ouverts sur l’hôte local en utilisant l’outil nmap et retourne une chaîne de caractères contenant les informations sur les ports ouverts.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
