@@ -35,7 +35,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build a Docker image
-      run: docker build -t your/image-to-test .
+      run: docker build -t foufou-exe/semabox .
     - name: Run Snyk to check Docker image for vulnerabilities
       # Snyk can be used to break the build when it detects vulnerabilities.
       # In this case we want to upload the issues to GitHub Code Scanning
@@ -45,9 +45,9 @@ jobs:
         # In order to use the Snyk Action you will need to have a Snyk API token.
         # More details in https://github.com/snyk/actions#getting-your-snyk-token
         # or you can signup for free at https://snyk.io/login
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        SNYK_TOKEN: 4fc49023-e8bd-4c71-b529-d25e884637cf
       with:
-        image: your/image-to-test
+        image: foufou-exe/semabox
         args: --file=Dockerfile
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@v2
