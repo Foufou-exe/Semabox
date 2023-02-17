@@ -4,11 +4,11 @@ MAINTAINER foufoudu34
 
 
 # Install dependencies
-RUN apt-get update 
+RUN apt-get update -y
 
-RUN apt-get upgrade 
+RUN apt-get upgrade -y
 
-RUN apt-get install -y build-essential libpq-dev rsyslog iputils-ping netbase net-tools openssh-server sudo curl wget git iproute2 systemd systemd-sysv libcurl4-gnutls-dev nmap
+RUN apt-get install build-essential libpq-dev rsyslog iputils-ping netbase net-tools openssh-server sudo curl wget git iproute2 systemd systemd-sysv libcurl4-gnutls-dev nmap -y
 
 # Deplace to /
 RUN cd /
