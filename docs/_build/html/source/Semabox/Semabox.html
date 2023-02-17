@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Semabox module &mdash; Documentation Semabox 2.0.0</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Recherche" href="../../search.html" />
+    <link rel="next" title="Semabox_CLI module" href="Semabox_CLI.html" />
+    <link rel="prev" title="Semabox" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Semabox
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install/modules.html">install</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Semabox</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Semabox module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Semabox.App"><code class="docutils literal notranslate"><span class="pre">App</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Semabox.App.Button_clear_nmap_command"><code class="docutils literal notranslate"><span class="pre">App.Button_clear_nmap_command()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Semabox.App.Button_scan_nmap_command"><code class="docutils literal notranslate"><span class="pre">App.Button_scan_nmap_command()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Semabox.App.Button_scan_nmap_machine"><code class="docutils literal notranslate"><span class="pre">App.Button_scan_nmap_machine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Semabox.App.Button_scan_via_ip"><code class="docutils literal notranslate"><span class="pre">App.Button_scan_via_ip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Semabox.App.Button_speedtest_clear_command"><code class="docutils literal notranslate"><span class="pre">App.Button_speedtest_clear_command()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Semabox.App.Button_speedtest_command"><code class="docutils literal notranslate"><span class="pre">App.Button_speedtest_command()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Semabox.App.about"><code class="docutils literal notranslate"><span class="pre">App.about()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Semabox.App.getInputBoxValue"><code class="docutils literal notranslate"><span class="pre">App.getInputBoxValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Semabox.App.update_code"><code class="docutils literal notranslate"><span class="pre">App.update_code()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Semabox.App.update_ping_latency"><code class="docutils literal notranslate"><span class="pre">App.update_ping_latency()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Semabox.verification_permission"><code class="docutils literal notranslate"><span class="pre">verification_permission()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Semabox_CLI.html">Semabox_CLI module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../SemaAPI/modules.html">SemaAPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../SemaOS/modules.html">SemaOS</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Semabox</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">Semabox</a></li>
+      <li class="breadcrumb-item active">Semabox module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/source/Semabox/Semabox.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-Semabox">
+<span id="semabox-module"></span><h1>Semabox module<a class="headerlink" href="#module-Semabox" title="Lien permanent vers cette rubrique"></a></h1>
+<dl class="simple">
+<dt>Description: Fichier principal de l’application Semabox</dt><dd><p>Ce script importe plusieurs modules Python nécessaires pour son fonctionnement. 
+Il importe également des fonctions de modules personnalisés se trouvant dans le répertoire “Semabox/SemaOS”.
+Il définit une classe “App” qui représente la fenêtre principale de l’application. 
+Le constructeur de cette classe initialise diverses variables telles que l’identifiant unique du système, le nom d’hôte, l’adresse IP et le nom de domaine associé. 
+Il configure également la fenêtre en lui attribuant un titre, une taille et un alignement au centre de l’écran. 
+Ensuite, il crée des widgets tels que des labels, des boutons et un menu déroulant. 
+Ces widgets sont placés dans la fenêtre et sont configurés avec des polices de caractères, des couleurs de fond, du texte et d’autres paramètres.
+Le script termine en exécutant la boucle principale de Tkinter pour afficher la fenêtre et rendre possible l’interaction avec l’utilisateur.</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="Semabox.App">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Semabox.</span></span><span class="sig-name descname"><span class="pre">App</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Semabox.App" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="simple">
+<dt>Description:</dt><dd><p>La classe App définit une application graphique utilisant l’interface utilisateur Tkinter.
+Le constructeur de la classe, __init__, prend en argument root, qui est la fenêtre principale de l’application.
+Le constructeur initialise plusieurs variables en appelant des fonctions de lecture de fichier, de récupération de nom d’hôte, d’adresse IP et de nom de domaine associé à l’adresse IP de l’hôte.
+Le constructeur configure également la fenêtre en définissant sa taille et son alignement au centre de l’écran, et en empêchant le redimensionnement par l’utilisateur.
+Enfin, le constructeur crée plusieurs widgets Tkinter pour afficher du texte et des couleurs de fond.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Semabox.App.Button_clear_nmap_command">
+<span class="sig-name descname"><span class="pre">Button_clear_nmap_command</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Semabox.App.Button_clear_nmap_command" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="simple">
+<dt>Fonction: Button_clear_nmap_command</dt><dd><p>Description : Effacer les résultats du Scan Nmap</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Semabox.App.Button_scan_nmap_command">
+<span class="sig-name descname"><span class="pre">Button_scan_nmap_command</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Semabox.App.Button_scan_nmap_command" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="simple">
+<dt>Fonction: Button_scan_nmap_command</dt><dd><p>Description : Permets de lancer le scan nmap et d’afficher les résultats dans le label</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Semabox.App.Button_scan_nmap_machine">
+<span class="sig-name descname"><span class="pre">Button_scan_nmap_machine</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Semabox.App.Button_scan_nmap_machine" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="simple">
+<dt>Fonction: Button_scan_nmap_machine</dt><dd><p>Description : Permets de lancer le scan de machine et d’afficher les résultats dans le label</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Semabox.App.Button_scan_via_ip">
+<span class="sig-name descname"><span class="pre">Button_scan_via_ip</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Semabox.App.Button_scan_via_ip" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="simple">
+<dt>Fonction: Button_scan_via_ip</dt><dd><p>Description : Permets de lancer le scan de machine et d’afficher les résultats dans le label
+Return: None
+Paramètres: None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Semabox.App.Button_speedtest_clear_command">
+<span class="sig-name descname"><span class="pre">Button_speedtest_clear_command</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Semabox.App.Button_speedtest_clear_command" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="simple">
+<dt>Fonction: Button_speedtest_clear_command</dt><dd><p>Description : Effacer les résultats du Speedtest</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Semabox.App.Button_speedtest_command">
+<span class="sig-name descname"><span class="pre">Button_speedtest_command</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Semabox.App.Button_speedtest_command" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="simple">
+<dt>Fonction: Button_speedtest_command</dt><dd><p>Description : Permets de lancer le speedtest et d’afficher les résultats dans les labels</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Semabox.App.about">
+<span class="sig-name descname"><span class="pre">about</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Semabox.App.about" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Fonction : about
+Description : Fonction qui permet d’afficher la version de l’application</p>
+<blockquote>
+<div><p>def about(self): crée une nouvelle méthode appelée about et lorsqu’elle est appelée, elle affiche une boîte de message d’information avec le message « A propos » et la version de Ma Semabox en utilisant la fonction get_version_semabox()</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Semabox.App.getInputBoxValue">
+<span class="sig-name descname"><span class="pre">getInputBoxValue</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Semabox.App.getInputBoxValue" title="Lien permanent vers cette définition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Semabox.App.update_code">
+<span class="sig-name descname"><span class="pre">update_code</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Semabox.App.update_code" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Fonction : update_code
+Description : Fonction qui permet de vérifier si il y a une mise à jour de l’application</p>
+<blockquote>
+<div><p>def update_code(self): crée une nouvelle méthode appelée update_code et lorsqu’elle est appelée, elle affiche une boîte de message d’information avec le message « Update » et le status du code à l’aide de check_code_gitlab_application(get_latest_commit_date(os.getcwd()))</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Semabox.App.update_ping_latency">
+<span class="sig-name descname"><span class="pre">update_ping_latency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Semabox.App.update_ping_latency" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Fonction : update_ping_latency
+Description : Fonction qui permet de mettre à jour le ping</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>def update_ping_latency(self): crée une nouvelle méthode appelée update_ping_latency et lorsqu’elle est appelée, elle met à jour le ping dans le label « Text_Label_Ping » et relance la fonction après 1 seconde</p></li>
+<li><p>self.ping = get_ping(): récupère le ping</p></li>
+<li><p>self.Text_Label_Ping[« text »] = f »PING : {self.ping} ms »: met à jour le texte du label « Text_Label_Ping » avec le ping</p></li>
+<li><p>root.after(1000, self.update_ping_latency): relance la fonction après 1 seconde</p></li>
+<li><p>return: None</p></li>
+</ul>
+</div></blockquote>
+<p>Return: None
+Paramètres: None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Semabox.verification_permission">
+<span class="sig-prename descclassname"><span class="pre">Semabox.</span></span><span class="sig-name descname"><span class="pre">verification_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Semabox.verification_permission" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl>
+<dt>Fonction: verification_permission</dt><dd><dl class="simple">
+<dt>Description<span class="classifier">Permets de vérifier si l’utilisateur est root</span></dt><dd><ul class="simple">
+<li><p>def verification_permission(): crée une nouvelle méthode appelée verification_permission</p></li>
+<li><p>with contextlib.suppress(Exception): permet de supprimer les erreurs</p></li>
+<li><p>if platform.system() == « Linux » and os.getuid() != 0: vérifie si l’utilisateur est root</p></li>
+<li><p>print(« Vous devez être root pour lancer cette application »): affiche un message d’erreur</p></li>
+</ul>
+</dd>
+</dl>
+<p>Return: None
+Paramètres: None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="modules.html" class="btn btn-neutral float-left" title="Semabox" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="Semabox_CLI.html" class="btn btn-neutral float-right" title="Semabox_CLI module" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Le Quadro.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
