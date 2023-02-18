@@ -17,5 +17,3 @@ else
         sudo cp api-SemaWEB.service /etc/systemd/system
         sudo systemctl enable api-SemaWEB.service
 fi
-
-

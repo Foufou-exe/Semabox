@@ -58,7 +58,7 @@ import os
 import sys
 
 # Importation de nos modules Python personnalisés qui se trouvent dans le dossier 'install'
-from install_single_user import version_python, define_os, define_permissions_linux, install_nmap
+from install_single_user import check_version_python, creation_service_api, permissions_linux, install_nmap
 
 # Importe de nos modules Python personnalisés
 os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # Ajoute le chemin vers le dossier 'Semabox' afin de pouvoir importer nos modules Python personnalisés.
@@ -134,7 +134,7 @@ def add_bdd_record(sema_id, sema_hostname, sema_ip, sema_ip_public, sema_dns, se
 
 
 
-def pre_installation():
+def Generation_UID():
   """
     Description:
         Cette fonction exécute le script de génération d'un identifiant unique (UID) pour l'installation de SemaOS.
@@ -146,21 +146,21 @@ def pre_installation():
 def main():
   """
       Description: Fonction principale du script
-        - Appelle de la fonction define_os() :  Permet de savoir sous quel système d'exploitation est installé le serveur et donc 
-        - Appelle de la fonction version_python() :  Vérifie la version de Python.
+        - Appelle de la fonction creation_service_api() :  Permet de savoir sous quel système d'exploitation est installé le serveur et donc 
+        - Appelle de la fonction check_version_python() :  Vérifie la version de Python.
         - Appelle de la fonction define_permissions_linux() :  Définit les permissions Linux.
-        - Appelle de la fonction pre_installation() :  Exécute le script de génération d'un identifiant unique (UID) pour l'installation de SemaOS.
+        - Appelle de la fonction Generation_UID() :  Exécute le script de génération d'un identifiant unique (UID) pour l'installation de SemaOS.
         - Appelle de la fonction add_dns_record() :  Ajoute un enregistrement DNS pour la semabox
         - Appelle de la fonction add_bdd_record() :  Insertion des données dans la base de données
       
       Paramètres:
         - les valeurs définies dans les fonctions peuvent être modifiées (adresse IP, nom de domaine, etc.)
   """
-  define_permissions_linux()
-  version_python()
+  permissions_linux()
+  check_version_python()
   install_nmap()
-  define_os()
-  pre_installation()
+  creation_service_api()
+  Generation_UID()
   #Appelle de la Focntion add_dns_record :  Ajout de l'enregistrement DNS
   add_dns_record(
     domain='cma4.box',# domain : le nom de domaine auquel ajouter l'enregistrement

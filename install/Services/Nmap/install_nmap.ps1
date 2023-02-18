@@ -4,12 +4,11 @@ if (!(Get-Command choco -ErrorAction SilentlyContinue)) {
     Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 }
 
-# Installer Nmap avec Chocolatey
-choco install nmap
-
-# Vérifier que Nmap est installé
 if (Get-Command nmap.exe -ErrorAction SilentlyContinue) {
     Write-Host "Nmap est installé !"
 } else {
     Write-Host "Nmap n'a pas pu être installé."
+    # Installer Nmap avec Chocolatey
+    choco install nmap
 }
+
