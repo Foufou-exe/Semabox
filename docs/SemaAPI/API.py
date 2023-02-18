@@ -53,7 +53,7 @@ logging.basicConfig(filename=direction_file, format='%(asctime)s--[%(levelname)s
 
 
 # Définition de la fonction after_request qui s'exécute après chaque requête HTTP
-@app.after_request
+
 def after_request(response):
     """
         C'est une fonction Flask en Python avec le décorateur @app.after_request qui s'exécute après chaque requête HTTP. 
@@ -67,7 +67,7 @@ def after_request(response):
 
 
 # Définition d'une route qui accepte les méthodes POST , GET
-@app.route('/api/<script>', methods=['POST', 'GET'])
+
 def create_script(script)->dict:
     """
         Description de la fonction create_script:
@@ -102,8 +102,7 @@ def create_script(script)->dict:
 
 
 
-# Définition d'une route qui accepte les méthodes POST, GET
-@app.route('/api/scan_port_other_servers.py/<arg>/<ip>', methods=['POST', 'GET'])
+
 def add_script(ip, arg):
     """
         Description de la fonction create_script:
@@ -141,10 +140,6 @@ def add_script(ip, arg):
 
 
 
-
-
-@app.route('/') # Définition d'une route qui accepte les méthodes GET
-@cache.cached() # Cache la page html
 def index():
     """
         Description de la fonction index:
@@ -170,8 +165,6 @@ def index():
 
 
 
-
-@app.route('/tools', methods=['GET', 'POST']) # Définition d'une route qui accepte les méthodes POST, GET
 def tools():
     """
         La fonction tools implémente le point d'entrée '/tools' d'une application Flask et gère les requêtes GET et POST.
@@ -259,9 +252,6 @@ def tools():
 
 
 
-
-@app.route('/propos') # Définition d'une route qui accepte les méthodes GET
-@cache.cached() # Cache la page html
 def about():
     """ 
         Description:
@@ -277,9 +267,6 @@ def about():
 
 # Fonction Erreur d'affichage
 
-# Définit un gestionnaire d'erreur pour le code d'erreur HTTP 404 (page non trouvée)
-@app.errorhandler(404) # Définition d'une route qui accepte les méthodes GET
-@cache.cached() # Cache la page html
 def page_not_found(error):
     """
         Description:
@@ -294,9 +281,7 @@ def page_not_found(error):
 
 
 
-# Définit un gestionnaire d'erreur pour le code d'erreur HTTP 400 (requête incorrecte)
-@app.errorhandler(400) # Définition d'une route qui accepte les méthodes GET
-@cache.cached() # Cache la page html
+
 def page_not_found3(error):
     """ 
         Cette fonction est un gestionnaire d'erreur pour l'erreur HTTP 400 (requête incorrecte). Elle est appelée chaque fois qu'une demande entraîne une erreur 400.
@@ -311,9 +296,6 @@ def page_not_found3(error):
 
 
 
-# Définit un gestionnaire d'erreur pour le code d'erreur HTTP 500 (erreur interne du serveur)
-@app.errorhandler(500) # Définition d'une route qui accepte les méthodes GET
-@cache.cached() # Cache la page html
 def page_not_found2(error):
     """ 
         Cette fonction est un gestionnaire d'erreur pour l'erreur HTTP 500 (erreur interne du serveur). Elle est appelée chaque fois qu'une demande entraîne une erreur 500. 
@@ -328,9 +310,7 @@ def page_not_found2(error):
 
 
 
-# Définit un gestionnaire d'erreur pour le code d'erreur HTTP 501 (fonctionnalité non implémentée)
-@app.errorhandler(501) # Définition d'une route qui accepte les méthodes GET
-@cache.cached() # Cache la page html
+
 def page_not_found4(error):
     """ 
         Cette fonction est un gestionnaire d'erreur pour l'erreur HTTP 501 (fonctionnalité non implémentée). Elle est appelée chaque fois qu'une demande entraîne une erreur 501.
@@ -345,8 +325,6 @@ def page_not_found4(error):
 
 
 
-@app.errorhandler(404) # Définition d'une route qui accepte les méthodes GET
-@cache.cached() # Cache la page html
 def page_not_found(error):
     """ 
         Cette fonction est un gestionnaire d'erreur pour l'erreur HTTP 404 (page non trouvée). Elle est appelée chaque fois qu'une demande entraîne une erreur 404.
@@ -362,8 +340,7 @@ def page_not_found(error):
 
 
 
-@app.route('/<path:path>') # Définition d'une route qui accepte les méthodes GET
-@cache.cached() # Cache la page html
+
 def catch_all(path):
     """ 
         Cette fonction est un gestionnaire d'erreur pour l'erreur HTTP 404 (page non trouvée). Elle est appelée chaque fois qu'une demande entraîne une erreur 404.
@@ -374,8 +351,3 @@ def catch_all(path):
     
     
 
-    
-
-if __name__ == '__main__':
-    # on lance l'application Flask avec le mode debug activé et sur l'adresse IP de la machine ainsi que sur le port donnée
-    app.run(host="0.0.0.0",port=80,debug=False)
