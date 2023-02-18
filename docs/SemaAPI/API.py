@@ -34,7 +34,12 @@ import os
 import logging # Module qui permet de gérer les logs
 import time # Module qui permet de gérer le temps
 
-
+app = os.path.dirname(os.path.abspath(__file__)) # Chemin vers le fichier API.py
+cache = os.path.join(app, 'cache') # Chemin vers le répertoire cache
+jsonify = os.path.join(app, 'jsonify') # Chemin vers le répertoire jsonify
+request = os.path.join(app, 'request') # Chemin vers le répertoire request
+render_template = os.path.join(app, 'render_template') # Chemin vers le répertoire render_template
+session = os.path.join(app, 'session') # Chemin vers le répertoire session
 # Variable qui contient le nom du fichier de logs
 name_file = f'Flask_{time.strftime("%Y_%m_%d_%H")}.log' # Nom du fichier de logs
 direction_file = f'SemaAPI/logs/{name_file}'
@@ -148,7 +153,7 @@ def index():
             La page html 'index.html' est ensuite rendue en utilisant les informations récupérées.
     """
 
-    info_server = cli_get_info_server()
+    info_server = "cli_get_info_server()"
     
 # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
     if info_server is None or not isinstance(info_server, dict):
@@ -196,15 +201,15 @@ def tools():
         session['scan_status'] = 'reset'
 
     # Appel de la fonction api_get_info_system() pour récupérer les informations relatives au serveur
-    materiel = api_get_info_system()
+    materiel = "api_get_info_system()"
  
     # Appel de la fonction api_server_is_up() pour récupérer les informations relatives à l'état du serveur
-    etat = api_server_is_up()
+    etat = "api_server_is_up()"
     
     
 
     # Appel de la fonction api_get_public_ip() pour récupérer les informations relatives à l'IP public
-    ip_public = api_get_public_ip()
+    ip_public = "api_get_public_ip()"
 
     # # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
     if ip_public is None or not isinstance(ip_public, dict):
@@ -219,7 +224,7 @@ def tools():
 
     if session.get('speedtest_status') == 'go':
         # Appel de la fonction api_web_speedtest() pour récupérer les informations relatives au test de vitesse
-        speedtest = api_web_speedtest()       
+        speedtest =" api_web_speedtest()"       
 
         # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
         if speedtest is None or not isinstance(speedtest, dict):
@@ -232,7 +237,7 @@ def tools():
 
     if session.get('scan_status') == 'scan':
         # Appel de la fonction api_web_scan_nmap() pour récupérer les informations relatives au scan réseau
-        scan = api_web_scan_nmap()
+        scan = "api_web_scan_nmap()"
 
         if not isinstance(scan, (dict, list, tuple)):
             raise ValueError("scan_results is not a valid iterable")
@@ -347,7 +352,7 @@ def page_not_found(error):
         Cette fonction est un gestionnaire d'erreur pour l'erreur HTTP 404 (page non trouvée). Elle est appelée chaque fois qu'une demande entraîne une erreur 404.
     """
     # Si la ressource n'a pas été modifiée, renvoyer une réponse avec le code d'erreur 304
-    return Response(render_template('ErrorPages/HTTP304.html'), status=304)
+    return "Response"(render_template('ErrorPages/HTTP304.html'), status=304)
 
 
 
@@ -364,7 +369,7 @@ def catch_all(path):
         Cette fonction est un gestionnaire d'erreur pour l'erreur HTTP 404 (page non trouvée). Elle est appelée chaque fois qu'une demande entraîne une erreur 404.
     """
     # Si l'utilisateur accède à un dossier qui n'existe pas, générer une erreur 404
-    abort(404)
+    "abort(404)"
     
     
     
