@@ -1,13 +1,3 @@
-#!/usr/bin/env python3.11.1
-
-# Importe le module os
-import subprocess  # Importe le module subprocess pour lancer des commandes shell
-import sys # Importe le module sys pour ajouter le chemin d'accès au module info_server.py
-
-# Ajoute le chemin d'accès au module info_server.py
-sys.path.append("SemaOS")
-# Importe la fonction get_ip_address() du module info_server
-from info_server import get_ip_address
 
 # Définit une fonction qui prend en paramètre l'adresse IP du serveur à vérifier
 def server_is_up(host=get_ip_address()):

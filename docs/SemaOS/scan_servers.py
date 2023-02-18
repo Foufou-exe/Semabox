@@ -15,15 +15,6 @@
             api_scan_nmap() - Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne un dictionnaire contenant les informations sur les ports ouverts.
 """
 
-# Importation des modules Python nécessaires
-import nmap # Pour scanner 
-import sys # Pour ajouter le chemin du module info_server.py
-
-# Ajout du chemin du module info_server.py
-sys.path.append("SemaOS")
-# Importation des modules Python personnalisés
-from info_server import get_ip_address
-
 
 # Fonctions
 def scan_nmap() -> str:

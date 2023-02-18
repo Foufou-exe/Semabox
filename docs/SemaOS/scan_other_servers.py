@@ -2,11 +2,6 @@
 
 # Description: Ce Script permet de scanner les ports ouverts sur l'hôte local.
 
-# Importation des modules Python nécessaires
-import nmap # Pour scanner les ports
-
-# Importation des modules Python personnalisés
-from info_server import get_address_network
 
 
 def scan_all_machine(network=get_address_network())->dict:

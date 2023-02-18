@@ -1,10 +1,6 @@
 #!/usr/bin/env python3.11.1
 
-# Importation des librairies nécessaires
-import requests
-import time
-import icmplib
-import os
+
 
 # Définition des variables
 TEST_FILE_URL = "http://ipv4.download.thinkbroadband.com/50MB.zip" # Fichier de 50 MB
