@@ -124,7 +124,7 @@ def api_info_server(version=get_version_semabox(),lire_uid="",hostname=get_hostn
     
     
     
-def cli_get_info_server(version=get_version_semabox(),lire_uid=lire_fichier(),hostname=get_hostname(),ip=get_ip_address(),dns=get_dns(get_ip_address()),ip_public=get_public_ip()):
+def cli_get_info_server(version=get_version_semabox(),lire_uid="",hostname=get_hostname(),ip=get_ip_address(),dns=get_dns(get_ip_address()),ip_public=get_public_ip()):
     
     """
         Description:
