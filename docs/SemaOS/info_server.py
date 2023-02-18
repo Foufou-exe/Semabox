@@ -86,7 +86,7 @@ def get_version_semabox()->str:
     if os.name == 'nt': # Windows
         file_path = os.path.join("SemaOS", "version.txt") # Chemin vers le fichier "version.txt"
     else: # Linux ou autre
-        file_path = os.path.join("../Semabox/SemaOS", "version.txt") # Chemin vers le fichier "version.txt"
+        file_path = os.path.join("../SemaOS", "version.txt") # Chemin vers le fichier "version.txt"
 
     with open(file_path, "r") as f: # Ouvre le fichier "version.txt" en lecture
         return f.readline() # Retourne la première ligne du fichier
@@ -105,7 +105,7 @@ def api_get_public_ip(ip=get_public_ip())->dict: # Fonction qui retourne l'adres
 
 
 
-def api_info_server(version=get_version_semabox(),lire_uid=lire_fichier(),hostname=get_hostname(),ip=get_ip_address(),dns=get_dns(get_ip_address()),ip_public=get_public_ip())->dict:
+def api_info_server(version=get_version_semabox(),lire_uid="",hostname=get_hostname(),ip=get_ip_address(),dns=get_dns(get_ip_address()),ip_public=get_public_ip())->dict:
     
     """
         Description:

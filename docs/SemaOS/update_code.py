@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.11.1
 
 
-def get_latest_commit_date(repo_path)->datetime:
+def get_latest_commit_date(repo_path):
     """
         Description:
             Cette fonction récupère la date du dernier commit dans un dépôt git.

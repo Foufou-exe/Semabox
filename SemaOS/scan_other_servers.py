@@ -10,6 +10,17 @@ from info_server import get_address_network
 
 
 def scan_all_machine(network=get_address_network())->dict:
+        
+    """
+        Description: Fonction qui scanne les machines connectées au réseau local.
+            - Le scan est effectué en utilisant l'option -sP (Ping scan) de nmap.
+            - Le scan est effectué sur le réseau local de la machine sur laquelle le code est exécuté.
+        Returns:
+            dict : dictionnaire contenant les résultats du scan
+        Parameters:
+            network (str) : adresse de réseau
+    """ 
+    
     # Création d'un objet nmap.PortScanner()
     nm = nmap.PortScanner()
 
@@ -28,6 +39,17 @@ def scan_all_machine(network=get_address_network())->dict:
     return scan_results # Retourne un dictionnaire contenant les résultats du scan
 
 def api_scan_machine(network=get_address_network())->dict:
+        
+    """
+        Description: Fonction qui scanne les machines connectées au réseau local.
+            - Le scan est effectué en utilisant l'option -sP (Ping scan) de nmap.
+            - Le scan est effectué sur le réseau local de la machine sur laquelle le code est exécuté.
+        Returns:
+            dict : dictionnaire contenant les résultats du scan
+        Parameters:
+            network (str) : adresse de réseau
+    """ 
+    
     # Création d'un objet nmap.PortScanner()
     nm = nmap.PortScanner()
 
@@ -46,6 +68,15 @@ def api_scan_machine(network=get_address_network())->dict:
     print(scan_results) # Affiche les résultats du scan
     
 def cli_scan_machine()->str:
+    """
+        Description: Fonction qui scanne les machines connectées au réseau local.
+            - Le scan est effectué en utilisant l'option -sP (Ping scan) de nmap.
+            - Le scan est effectué sur le réseau local de la machine sur laquelle le code est exécuté.
+        Returns:
+            str : chaîne de caractères contenant les résultats du scan
+        Parameters:
+            network (str) : adresse de réseau
+    """
     return "".join(
         f"\n La Machine {machine['hostname']} en {machine['host']}  est {machine['state']}"
         for machine in scan_all_machine().values()
