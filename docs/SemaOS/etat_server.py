@@ -1,6 +1,8 @@
+#!/usr/bin/env python3.11.1
+
 
 # Définit une fonction qui prend en paramètre l'adresse IP du serveur à vérifier
-def server_is_up(host=get_ip_address()):
+def server_is_up(host):
     """
         Description:
             Cette fonction vérifie si le serveur est en ligne en envoyant une requête ping à l'adresse IP spécifiée.
@@ -20,7 +22,7 @@ def server_is_up(host=get_ip_address()):
         resultat2 = {"etat_semabox": "down"} # Si le serveur répond, retourne True
         print(resultat2) # Affiche le résultat
 
-def api_server_is_up(host=get_ip_address()):
+def api_server_is_up(host):
     """
         Description:
             Cette fonction vérifie si le serveur est en ligne en envoyant une requête ping à l'adresse IP spécifiée.

@@ -8,6 +8,13 @@
         Il contient également des fonctions pour redémarrer ou éteindre le serveur, et pour vérifier si le serveur est en ligne.
 """
 
+# Import des modules Python nécessaires
+import socket # Pour récupérer l'adresse IP
+import platform # Pour récupérer le nom d'hôte
+import requests # Pour récupérer l'adresse IP publique
+import ipaddress # Pour récupérer l'adresse de réseau
+import os # Pour les commandes shell
+
 
 
 def get_hostname()->str:
