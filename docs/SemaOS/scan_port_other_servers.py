@@ -1,4 +1,4 @@
-
+nmap = __import__('nmap')
 # Fonctions
 def scan_port_other_machine(ip_args)->str:
     
