@@ -7,9 +7,9 @@ import subprocess
 import os
 
 # Ajout de modules personnalisés
-from install_enterprise import pre_installation
+from install_enterprise import Generation_UID
 
-def version_python()->None:
+def check_version_python()->None:
     """
         Description: Cette fonction permet de vérifier la version de Python utilisée.
             - Si la version de Python est 3.11.1, le script continue son exécution.
@@ -30,7 +30,7 @@ def version_python()->None:
 
             
 
-def define_permissions_linux() -> None:
+def permissions_linux() -> None:
     """
         Description: Cette fonction permet de définir les permissions d'exécution du script.
             - Si le script est exécuté sur Linux, on vérifie si l'utilisateur a les permissions d'exécution.
@@ -47,9 +47,9 @@ def define_permissions_linux() -> None:
                 print("Permissions accordées")
             else:
                 print("Permissions refusées")
-                subprocess.run(["bash", "permission.sh"])
+                subprocess.run(["sudo","bash", "permission.sh"])
 
-def define_os()->None:
+def creation_service_api()->None:
     """
         Description: Cette fonction permet de définir l'OS sur lequel le script est exécuté.
             - Si le script est exécuté sur Linux, on lance le script de creation du service SemaWEB.
@@ -74,8 +74,8 @@ def install_nmap()->None:
         subprocess.run(["Services", "Nmap" ,"install_nmap.ps1"])
 
 if __name__ == "__main__":
-    define_permissions_linux()
-    version_python()
+    permissions_linux()
+    check_version_python()
     install_nmap()
-    define_os()
-    pre_installation()
+    creation_service_api()
+    Generation_UID()

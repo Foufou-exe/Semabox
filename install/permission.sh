@@ -8,4 +8,3 @@ else
     SEMABOX_DIR=$(sudo find / -name "Semabox" 2>/dev/null | head -n 1) # On cherche le dossier Semabox
     sudo chmod -R a+x ${SEMABOX_DIR} # On donne les droits d'execution a tous les fichiers du dossier Semabox
 fi
-
