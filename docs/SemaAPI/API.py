@@ -23,10 +23,8 @@
             jsonify = module qui permet de convertir un dictionnaire Python en une chaîne de caractères JSON
             abort = module qui permet de retourner une erreur HTTP
 """
-# Import des modules Flask
-from flask import Flask, render_template, jsonify, abort, Response, request, session 
-from flask_caching  import Cache # Import du module Flask-Cache
-# Import des différents modules Python
+
+
 
 import subprocess # Module qui permet d'exécuter des commandes système
 import ast # Module qui permet de convertir une chaîne de caractères en dictionnaire Python
@@ -35,11 +33,6 @@ import sys
 import os 
 import logging # Module qui permet de gérer les logs
 import time # Module qui permet de gérer le temps
-
-# Création de l'application Flask
-app = Flask(__name__) 
-app.secret_key = "keys/secret_key" # Clé secrète pour la session
-cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 30}) # Configuration du cache
 
 
 # Variable qui contient le nom du fichier de logs

@@ -6,11 +6,8 @@
 TEST_FILE_URL = "http://ipv4.download.thinkbroadband.com/50MB.zip" # Fichier de 50 MB
 UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media" # URL de téléchargement
 
-# Condition pour le chemin d'accès au fichier
-if os.name == 'nt' : # Windows
-    FILE_PATH = "SemaOS\download\TESTMB.zip"
-else: # Linux ou autre
-    FILE_PATH = "SemaOS/download/TESTMB.zip"
+
+FILE_PATH = "SemaOS\download\TESTMB.zip"
 
 HOST = "google.com" # Hôte à ping
 
