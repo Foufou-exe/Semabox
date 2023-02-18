@@ -1,9 +1,4 @@
 
-import icmplib
-import threading
-
-
-
 
 def get_ping() -> int:
     """

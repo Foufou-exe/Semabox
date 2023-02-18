@@ -12,9 +12,6 @@
         Les informations incluent le nombre de coeurs CPU, l'utilisation CPU, la quantité de mémoire RAM, le nombre de disques, le temps écoulé depuis l'allumage et le nom de l'OS.
         cli_get_info_system
 """
-# Importation des modules Python nécessaires
-import psutil
-import platform
 
 # Définition des fonctions
 def get_info_system()->dict:

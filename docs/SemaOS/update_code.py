@@ -1,8 +1,5 @@
 #!/usr/bin/env python3.11.1
 
-import subprocess
-
-from datetime import datetime
 
 def get_latest_commit_date(repo_path)->datetime:
     """

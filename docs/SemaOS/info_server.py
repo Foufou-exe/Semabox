@@ -9,20 +9,6 @@
 """
 
 
-# Import des modules Python nécessaires
-import socket # Pour récupérer l'adresse IP
-import platform # Pour récupérer le nom d'hôte
-import requests # Pour récupérer l'adresse IP publique
-import ipaddress # Pour récupérer l'adresse de réseau
-import os # Pour les commandes shell
-import sys
-
-# Ajoute le chemin d'accès au module generation_UID.py
-sys.path.append("SemaOS")
-# Importe de nos modules Python personnalisés
-from generation_UID import lire_fichier
-
-
 
 def get_hostname()->str:
     

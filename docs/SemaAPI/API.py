@@ -15,26 +15,6 @@
     La fonction get_ip_address du module info_server est importée et utilisée dans les trois fonctions pour récupérer l'adresse IP du serveur.
 """
 
-# Import des différents modules Python
-import subprocess # Module qui permet d'exécuter des commandes système
-import ast # Module qui permet de convertir une chaîne de caractères en dictionnaire Python
-import json # Module qui permet de convertir un dictionnaire Python en une chaîne de caractères JSON
-import sys 
-import os 
-import logging # Module qui permet de gérer les logs
-import time # Module qui permet de gérer le temps
-
-# Ajout du chemin d'accès au dossier parent
-sys.path.append(os.path.join(os.path.dirname(__file__), "..")) # Ajout du chemin d'accès au dossier parent ( permet de retourné au dossier parent)
-
-# Import des modules Python personnalisés 
-from SemaOS.info_server import *
-from SemaOS.materiel_server import *
-from SemaOS.etat_server import *
-from SemaOS.server_speedtest import *
-from SemaOS.scan_servers import *
-from SemaOS.scan_other_servers import *
-
 """
     Description de la Librairie Flask:
         Les modules Flask :
@@ -43,11 +23,6 @@ from SemaOS.scan_other_servers import *
             jsonify = module qui permet de convertir un dictionnaire Python en une chaîne de caractères JSON
             abort = module qui permet de retourner une erreur HTTP
 """
-
-# Import des modules Flask
-from flask import Flask, render_template, jsonify, abort, Response, request, session 
-from flask_caching  import Cache # Import du module Flask-Cache
-
 
 
 
