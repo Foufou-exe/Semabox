@@ -9,9 +9,7 @@
 
 name: Publish Docker image
 
-on:
-  release:
-    types: [published]
+on: push
 
 jobs:
   push_to_registry:
@@ -38,5 +36,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: foufoudu34/semabox:latest
