@@ -1,4 +1,4 @@
-nmap = __import__('nmap')
+nmap = None
 # Fonctions
 def scan_port_other_machine(ip_args)->str:
     
@@ -7,6 +7,7 @@ def scan_port_other_machine(ip_args)->str:
             Cette fonction scanne les ports ouverts sur l'hôte local en utilisant l'outil nmap et retourne une chaîne de caractères contenant les informations sur les ports ouverts.
     """
     try:
+     
         # Création d'un objet nmap.PortScanner()
         nm = nmap.PortScanner()
 
