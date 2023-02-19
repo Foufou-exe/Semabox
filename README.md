@@ -33,6 +33,7 @@ Mise en situation :
 *Le dossier Semabox à était git clone à la racine (**donc il a reçu des permissions**)*
 
 Pour Windows, il n'y a aucune d'adaptation à faire
+
 #### **Etape 1**: On clone le projet
 
 ```bash
@@ -49,11 +50,14 @@ cd Semabox/install
 
 #### **Etape 2 bis**: Pour Linux ,donner les permissions d'executions
 
-Commande : **Windows** && **Linux**
+Commande : **Linux**
 
 ```bash
+dos2unix permission.sh
 bash permission.sh
 ```
+
+Si vous n'avez pas dos2unix , installer le `apt\yum\apk\dnf install dos2unix`
 
 #### **Etape 3**: On installe les prérequis pour le bon fonctionnement de la Semabox
 

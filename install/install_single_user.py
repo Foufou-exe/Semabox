@@ -6,8 +6,14 @@ import sys
 import subprocess
 import os
 
-# Ajout de modules personnalisés
-from install_enterprise import Generation_UID
+def get_uid():
+  """
+    Description:
+        Cette fonction exécute le script de génération d'un identifiant unique (UID) pour l'installation de SemaOS.
+  """
+  # On se déplace dans le dossier parent
+  file_path = os.path.join("..","SemaOS","generation_UID.py")
+  subprocess.run(["python", file_path])
 
 def check_version_python()->None:
     """
@@ -24,7 +30,7 @@ def check_version_python()->None:
         pass
     else:
         if sys.platform == "linux":
-            subprocess.run(["bash", "python3_11_1", "install_python3.11.1.sh"])
+            subprocess.run(["python3_11_1", "./install_python3.11.1.sh"])
         else:
             subprocess.run(["python3_11_1", "install_python3.11.1.ps1"])
 
@@ -58,9 +64,11 @@ def creation_service_api()->None:
         Retour: Aucun
     """
     if sys.platform == "linux":
-        subprocess.run(["bash", "Services", "create_service.sh"])
+        subprocess.run(["Services", "./create_service.sh"])
+        print("Service SemaWEB créé")
     else:
         subprocess.run(["Services", "create_service.bat"])
+        print("Service SemaWEB créé")
 
 def install_nmap()->None:
     """
@@ -78,4 +86,4 @@ if __name__ == "__main__":
     check_version_python()
     install_nmap()
     creation_service_api()
-    Generation_UID()
+    get_uid()
