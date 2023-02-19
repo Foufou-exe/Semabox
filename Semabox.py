@@ -16,6 +16,7 @@
 
 # Importation des modules Pythons nécessaires
 import contextlib # Import du module 'contextlib'
+import sys
 import os # Import du module 'os'
 import tkinter as tk # Import du module 'tkinter' pour l'interface graphique
 import tkinter.font as tkFont  # Import du module 'tkFont' pour la gestion des polices de caractères
@@ -346,13 +347,13 @@ if __name__ == "__main__":
     # Création d'une instance de la classe Tk (fenêtre principale de l'application)
     root = tk.Tk()
     # Si le dossier "SEMABOX_UID" n'existe pas
-    if os.name == "nt": # Si le système d'exploitation est Windows
-        if not os.path.exists("SemaOS/Semabox_UID"):
+    if sys.platform == 'win32': # Windows
+        if not os.path.exists("SemaOS\Semabox_UID"):
             # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
             creation_dossier(generate_id())
-    elif not os.path.exists("/Semabox/SemaOS/Semabox_UID"):
-        # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
-        creation_dossier(generate_id())
+    else:
+        if not os.path.exists("../SemaOS/Semabox_UID"):# Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
+            creation_dossier(generate_id())
 
     # Création d'une instance de la classe "App" avec en paramètre la fenêtre principale "root"
     app = App(root)

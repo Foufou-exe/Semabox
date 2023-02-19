@@ -1,8 +1,9 @@
 #!/usr/bin/env python3.11.1
 
 # Importation des modules Python nécessaires
-import os
+import sys
 import uuid
+import os
 
 
 
@@ -22,8 +23,8 @@ def creation_dossier(id_semabox):
             - id_semabox (str) : identifiant à écrire dans le fichier "UID.txt".
     """
 
-    if os.name == 'nt': # Windows
-        file_path = os.path.join("SemaOS", "Semabox_UID") # Création du dossier "Semabox_UID"
+    if sys.platform == 'win32': # Windows
+        file_path = os.path.join("SemaOS","Semabox_UID") # Création du dossier "Semabox_UID"
     else: # Linux ou autre
         file_path = os.path.join(".", "SemaOS", "Semabox_UID") # Création du dossier "Semabox_UID"
     # Création du dossier "Semabox_UID"
@@ -40,10 +41,13 @@ def lire_fichier():
         Cette fonction lit le fichier "UID.txt" dans le dossier "Semabox_UID" et retourne son contenu.
     """
     # Condition pour vérifier si le système d'exploitation est Windows ou Linux
-    if os.name == 'nt': # Windows
-        file_path = os.path.join("SemaOS", "Semabox_UID","UID.txt") # Chemin absolu du fichier "UID.txt"
+    if sys.platform == 'win32': # Windows
+        file_path = os.path.join("SemaOS","Semabox_UID", "UID.txt") # Chemin absolu du fichier "UID.txt"
     else: # Linux ou autre
         file_path = os.path.join(".", "SemaOS", "Semabox_UID","UID.txt") # Chemin absolu du fichier "UID.txt"
+        
+    if not os.path.exists(file_path): # Si le fichier "UID.txt" existe
+        creation_dossier(generate_id()) # Appel de la fonction creation_dossier() avec un identifiant généré par generate_id()
         
     with open(file_path, "r") as f: # Ouverture du fichier "UID.txt" en lecture
         return f.readline() # Lecture du fichier "UID.txt" et retour de son contenu
@@ -55,8 +59,8 @@ def check_file():
         Sinon, on appelle la fonction lire_fichier().
     """
     # Condition pour vérifier si le système d'exploitation est Windows ou Linux
-    if os.name == 'nt': # Windows
-        file_path = os.path.join("SemaOS/Semabox_UID") # Chemin absolu du fichier "UID.txt"
+    if sys.platform == 'win32': # Windows
+        file_path = os.path.join("SemaOS","Semabox_UID") # Chemin absolu du fichier "UID.txt"
     else: # Linux ou autre
         file_path = os.path.join(".", "SemaOS","Semabox_UID") # Chemin absolu du fichier "UID.txt"
         
