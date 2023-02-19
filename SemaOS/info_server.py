@@ -93,7 +93,7 @@ def get_version_semabox()->str:
     if os.name == 'nt': # Windows
         file_path = os.path.join("SemaOS", "version.txt") # Chemin vers le fichier "version.txt"
     else: # Linux ou autre
-        file_path = os.path.join("../Semabox/SemaOS", "version.txt") # Chemin vers le fichier "version.txt"
+        file_path = os.path.join(".", "/Semabox/SemaOS", "version.txt") # Chemin vers le fichier "version.txt"
 
     with open(file_path, "r") as f: # Ouvre le fichier "version.txt" en lecture
         return f.readline() # Retourne la première ligne du fichier

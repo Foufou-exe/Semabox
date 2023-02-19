@@ -58,15 +58,22 @@ import os
 import sys
 
 # Importation de nos modules Python personnalisés qui se trouvent dans le dossier 'install'
-from install_single_user import check_version_python, creation_service_api, permissions_linux, install_nmap
+import install_single_user
 
 # Importe de nos modules Python personnalisés
-os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # Ajoute le chemin vers le dossier 'Semabox' afin de pouvoir importer nos modules Python personnalisés.
-sys.path.append("SemaOS") # Ajoute le chemin vers le dossier 'SemaOS' afin de pouvoir importer nos modules Python personnalisés.
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../SemaOS'))) # Ajoute le chemin vers le dossier 'Semabox' afin de pouvoir importer nos modules Python personnalisés.
+ # Ajoute le chemin vers le dossier 'SemaOS' afin de pouvoir importer nos modules Python personnalisés.
 # Importe nos modules Python personnalisés
-from info_server import get_ip_address as ip, get_hostname as hostname, get_dns as dns_semabox, get_version_semabox as version_semabox, get_public_ip as ip_public
-from generation_UID import lire_fichier as uid
+import info_server
+import generation_UID
 
+# Définition des variables
+ip=info_server.get_ip_address()
+hostname=info_server.get_hostname()
+dns_semabox=info_server.get_dns(ip)
+version_semabox=info_server.get_version_semabox()
+ip_public=info_server.get_public_ip()
+uid=generation_UID.lire_fichier()
 
 # Ajout d'un enregistrement DNS
 def add_dns_record(domain, ip_dns, host, new_ip, enregistrement, ttl):
@@ -134,7 +141,7 @@ def add_bdd_record(sema_id, sema_hostname, sema_ip, sema_ip_public, sema_dns, se
 
 
 
-def Generation_UID():
+def get_uid():
   """
     Description:
         Cette fonction exécute le script de génération d'un identifiant unique (UID) pour l'installation de SemaOS.
@@ -156,29 +163,29 @@ def main():
       Paramètres:
         - les valeurs définies dans les fonctions peuvent être modifiées (adresse IP, nom de domaine, etc.)
   """
-  permissions_linux()
-  check_version_python()
-  install_nmap()
-  creation_service_api()
-  Generation_UID()
+  install_single_user.permissions_linux()
+  install_single_user.check_version_python()
+  install_single_user.install_nmap()
+  install_single_user.creation_service_api()
+  get_uid()
   #Appelle de la Focntion add_dns_record :  Ajout de l'enregistrement DNS
   add_dns_record(
     domain='cma4.box',# domain : le nom de domaine auquel ajouter l'enregistrement
     ip_dns='192.168.100.253', # serveur_dns : l'adresse IP du serveur DNS auquel envoyer la requête
-    host=hostname(),# hostname : le nom de l'hôte à ajouter 
-    new_ip=ip(), # ip : l'adresse IP de l'hôte à ajouter
+    host=hostname,# hostname : le nom de l'hôte à ajouter 
+    new_ip=ip, # ip : l'adresse IP de l'hôte à ajouter
     enregistrement='A', # enregistrement : le type d'enregistrement (A, AAAA, etc.)
     ttl=300 
   ) # ttl : le temps de vie (en secondes) de l'enregistrement
 
   # Appelle de la Focntion add_bdd_record :  Insertion des données dans la base de données
   add_bdd_record(
-    sema_id=uid(), # uid : l'identifiant unique de la semabox
-    sema_hostname=hostname(), # hostname : le nom de l'hôte de la semabox
-    sema_ip=ip(),
-    sema_ip_public=ip_public(), # ip_pubic : l'adresse IP publique de la semabox 
-    sema_dns=dns_semabox(ip()), #+ "".join(".cma4.box") , # ip : l'adresse IP de la semabox
-    sema_version=version_semabox(),  # version_semabox : la version de la semabox
+    sema_id=uid, # uid : l'identifiant unique de la semabox
+    sema_hostname=hostname, # hostname : le nom de l'hôte de la semabox
+    sema_ip=ip,
+    sema_ip_public=ip_public, # ip_pubic : l'adresse IP publique de la semabox 
+    sema_dns=dns_semabox, #+ "".join(".cma4.box") , # ip : l'adresse IP de la semabox
+    sema_version=version_semabox,  # version_semabox : la version de la semabox
     user='semabox', # user : l'utilisateur de la base de données
     password='Mspr_epsi1!', # password : le mot de passe de l'utilisateur
     host='192.168.150.240', # host : l'adresse IP du serveur de la base de données

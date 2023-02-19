@@ -25,7 +25,7 @@ def creation_dossier(id_semabox):
     if os.name == 'nt': # Windows
         file_path = os.path.join("SemaOS", "Semabox_UID") # Création du dossier "Semabox_UID"
     else: # Linux ou autre
-        file_path = os.path.join("../Semabox/SemaOS", "Semabox_UID") # Création du dossier "Semabox_UID"
+        file_path = os.path.join(".", "SemaOS", "Semabox_UID") # Création du dossier "Semabox_UID"
     # Création du dossier "Semabox_UID"
     os.mkdir(file_path) # Création du dossier "Semabox_UID"
 
@@ -43,7 +43,7 @@ def lire_fichier():
     if os.name == 'nt': # Windows
         file_path = os.path.join("SemaOS", "Semabox_UID","UID.txt") # Chemin absolu du fichier "UID.txt"
     else: # Linux ou autre
-        file_path = os.path.join("../Semabox/SemaOS", "Semabox_UID","UID.txt") # Chemin absolu du fichier "UID.txt"
+        file_path = os.path.join(".", "SemaOS", "Semabox_UID","UID.txt") # Chemin absolu du fichier "UID.txt"
         
     with open(file_path, "r") as f: # Ouverture du fichier "UID.txt" en lecture
         return f.readline() # Lecture du fichier "UID.txt" et retour de son contenu
@@ -58,7 +58,7 @@ def check_file():
     if os.name == 'nt': # Windows
         file_path = os.path.join("SemaOS/Semabox_UID") # Chemin absolu du fichier "UID.txt"
     else: # Linux ou autre
-        file_path = os.path.join("../Semabox/SemaOS/Semabox_UID") # Chemin absolu du fichier "UID.txt"
+        file_path = os.path.join(".", "SemaOS","Semabox_UID") # Chemin absolu du fichier "UID.txt"
         
     if not os.path.exists(file_path): # Si le fichier "UID.txt" n'existe pas
         creation_dossier(generate_id()) # Appel de la fonction creation_dossier() avec un identifiant généré par generate_id()
