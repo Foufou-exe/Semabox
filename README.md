@@ -5,6 +5,7 @@
 
   [![License Propriétaire](https://img.shields.io/badge/License-Propri%C3%A9taire-green.svg)](https://github.com/Foufou-exe/Semabox/blob/main/license)
   ![Version Python](https://img.shields.io/badge/Compatible-Python%203.11%203.10-yellow.svg)
+  [![Documentation Status](https://readthedocs.org/projects/semabox/badge/?version=latest)](https://semabox.readthedocs.io/fr/latest/?badge=latest)
 
 </div>
 
@@ -49,7 +50,7 @@ cd Semabox/install
 
 #### **Etape 2 bis**: Pour Linux ,donner les permissions d'executions
 
-Commande : **Windows** && **Linux**
+Commande : **Linux**
 
 ```bash
 bash permission.sh
