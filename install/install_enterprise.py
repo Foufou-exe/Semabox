@@ -147,7 +147,7 @@ def get_uid():
         Cette fonction exécute le script de génération d'un identifiant unique (UID) pour l'installation de SemaOS.
   """
   # On se déplace dans le dossier parent
-  file_path = os.path.join("SemaOS","generation_UID.py")
+  file_path = os.path.join("..","SemaOS","generation_UID.py")
   subprocess.run(["python", file_path])
 
 def main():
