@@ -10,6 +10,7 @@ chemin_python = os.path.abspath(__file__)
 # Récupère le répertoire parent du fichier Python (qui est le répertoire de travail actuel)
 repertoire_travail = os.path.dirname(chemin_python)
 
+
 def generate_id():
     """
         Cette fonction génère un identifiant unique (UUID) et le retourne sous forme de chaîne de caractères.
