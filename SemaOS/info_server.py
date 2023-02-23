@@ -21,6 +21,7 @@ import sys
 sys.path.append("SemaOS")
 # Importe de nos modules Python personnalisés
 from generation_UID import lire_fichier
+from version import __version__
 
 
 
@@ -88,15 +89,9 @@ def get_dns(ip)->str:
 def get_version_semabox()->str:
     
     """
-        Cette fonction retourne la version de SemaBox en lisant le fichier "version.txt" dans le répertoire "Application/modules".
+        Cette fonction retourne la version de SemaBox en lisant le fichier "version.txt" dans le répertoire "Semabox".
     """
-    if os.name == 'nt': # Windows
-        file_path = os.path.join("SemaOS", "version.txt") # Chemin vers le fichier "version.txt"
-    else: # Linux ou autre
-        file_path = os.path.join(".", "/Semabox/SemaOS", "version.txt") # Chemin vers le fichier "version.txt"
-
-    with open(file_path, "r") as f: # Ouvre le fichier "version.txt" en lecture
-        return f.readline() # Retourne la première ligne du fichier
+    return __version__ # Retourne la version de Semabox
     
     
     
