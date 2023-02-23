@@ -67,7 +67,7 @@ def creation_service_api()->None:
         Retour: Aucun
     """
     if sys.platform == "linux":
-        subprocess.run(["bash","Services", "create_service.sh"])
+        subprocess.run(["bash","Services/create_service.sh"])
         print("Service SemaWEB créé")
     else:
         subprocess.run(["Services", "create_service.bat"])
