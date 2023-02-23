@@ -352,7 +352,7 @@ if __name__ == "__main__":
             # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
             creation_dossier(generate_id())
     else:
-        if not os.path.exists("../SemaOS/Semabox_UID"):# Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
+        if not os.path.exists(f"{os.path.dirname(os.path.abspath(__file__))}/SemaOS/Semabox_UID"):# Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
             creation_dossier(generate_id())
 
     # Création d'une instance de la classe "App" avec en paramètre la fenêtre principale "root"

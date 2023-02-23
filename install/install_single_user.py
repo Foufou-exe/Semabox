@@ -5,6 +5,7 @@ import contextlib
 import sys
 import subprocess
 import os
+from packaging.version import parse as parse_version
 
 def get_uid():
   """
@@ -25,15 +26,17 @@ def check_version_python()->None:
         Retour: Aucun
         
     """
+    # Vérifie la version actuelle de Python
+    current_version = parse_version(sys.version.split()[0])
+    required_version = parse_version("3.11.1")
     
-    if sys.version_info.major == 3 and sys.version_info.minor == 11 and sys.version_info.micro == 1:
-        pass
-    else:
+    if current_version < required_version:
         if sys.platform == "linux":
             subprocess.run(["bash","python3_11_1", "install_python3.11.1.sh"])
         else:
             subprocess.run(["python3_11_1", "install_python3.11.1.ps1"])
-
+    else:
+        print("Version de Python correcte")
             
 
 def permissions_linux() -> None:
