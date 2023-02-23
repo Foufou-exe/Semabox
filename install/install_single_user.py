@@ -30,7 +30,7 @@ def check_version_python()->None:
         pass
     else:
         if sys.platform == "linux":
-            subprocess.run(["python3_11_1", "./install_python3.11.1.sh"])
+            subprocess.run(["bash","python3_11_1", "install_python3.11.1.sh"])
         else:
             subprocess.run(["python3_11_1", "install_python3.11.1.ps1"])
 
@@ -64,7 +64,7 @@ def creation_service_api()->None:
         Retour: Aucun
     """
     if sys.platform == "linux":
-        subprocess.run(["Services", "./create_service.sh"])
+        subprocess.run(["bash","Services", "create_service.sh"])
         print("Service SemaWEB créé")
     else:
         subprocess.run(["Services", "create_service.bat"])
