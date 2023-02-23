@@ -62,7 +62,7 @@ import install_single_user
 
 # Importe de nos modules Python personnalisés
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../SemaOS'))) # Ajoute le chemin vers le dossier 'Semabox' afin de pouvoir importer nos modules Python personnalisés.
- # Ajoute le chemin vers le dossier 'SemaOS' afin de pouvoir importer nos modules Python personnalisés.
+# Ajoute le chemin vers le dossier 'SemaOS' afin de pouvoir importer nos modules Python personnalisés.
 # Importe nos modules Python personnalisés
 import info_server
 import generation_UID
