@@ -67,10 +67,10 @@ def creation_service_api()->None:
         Retour: Aucun
     """
     if sys.platform == "linux":
-        subprocess.run(["bash","Services/create_service.sh"])
+        subprocess.run(["bash","Services/creation_service.sh"])
         print("Service SemaWEB créé")
     else:
-        subprocess.run(["Services", "create_service.bat"])
+        subprocess.run(["Services", "creation_service.bat"])
         print("Service SemaWEB créé")
 
 def install_nmap()->None:
