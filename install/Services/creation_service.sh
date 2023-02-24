@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -f ! "/etc/systemd/system/api-semaweb.service" ]; then
+if [ ! -f "/etc/systemd/system/api-semaweb.service" ]; then
     if [ "$(id -u)" = "0" ]; then
             SEMABOX_DIR=$(find / -name "Semabox" 2>/dev/null | head -n 1)
             touch api-semaweb.service
