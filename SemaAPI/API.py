@@ -113,6 +113,7 @@ def create_script(script)->dict:
     if result_script is None or not isinstance(result_script, dict):
         return "Aucune information sur le serveur disponible"
     
+
     # Conversion du dictionnaire en une chaîne de caractères au format JSON
     result_script_json = json.dumps(result_script)
     
