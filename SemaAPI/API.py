@@ -25,15 +25,15 @@ import logging # Module qui permet de gérer les logs
 import time # Module qui permet de gérer le temps
 
 # Ajout du chemin d'accès au dossier parent
-sys.path.append(os.path.join(os.path.dirname(__file__), "..")) # Ajout du chemin d'accès au dossier parent ( permet de retourné au dossier parent)
+sys.path.append(os.path.join(os.path.dirname(__file__), "../SemaOS")) # Ajout du chemin d'accès au dossier parent ( permet de retourné au dossier parent)
 
 # Import des modules Python personnalisés 
-from SemaOS.info_server import *
-from SemaOS.materiel_server import *
-from SemaOS.etat_server import *
-from SemaOS.server_speedtest import *
-from SemaOS.scan_servers import *
-from SemaOS.scan_other_servers import *
+from info_server import *
+from materiel_server import *
+from etat_server import *
+from server_speedtest import *
+from scan_servers import *
+from scan_other_servers import *
 
 """
     Description de la Librairie Flask:
@@ -59,11 +59,13 @@ cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT":
 
 # Variable qui contient le nom du fichier de logs
 name_file = f'Flask_{time.strftime("%Y_%m_%d_%H")}.log' # Nom du fichier de logs
-direction_file = f'SemaAPI/logs/{name_file}'
+
 if os.name == 'linux':
+    direction_file = f'../SemaAPI/logs/{name_file}'
     if not os.path.exists(direction_file):
         open(direction_file, 'w')
-        
+else:
+    direction_file = f'SemaAPI/logs/{name_file}'
 # Import du logging pour les logs
 logging.basicConfig(filename=direction_file, format='%(asctime)s--[%(levelname)s] = %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
