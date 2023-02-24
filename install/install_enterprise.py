@@ -56,6 +56,7 @@ import mysql.connector
 import subprocess
 import os
 import sys
+import ifaddr
 
 # Importation de nos modules Python personnalisés qui se trouvent dans le dossier 'install'
 import install_single_user
@@ -74,6 +75,36 @@ dns_semabox=info_server.get_dns(ip)
 version_semabox=info_server.get_version_semabox()
 ip_public=info_server.get_public_ip()
 uid=generation_UID.lire_fichier()
+
+def get_ip_vpn()->str:
+  """
+    Cette fonction permet de récupérer l'adresse IPv4 de l'interface "tun0" du système, qui est typiquement utilisée pour les connexions VPN.
+
+    Retourne l'adresse IPv4 de l'interface "tun0" sous forme de chaîne de caractères.
+
+    Si l'interface "tun0" n'est pas trouvée ou ne possède pas d'adresse IPv4, retourne None.
+
+    Usage : 
+      ip_vpn = get_ip_vpn()
+      if ip_vpn:
+        print("L'adresse IPv4 de l'interface 'tun0' est :", ip_vpn)
+      else:
+        print("L'interface 'tun0' n'est pas trouvée ou ne possède pas d'adresse IPv4.")
+
+  """
+
+  # Récupère les informations sur les interfaces réseau configurées sur le système
+  interfaces = ifaddr.get_adapters()
+
+  # Parcourt la liste des interfaces pour trouver celle qui s'appelle "tun0"
+  for interface in interfaces:
+    if interface.nice_name == "tun0":
+      # Récupère l'adresse IP de l'interface
+      for ip in interface.ips:
+        if ip.is_IPv4: 
+          return ip.ip
+      break
+
 
 # Ajout d'un enregistrement DNS
 def add_dns_record(domain, ip_dns, host, new_ip, enregistrement, ttl):
@@ -173,7 +204,7 @@ def main():
     domain='cma4.box',# domain : le nom de domaine auquel ajouter l'enregistrement
     ip_dns='192.168.100.253', # serveur_dns : l'adresse IP du serveur DNS auquel envoyer la requête
     host=hostname,# hostname : le nom de l'hôte à ajouter 
-    new_ip=ip, # ip : l'adresse IP de l'hôte à ajouter
+    new_ip=get_ip_vpn(), # ip : l'adresse IP VPN de la semabox
     enregistrement='A', # enregistrement : le type d'enregistrement (A, AAAA, etc.)
     ttl=300 
   ) # ttl : le temps de vie (en secondes) de l'enregistrement
@@ -182,7 +213,7 @@ def main():
   add_bdd_record(
     sema_id=uid, # uid : l'identifiant unique de la semabox
     sema_hostname=hostname, # hostname : le nom de l'hôte de la semabox
-    sema_ip=ip,
+    sema_ip=get_ip_vpn(), # ip : l'adresse IP VPN de la semabox
     sema_ip_public=ip_public, # ip_pubic : l'adresse IP publique de la semabox 
     sema_dns=dns_semabox, #+ "".join(".cma4.box") , # ip : l'adresse IP de la semabox
     sema_version=version_semabox,  # version_semabox : la version de la semabox
