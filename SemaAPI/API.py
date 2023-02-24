@@ -60,12 +60,13 @@ cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT":
 # Variable qui contient le nom du fichier de logs
 name_file = f'Flask_{time.strftime("%Y_%m_%d_%H")}.log' # Nom du fichier de logs
 
-if os.name == 'linux':
+if sys.platform == 'win32': # Windows
+    direction_file = f'SemaAPI/logs/{name_file}'
+else:
     direction_file = f'../SemaAPI/logs/{name_file}'
     if not os.path.exists(direction_file):
         open(direction_file, 'w')
-else:
-    direction_file = f'SemaAPI/logs/{name_file}'
+        
 # Import du logging pour les logs
 logging.basicConfig(filename=direction_file, format='%(asctime)s--[%(levelname)s] = %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
