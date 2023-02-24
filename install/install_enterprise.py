@@ -215,7 +215,7 @@ def main():
     sema_hostname=hostname, # hostname : le nom de l'hôte de la semabox
     sema_ip=get_ip_vpn(), # ip : l'adresse IP VPN de la semabox
     sema_ip_public=ip_public, # ip_pubic : l'adresse IP publique de la semabox 
-    sema_dns=dns_semabox, #+ "".join(".cma4.box") , # ip : l'adresse IP de la semabox
+    sema_dns=dns_semabox + "".join(".cma4.box"), #+ "".join(".cma4.box") , # ip : l'adresse IP de la semabox
     sema_version=version_semabox,  # version_semabox : la version de la semabox
     user='semabox', # user : l'utilisateur de la base de données
     password='Mspr_epsi1!', # password : le mot de passe de l'utilisateur
