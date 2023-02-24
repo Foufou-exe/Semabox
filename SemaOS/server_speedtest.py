@@ -4,17 +4,20 @@
 import requests
 import time
 import icmplib
+import sys
 import os
+
 
 # Définition des variables
 TEST_FILE_URL = "http://ipv4.download.thinkbroadband.com/50MB.zip" # Fichier de 50 MB
 UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media" # URL de téléchargement
 
 # Condition pour le chemin d'accès au fichier
-if os.name == 'nt' : # Windows
+if sys.platform == 'win32': # Windows
     FILE_PATH = "SemaOS\download\TESTMB.zip"
 else: # Linux ou autre
-    FILE_PATH = "download/TESTMB.zip"
+    rep = os.path.dirname(os.path.abspath(__file__))
+    FILE_PATH = f"{rep}/SemaOS/download/TESTMB.zip"
 
 HOST = "google.com" # Hôte à ping
 
