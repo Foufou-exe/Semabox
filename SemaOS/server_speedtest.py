@@ -14,7 +14,7 @@ UPLOAD_URL = "https://www.googleapis.com/upload/drive/v3/files?uploadType=media"
 if os.name == 'nt' : # Windows
     FILE_PATH = "SemaOS\download\TESTMB.zip"
 else: # Linux ou autre
-    FILE_PATH = "SemaOS/download/TESTMB.zip"
+    FILE_PATH = "download/TESTMB.zip"
 
 HOST = "google.com" # Hôte à ping
 
