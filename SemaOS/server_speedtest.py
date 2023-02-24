@@ -17,7 +17,7 @@ if sys.platform == 'win32': # Windows
     FILE_PATH = "SemaOS\download\TESTMB.zip"
 else: # Linux ou autre
     rep = os.path.dirname(os.path.abspath(__file__))
-    FILE_PATH = f"{rep}/SemaOS/download/TESTMB.zip"
+    FILE_PATH = f"{rep}/download/TESTMB.zip"
 
 HOST = "google.com" # Hôte à ping
 
