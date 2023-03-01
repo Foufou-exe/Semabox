@@ -49,7 +49,13 @@ Commande : **Windows** && **Linux**
 cd Semabox/install
 ```
 
-#### **Etape 2 bis**: Pour Linux ,donner les permissions d'executions
+#### **Etape 3** : On installe les librairies necessaires au bont fonctionnement de la Semabox
+
+```bash
+pip install -r requirement.txt
+```
+
+#### **Etape 4**: Pour Linux ,donner les permissions d'executions
 
 Commande : **Linux**
 
@@ -60,7 +66,7 @@ bash permission.sh
 
 Si vous n'avez pas dos2unix , installer le `apt\yum\apk\dnf install dos2unix`
 
-#### **Etape 3**: On installe les prérequis pour le bon fonctionnement de la Semabox
+#### **Etape 5**: On installe les prérequis pour le bon fonctionnement de la Semabox
 
 ##### *Pour les Simples utilisateurs* :
 
@@ -101,12 +107,6 @@ Penser à modifier le fichier **install_enterprise.py** dans la fonction `main()
 
 ```bash
 python install_enterprise.py
-```
-
-#### **Etape 2** : On installe les librairies necessaires au bont fonctionnement de la Semabox
-
-```bash
-sudo pip install -r requirement.txt
 ```
 
 #### L'installation est termine, vous pouvez retourner dans le dossier principal de la semabox et lance *Semabox.py* ( **si vous êtes sur Linux avec interfaces graphiques**) sinon lance *Semabox_CLI.py* pour **la version CLI** ou pour finir **la version Web**
