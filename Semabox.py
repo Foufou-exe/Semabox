@@ -83,28 +83,24 @@ class App:
         root.geometry(alignstr)  # Affectation de la taille et de l'alignement de la fenêtre
         root.resizable(width=False, height=False)  # Empêche le redimensionnement de la fenêtre par l'utilisateur
 
-        # Création des widgets
+        # Personalisation des polices de caractères
         font = tkFont.Font(family='Calibri', size=28, weight='bold')
         font2 = tkFont.Font(family='Calibri', size=17)
         font3 = tkFont.Font(family='Calibri', size=13)
         font4 = tkFont.Font(family='Calibri', size=20)
         font5 = tkFont.Font(family='Calibri', size=20, weight='bold')
         
+        # Création des widgets
+        
+        # Titre de la fenêtre
         Titre_SEMABOX_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#ffd700" ,justify="center" ,relief="raised" ,text="SEMABOX")
         Titre_SEMABOX_Label.place(x=0,y=0,width=1279,height=69)
 
-        Color_Background5_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#393d49" ,justify="center" ,text="")
-        Color_Background5_Label.place(x=0,y=60,width=1279,height=30)
-
-        Color_Background4_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#393d49" ,justify="center" ,text="")
-        Color_Background4_Label.place(x=910,y=90,width=30,height=626)
-
-        Color_Background3_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#393d49" ,justify="center" ,text="")
-        Color_Background3_Label.place(x=940,y=370,width=339,height=30)
-
+        # Widget de la page d'accueil 
         Texte_Information_Label=tk.Label(root, font=font5 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="INFORMATION")
         Texte_Information_Label.place(x=940,y=90,width=339,height=41)
 
+        # Widget Text : Donne les valeur associées à l'identifiant unique, l'adresse IP, le nom d'hôte et le nom de domaine associé à l'adresse IP
         Texte_IP_Label=tk.Label(root, font=font2 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text=f"IP : {ip}")
         Texte_IP_Label.place(x=940,y=130,width=339,height=30)
 
@@ -120,19 +116,18 @@ class App:
         Texte_Return_ID_Label=tk.Label(root, font=font3 ,fg="#333333" ,bg="#cdcdcd" ,justify="left" ,text=ID)
         Texte_Return_ID_Label.place(x=950,y=310,width=329,height=53)
 
+        # Widget de la page de scan de port
         Texte_Scan_De_Port_Label=tk.Label(root, font=font5 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SCAN DE PORT")
         Texte_Scan_De_Port_Label.place(x=0,y=90,width=910,height=42)
 
         Texte_SPEEDTEST_Label=tk.Label(root, font=font5 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SPEEDTEST")
         Texte_SPEEDTEST_Label.place(x=940,y=400,width=339,height=41)
 
+
+        # Widget Texte : Change en fonction lors du clique d'un bouton associer à une fonction
         self.Resultat_Scan_Nmap_Label=tk.Label(root, font=font4 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text="")
         self.Resultat_Scan_Nmap_Label.place(x=0,y=130,width=722,height=587)
         
-
-        Color_Background_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#999999" ,justify="center" ,text="")
-        Color_Background_Label.place(x=720,y=130,width=191,height=586)
-
         self.Text_Label_Ping=tk.Label(root, font=font2 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text="Ping : " + "" + " ms ")
         self.Text_Label_Ping.place(x=940,y=440,width=338,height=46)
         self.update_ping_latency()
@@ -143,9 +138,24 @@ class App:
         self.Text_Label_Descendant=tk.Label(root, font=font2 ,fg="#333333" ,bg="#cdcdcd" ,justify="center" ,text="Débit Descendant : " + "" + " mb/s")
         self.Text_Label_Descendant.place(x=940,y=520,width=338,height=51)
 
+
+        # Widgets de couleur(fond)
+        Color_Background5_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#393d49" ,justify="center" ,text="")
+        Color_Background5_Label.place(x=0,y=60,width=1279,height=30)
+
+        Color_Background4_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#393d49" ,justify="center" ,text="")
+        Color_Background4_Label.place(x=910,y=90,width=30,height=626)
+
+        Color_Background3_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#393d49" ,justify="center" ,text="")
+        Color_Background3_Label.place(x=940,y=370,width=339,height=30)
+
         Color_Background2_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#999999" ,justify="center" ,text="")
         Color_Background2_Label.place(x=940,y=570,width=338,height=145)
 
+        Color_Background_Label=tk.Label(root, font=font ,fg="#333333" ,bg="#999999" ,justify="center" ,text="")
+        Color_Background_Label.place(x=720,y=130,width=191,height=586)
+
+        # Boutons de l'interface
         Button_speedtest=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SPEEDTEST" ,command=self.Button_speedtest_command)
         Button_speedtest.place(x=1050,y=610,width=125,height=40)
 
@@ -160,15 +170,17 @@ class App:
 
         Button_speedtest_clear=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="CLEAR" ,command=self.Button_speedtest_clear_command)
         Button_speedtest_clear.place(x=1050,y=660,width=128,height=40)
-            
+                    
+        Button_scan_via_ip=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SCAN PORT IP" ,command=self.Button_scan_via_ip)
+        Button_scan_via_ip.place(x=740,y=220,width=150,height=36)
+        
+        #  Widgets de l'interface (Entry)
         self.tInput=Entry(root)
         self.tInput.place(x=740,y=180,width=150,height=30)
 
         self.Title_tInput=tk.Label(root, font=font3 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="IP de votre Réseaux")
         self.Title_tInput.place(x=740,y=140,width=150,height=30)
         
-        Button_scan_via_ip=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SCAN PORT IP" ,command=self.Button_scan_via_ip)
-        Button_scan_via_ip.place(x=740,y=220,width=150,height=36)
         
         # La ligne self.menu = tk.Menu(root) crée un menu tkinter et l'attribue à la variable self.menu. 
         # Cela permet de créer un menu dans la fenêtre principale.
@@ -177,6 +189,7 @@ class App:
         # root.config(menu=self.menu) définit le menu créé à la ligne 1 comme menu pour la fenêtre principale.
         root.config(menu=self.menu)
         
+        # Condition pour définir l'icône de la fenêtre principale et le thème de la fenêtre principale en fonction du système d'exploitation.
         if platform.system() == "Windows":
             # root.iconbitmap('./Semabox/SemaOS/assets/images/developer.ico') définit l'icône de la fenêtre principale avec le fichier situé à ./Semabox/SemaOS/assets/images/developer.ico
             root.iconbitmap('SemaOS/assets/images/icons8_code.ico')
@@ -206,7 +219,9 @@ class App:
         """
             Fonction : about
             Description : Fonction qui permet d'afficher la version de l'application
-                def about(self): crée une nouvelle méthode appelée about et lorsqu'elle est appelée, elle affiche une boîte de message d'information avec le message "A propos" et la version de Ma Semabox en utilisant la fonction get_version_semabox()
+                def about(self): crée une nouvelle méthode appelée about et lorsqu'elle est appelée, 
+                elle affiche une boîte de message d'information avec le message "A propos" et 
+                la version de Ma Semabox en utilisant la fonction get_version_semabox()
         """
         messagebox.showinfo(
             "A propos", 
@@ -217,7 +232,9 @@ class App:
         """
             Fonction : update_code
             Description : Fonction qui permet de vérifier si il y a une mise à jour de l'application
-                def update_code(self): crée une nouvelle méthode appelée update_code et lorsqu'elle est appelée, elle affiche une boîte de message d'information avec le message "Update" et le status du code à l'aide de check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
+                def update_code(self): crée une nouvelle méthode appelée update_code et lorsqu'elle est appelée, 
+                elle affiche une boîte de message d'information avec le message "Update" et 
+                le status du code à l'aide de check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
         """
         messagebox.showinfo(
             "Update", 
@@ -289,7 +306,8 @@ class App:
         
         """ Fonction : update_ping_latency
             Description : Fonction qui permet de mettre à jour le ping
-                - def update_ping_latency(self): crée une nouvelle méthode appelée update_ping_latency et lorsqu'elle est appelée, elle met à jour le ping dans le label "Text_Label_Ping" et relance la fonction après 1 seconde
+                - def update_ping_latency(self): crée une nouvelle méthode appelée update_ping_latency et lorsqu'elle est appelée, 
+                  elle met à jour le ping dans le label "Text_Label_Ping" et relance la fonction après 1 seconde
                 - self.ping = get_ping(): récupère le ping
                 - self.Text_Label_Ping["text"] = f"PING : {self.ping} ms": met à jour le texte du label "Text_Label_Ping" avec le ping
                 - root.after(1000, self.update_ping_latency): relance la fonction après 1 seconde
