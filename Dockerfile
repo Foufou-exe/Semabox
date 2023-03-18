@@ -1,4 +1,4 @@
-FROM python:3.11.1
+FROM python:3.12.0a5
 
 MAINTAINER foufoudu34
 
