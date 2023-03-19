@@ -16,7 +16,7 @@ def get_uid():
   file_path = os.path.join("..","Modules","Registre","generation_UID.py")
   subprocess.run(["python", file_path])
 
-def check_version_python()->None:
+def check_version_python():
     """
         Description: Cette fonction permet de vérifier la version de Python utilisée.
             - Si la version de Python est 3.11.1, le script continue son exécution.
@@ -39,7 +39,7 @@ def check_version_python()->None:
         print("Version de Python correcte")
             
 
-def permissions_linux() -> None:
+def permissions_linux():
     """
         Description: Cette fonction permet de définir les permissions d'exécution du script.
             - Si le script est exécuté sur Linux, on vérifie si l'utilisateur a les permissions d'exécution.
@@ -58,7 +58,7 @@ def permissions_linux() -> None:
                 print("Permissions refusées")
                 subprocess.run(["sudo","bash", "permission.sh"])
 
-def creation_service_api()->None:
+def creation_service_api():
     """
         Description: Cette fonction permet de définir l'OS sur lequel le script est exécuté.
             - Si le script est exécuté sur Linux, on lance le script de creation du service SemaWEB.
@@ -68,12 +68,12 @@ def creation_service_api()->None:
     """
     if sys.platform == "linux":
         subprocess.run(["bash","Services/creation_service.sh"])
-        print("Service SemaWEB créé")
     else:
         subprocess.run(["Services", "creation_service.bat"])
-        print("Service SemaWEB créé")
+    
+    print("Service SemaWEB créé")
 
-def install_nmap()->None:
+def install_nmap():
     """
         Description: Cette fonction permet d'installer Nmap sur Linux et windows.
         Paramètres: Aucun
