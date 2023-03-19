@@ -92,7 +92,7 @@ class InfoServer:
         return {"ip_public": ip}
 
     @staticmethod
-    def api_info_server() -> dict:
+    def api_info_server(uid=None) -> dict:
         """
         Description:
             This function returns a dictionary containing information about the server on which the code is executed,
@@ -102,7 +102,7 @@ class InfoServer:
         hostname = InfoServer.get_hostname()
         ip = InfoServer.get_ip_address()
         dns = InfoServer.get_dns()
-        uid = Registres.lire_fichier() # Assuming lire_fichier() is a valid function defined elsewhere
+        uid = uid if uid else Registres.lire_fichier()
         version = InfoServer.get_version_semabox()
         ip_public = InfoServer.get_public_ip()
 
