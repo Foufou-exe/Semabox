@@ -3,7 +3,7 @@ import argparse # Pour les arguments
     
 
 parser = argparse.ArgumentParser() # Création d'un objet argparse.ArgumentParser()
-parser.add_argument("--ip", help="IP address to scan") # Ajout d'un argument
+parser.add_argument("--ip", help="IP address to scan",default='') # Ajout d'un argument
 args = parser.parse_args() # Récupération des arguments
 
 # Fonctions
