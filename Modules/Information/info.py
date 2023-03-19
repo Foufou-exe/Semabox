@@ -38,7 +38,7 @@ class InfoServer:
         return socket.gethostbyname(socket.gethostname())
 
     @staticmethod
-    def get_address_network(ip=get_ip_address()) -> str:
+    def get_address_network(ip=None) -> str:
         """
         Description:
             This function retrieves the network address from an IP address and a subnet mask.
@@ -53,7 +53,7 @@ class InfoServer:
             ip = InfoServer.get_ip_address()
 
         # Create an object that contains the IP address and the subnet mask
-        ip_obj = ipaddress.IPv4Interface(ip + "/24")
+        ip_obj = ipaddress.IPv4Interface(f"{ip}/24")
 
         # Retrieve the network address
         network = ip_obj.network
@@ -61,14 +61,14 @@ class InfoServer:
         return str(network)
 
     @staticmethod
-    def get_dns(ip=get_ip_address()) -> str:
+    def get_dns() -> str:
         """
         This function returns the domain name associated with the specified IP address.
 
         Args:
             ip (str): IP address for which we want to retrieve the domain name.
         """
-        dns_result = socket.gethostbyaddr(ip)
+        dns_result = socket.gethostbyaddr(InfoServer.get_ip_address())
 
         return dns_result[0]
 
@@ -101,7 +101,7 @@ class InfoServer:
         """
         hostname = InfoServer.get_hostname()
         ip = InfoServer.get_ip_address()
-        dns = InfoServer.get_dns(ip)
+        dns = InfoServer.get_dns()
         uid = Registres.lire_fichier() # Assuming lire_fichier() is a valid function defined elsewhere
         version = InfoServer.get_version_semabox()
         ip_public = InfoServer.get_public_ip()
