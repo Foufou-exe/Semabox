@@ -9,7 +9,9 @@
 
 name: Publish Docker image
 
-on: push
+on:
+  push:
+    branches: [ "dev" ]
 
 jobs:
   push_to_registry:
@@ -36,4 +38,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: foufoudu34/semabox:latest
+          tags: foufoudu34/semabox:dev
