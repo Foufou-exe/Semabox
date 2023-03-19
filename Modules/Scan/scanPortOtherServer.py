@@ -1,10 +1,5 @@
 import nmap # Pour scanner 
-import argparse # Pour les arguments
     
-
-parser = argparse.ArgumentParser() # Création d'un objet argparse.ArgumentParser()
-parser.add_argument("--ip", help="IP address to scan",default='') # Ajout d'un argument
-args = parser.parse_args() # Récupération des arguments
 
 # Fonctions
 def scan_port_other_machine(ip_args)->str:
@@ -57,7 +52,7 @@ def api_scan_port_other_machine(ip_args) -> dict:
             if data['state'] == 'open'
         }
 
-        print(scan_results)
+        return scan_results
     
     except KeyError as e:
         if e.args[0] == 'tcp':
@@ -66,4 +61,4 @@ def api_scan_port_other_machine(ip_args) -> dict:
     
     
 if __name__ == "__main__":
-    api_scan_port_other_machine(args.ip)
+    api_scan_port_other_machine()

@@ -34,7 +34,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..")) # Ajout du chemin
 from Modules import InfoServer, get_info_system # Import du module InfoServer
 from Modules import ScanPort # Import des modules ScanPort et ScanPortOtherServers
 from Modules import Speedtest # Import du module Speedtest
-
+from Modules import api_scan_port_other_machine
 
 """
     Description de la Librairie Flask:
@@ -147,27 +147,29 @@ def create_script(script)->dict:
 
 
 # Définition d'une route qui accepte les méthodes POST, GET
-@app.route('/api/scanPortOtherServer/<arg>/<ip>', methods=['POST', 'GET'])
-def add_script(ip, arg):
+@app.route('/api/scanPortOtherServer/<ip>', methods=['POST', 'GET'])
+def add_script(ip):
     """
         Description de la fonction create_script:
             Cette fonction exécute le script spécifié en utilisant subprocess.run et retourne une représentation en chaîne de caractères JSON de la sortie du script.
     """
-    ip_add = str(ip)
-    # Définir le chemin d'accès au fichier en fonction du système d'exploitation
-    if os.name == 'nt': # Windows
-        file_path = os.path.join("Modules/Scan/scanPortOtherServer.py")
-    else: # Linux ou autre
-        file_path = os.path.join("../Semabox/Modules/Scan/scanPortOtherServer.py")
+    # ip_add = str(ip)
+    # # Définir le chemin d'accès au fichier en fonction du système d'exploitation
+    # if os.name == 'nt': # Windows
+    #     file_path = os.path.join("Modules/Scan/scanPortOtherServer.py")
+    # else: # Linux ou autre
+    #     file_path = os.path.join("../Semabox/Modules/Scan/scanPortOtherServer.py")
         
-    # Exécution du script en utilisant subprocess.run
-    result = subprocess.run(['python', file_path, arg, ip],stdout=subprocess.PIPE)
+    # # Exécution du script en utilisant subprocess.run
+    # result = subprocess.run(['python', file_path, arg, ip],stdout=subprocess.PIPE)
     
-    # Récupération de la sortie standard du script exécuté
-    output = result.stdout.decode("utf-8")
+    # # Récupération de la sortie standard du script exécuté
+    # output = result.stdout.decode("utf-8")
     
-    # Conversion de la sortie du script en un dictionnaire Python
-    result_script = ast.literal_eval(output)
+    # # Conversion de la sortie du script en un dictionnaire Python
+    # result_script = ast.literal_eval(output)
+    
+    result_script = api_scan_port_other_machine(str(ip))
     
     # Si la liste est vide ou que ce n'est pas un dictionnaire, on retourne un message d'erreur
     if result_script is None or not isinstance(result_script, dict):
