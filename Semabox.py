@@ -5,7 +5,7 @@
 """
     Description: Fichier principal de l'application Semabox
         Ce script importe plusieurs modules Python nécessaires pour son fonctionnement. 
-        Il importe également des fonctions de modules personnalisés se trouvant dans le répertoire 'Semabox/SemaOS'.
+        Il importe également des fonctions de modules personnalisés se trouvant dans le répertoire 'Semabox/Modules'.
         Il définit une classe 'App' qui représente la fenêtre principale de l'application. 
         Le constructeur de cette classe initialise diverses variables telles que l'identifiant unique du système, le nom d'hôte, l'adresse IP et le nom de domaine associé. 
         Il configure également la fenêtre en lui attribuant un titre, une taille et un alignement au centre de l'écran. 
@@ -16,26 +16,29 @@
 
 # Importation des modules Pythons nécessaires
 import contextlib # Import du module 'contextlib'
-import sys
+import sys # Import du module 'sys'
 import os # Import du module 'os'
+import threading # Import du module 'os'
 import tkinter as tk # Import du module 'tkinter' pour l'interface graphique
 import tkinter.font as tkFont  # Import du module 'tkFont' pour la gestion des polices de caractères
 import platform # Import du module 'platform' pour la gestion des plateformes(Windows, Linux, Mac)
 from tkinter.ttk import *  # Import du module 'ttk' pour la gestion des widgets
 from tkinter import messagebox # Import du module 'messagebox' pour la gestion des messages d'alerte
 from tkinter import *
+import asyncio # Import du module 'asyncio' pour la gestion des boucles asynchrones
+
 
 
 # Importation des modules perso
 
-from SemaOS.generation_UID import creation_dossier, generate_id, lire_fichier  # Import des fonctions du module 'generation_UID'
-from SemaOS.info_server import get_dns, get_hostname, get_ip_address, get_version_semabox  # Import des fonctions du module 'info_server'
-from SemaOS.scan_servers import scan_nmap  # Import de la fonction du module 'scan_servers'
-from SemaOS.server_speedtest import get_download_speed, get_upload_speed  # Import des fonctions du module 'server_speedtest'
-from SemaOS.update_code import *  # Import de la fonction du module 'update_code'
-from SemaOS.ping import get_ping  # Import de la fonction du module 'ping'
-from SemaOS.scan_other_servers import cli_scan_machine  # Import de la fonction du module 'scan_other_servers'
-from SemaOS.scan_port_other_servers import scan_port_other_machine # Import de la fonction du module 'scan_port_other_servers'
+# from Modules.generation_UID import lire_fichier, attribution_uid_variable  # Import des fonctions du module 'generation_UID'
+from Modules.Registre.generationUID import Registres
+from Modules.Information.info import InfoServer # Import des fonctions du module 'info_server'
+from Modules.Scan.scanPort import ScanPort  # Import de la fonction du module 'scan_servers'
+from Modules.Speedtest.speedtest import Speedtest  # Import des fonctions du module 'server_speedtest'
+from Modules.Serveur.update import Update  # Import de la fonction du module 'update_code'
+from Modules.Scan.scanPortOtherServer import scan_port_other_machine
+from Modules.Scan.scanAllServer import ScanAllServer # Import de la fonction du module 'scan_port_other_servers'
 
 # Création de la fenêtre principale (main window)
 class App:
@@ -67,10 +70,11 @@ class App:
             
         """
         # Déclaration des variables 
-        ID = lire_fichier()  # On lit le fichier contenant l'identifiant unique généré par la fonction generate_id()
-        host = get_hostname()  # On récupère le nom d'hôte (hostname) du système
-        ip = get_ip_address()  # On récupère l'adresse IP de l'hôte
-        dns_resolv = get_dns(ip)  # On récupère le nom de domaine associé à l'adresse IP de l'hôte
+
+        ID = Registres.lire_fichier() # On lit le fichier contenant l'identifiant unique généré par la fonction generate_id()
+        host = InfoServer.get_hostname() # On récupère le nom d'hôte (hostname) du système
+        ip = InfoServer.get_ip_address()  # On récupère l'adresse IP de l'hôte
+        dns_resolv = InfoServer.get_dns()  # On récupère le nom de domaine associé à l'adresse IP de l'hôte
         self.ping = 0 # On initialise la variable ping à 0
         
         # Configuration de la fenêtre
@@ -156,7 +160,7 @@ class App:
         Color_Background_Label.place(x=720,y=130,width=191,height=586)
 
         # Boutons de l'interface
-        Button_speedtest=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SPEEDTEST" ,command=self.Button_speedtest_command)
+        Button_speedtest=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SPEEDTEST" ,command=lambda: asyncio.run(self.Button_speedtest_command()))
         Button_speedtest.place(x=1050,y=610,width=125,height=40)
 
         Button_scan_nmap=tk.Button(root, font=font2 ,fg="#333333" ,bg="#999999" ,justify="center" ,text="SCAN DE PORT" ,command=self.Button_scan_nmap_command)
@@ -189,14 +193,22 @@ class App:
         # root.config(menu=self.menu) définit le menu créé à la ligne 1 comme menu pour la fenêtre principale.
         root.config(menu=self.menu)
         
+        # Récupère le chemin absolu du fichier Python en cours d'exécution
+        self.chemin_python = os.path.abspath(__file__)
+        # Récupère le répertoire parent du fichier Python (qui est le répertoire de travail actuel)
+        self.repertoire_travail = os.path.dirname(self.chemin_python)
+        
         # Condition pour définir l'icône de la fenêtre principale et le thème de la fenêtre principale en fonction du système d'exploitation.
         if platform.system() == "Windows":
-            # root.iconbitmap('./Semabox/SemaOS/assets/images/developer.ico') définit l'icône de la fenêtre principale avec le fichier situé à ./Semabox/SemaOS/assets/images/developer.ico
-            root.iconbitmap('SemaOS/assets/images/icons8_code.ico')
-            root.tk.call('source','SemaOS/assets/themes/azure.tcl')
+            file_path_icon = os.path.join(self.repertoire_travail, 'Modules/assets/images/icons8_code.ico')
+            file_path_theme = os.path.join(self.repertoire_travail, 'Modules/assets/themes/azure.tcl')
+            root.iconbitmap(file_path_icon)
+            root.tk.call('source',file_path_theme)
         else:
-            root.tk.call('wm', 'iconphoto', root._w, tk.PhotoImage(file='/Semabox/SemaOS/assets/images/code.png'))
-            root.tk.call('source','/Semabox/SemaOS/assets/themes/azure.tcl')
+            file_path_icon = os.path.join(self.repertoire_travail, 'Modules/assets/images/code.png')
+            file_path_theme = os.path.join(self.repertoire_travail, 'Modules/assets/themes/azure.tcl')
+            root.tk.call('wm', 'iconphoto', root._w, tk.PhotoImage(file=file_path_icon))
+            root.tk.call('source',file_path_theme)
         
         # root.tk.call("set_theme", "dark") définit le thème en noir pour l'instance Tk de la fenêtre principale
         root.tk.call("set_theme", "dark")
@@ -225,7 +237,7 @@ class App:
         """
         messagebox.showinfo(
             "A propos", 
-            f"Version de Ma Semabox : {get_version_semabox()}"
+            f"Version de Ma Semabox : {InfoServer.get_version_semabox()}"
         )
 
     def update_code(self):
@@ -238,7 +250,7 @@ class App:
         """
         messagebox.showinfo(
             "Update", 
-            check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
+            Update.check_code_gitlab_application()
         )
         
     # Fonction appelée lorsque le bouton "Button_scan_nmap" est cliqué
@@ -248,9 +260,10 @@ class App:
                 Description : Permets de lancer le scan nmap et d'afficher les résultats dans le label
         """
         # Execution de la fonction "scan_nmap" et stockage du résultat dans la variable "result_scan"
-        result_scan = scan_nmap()
+        result_scan = ScanPort.scan()
         # Mise à jour du texte du label "Resultat_Scan_Nmap_Label" avec le contenu de la variable "result_scan"
         self.Resultat_Scan_Nmap_Label["text"] = result_scan
+        
 
     def Button_scan_nmap_machine(self):
         """
@@ -258,26 +271,32 @@ class App:
                 Description : Permets de lancer le scan de machine et d'afficher les résultats dans le label
         """
         # Execution de la fonction "scan_nmap" et stockage du résultat dans la variable "result_scan"
-        result_scan = cli_scan_machine()
+        result_scan = ScanAllServer.cli_scan_machine()
         # Mise à jour du texte du label "Resultat_Scan_Nmap_Label" avec le contenu de la variable "result_scan"
         self.Resultat_Scan_Nmap_Label["text"] = result_scan
+        
+        
 
-    # Fonction appelée lorsque le bouton "Button_speedtest" est cliqué
-    def Button_speedtest_command(self):
+    async def Button_speedtest_command(self):
         """
             Fonction: Button_speedtest_command
                 Description : Permets de lancer le speedtest et d'afficher les résultats dans les labels
-        """ 
+        """
         
-        # Execution de la fonction "get_download_speed" et stockage du résultat dans la variable "download"
-        download = get_download_speed()
-        # Execution de la fonction "get_upload_speed" et stockage du résultat dans la variable "upload"
-        upload = get_upload_speed()
-        
+        # Appeler les fonctions asynchrones en parallèle avec `asyncio.gather`
+        download_speed_task = asyncio.create_task(Speedtest.get_download_speed())
+        upload_speed_task = asyncio.create_task(Speedtest.get_upload_speed())
+
+        download_speed, upload_speed = await asyncio.gather(download_speed_task, upload_speed_task)
+
         # Mise à jour du texte du label "Text_Label_Montant" avec le contenu de la variable "download"
-        self.Text_Label_Montant["text"] = f"Débit Montant : {download} mb/s"
+        self.Text_Label_Montant["text"] = f"Débit Montant : {download_speed} mb/s"
         # Mise à jour du texte du label "Text_Label_Descendant" avec le contenu de la variable "upload"
-        self.Text_Label_Descendant["text"] = f"Débit Descendant : {upload}  mb/s"
+        self.Text_Label_Descendant["text"] = f"Débit Descendant : {upload_speed}  mb/s"
+        
+       
+        
+
         
 
     # Fonction appelée lorsque le bouton "Button_clear_nmap" est cliqué
@@ -316,9 +335,11 @@ class App:
             Paramètres: None
             
         """
-        self.ping = get_ping()
+
+        self.ping = Speedtest.get_ping()
         self.Text_Label_Ping["text"] = f"PING : {self.ping} ms"
         root.after(1000, self.update_ping_latency)
+        
 
     def getInputBoxValue(self):
        return self.tInput.get()
@@ -335,7 +356,12 @@ class App:
         """
         result_scan2 = scan_port_other_machine(self.getInputBoxValue())
         self.Resultat_Scan_Nmap_Label["text"] = result_scan2
-
+        self.clear_entry()
+        
+    def clear_entry(self):
+        self.tInput.delete(0, END)
+        
+            
 def verification_permission():
     """
         Fonction: verification_permission
@@ -357,25 +383,24 @@ def verification_permission():
 # Si le script est exécuté directement (et non importé par un autre script)
 if __name__ == "__main__":
     
+    # Vérification des permissions
     verification_permission()
 
     # Update du code
-    check_code_gitlab_application(get_latest_commit_date(os.getcwd()))
+    Update.check_code_gitlab_application()
 
     # Création d'une instance de la classe Tk (fenêtre principale de l'application)
     root = tk.Tk()
-    # Si le dossier "SEMABOX_UID" n'existe pas
-    if sys.platform == 'win32': # Windows
-        if not os.path.exists("SemaOS\Semabox_UID"):
-            # Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
-            creation_dossier(generate_id())
-    else:
-        if not os.path.exists(f"{os.path.dirname(os.path.abspath(__file__))}/SemaOS/Semabox_UID"):# Création du dossier "SEMABOX_UID" en utilisant la fonction "creation_dossier" avec en paramètre le résultat de la fonction "generate_id"
-            creation_dossier(generate_id())
-
+    
+    # Si la variable semabox_uid est vide
+    if Registres.lire_fichier() == "":
+        Registres.attribution_uid_variable()
+        
     # Création d'une instance de la classe "App" avec en paramètre la fenêtre principale "root"
     app = App(root)
+    
     # Lancement de la boucle principale de l'application
     root.mainloop()    
+    
     
     

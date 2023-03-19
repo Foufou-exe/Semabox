@@ -62,18 +62,19 @@ import ifaddr
 import install_single_user
 
 # Importe de nos modules Python personnalisés
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../SemaOS'))) # Ajoute le chemin vers le dossier 'Semabox' afin de pouvoir importer nos modules Python personnalisés.
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))) # Ajoute le chemin vers le dossier 'Semabox' afin de pouvoir importer nos modules Python personnalisés.
 # Ajoute le chemin vers le dossier 'SemaOS' afin de pouvoir importer nos modules Python personnalisés.
 # Importe nos modules Python personnalisés
-import info_server
-import generation_UID
+
+from Modules import InfoServer
+from Modules import generation_UID
 
 # Définition des variables
-ip=info_server.get_ip_address()
-hostname=info_server.get_hostname()
-dns_semabox=info_server.get_dns(ip)
-version_semabox=info_server.get_version_semabox()
-ip_public=info_server.get_public_ip()
+ip=InfoServer.get_ip_address()
+hostname=InfoServer.get_hostname()
+dns_semabox=InfoServer.get_dns(ip)
+version_semabox=InfoServer.get_version_semabox()
+ip_public=InfoServer.get_public_ip()
 uid=generation_UID.lire_fichier()
 
 def get_ip_vpn()->str:

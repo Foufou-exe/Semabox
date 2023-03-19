@@ -48,15 +48,6 @@
                                 <h3>- Serveur allumée depuis {{materiel["uptime_hours"]}} H ♾️</h3>
                             </div>
                         {% endif %}
-                        <div class="A-materiel-body-container">
-                        {% if etat %}
-                            {% if etat["etat_semabox"] == "up" %}
-                                <h3>- Etat de la Semabox : {{etat["etat_semabox"]}} ✅</h3>
-                            {% else %}
-                                <h3>- Etat de la Semabox : {{etat["etat_semabox"]}} ❌</h3>
-                            {% endif %}
-                        {% endif %}
-                        </div>
                     </div>
                 </div>
 
@@ -131,7 +122,7 @@
         </section>
         <footer>
             <div class="brand">
-                <p class="brand-name">Copyright© 2023 SemaWEB</p>
+                <p class="brand-name">Copyright© 2023 SemaWEB version {{version}}</p>
             </div>
         </footer>
     </body>

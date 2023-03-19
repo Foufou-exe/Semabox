@@ -23,17 +23,18 @@ import sys
 import os 
 import logging # Module qui permet de gérer les logs
 import time # Module qui permet de gérer le temps
+import asyncio # Module qui permet de gérer les boucles d'événements
+
+from version import semaweb_version # Import de la version de l'application
 
 # Ajout du chemin d'accès au dossier parent
-sys.path.append(os.path.join(os.path.dirname(__file__), "../SemaOS")) # Ajout du chemin d'accès au dossier parent ( permet de retourné au dossier parent)
+sys.path.append(os.path.join(os.path.dirname(__file__), "..")) # Ajout du chemin d'accès au dossier parent ( permet de retourné au dossier parent)
 
 # Import des modules Python personnalisés 
-from info_server import *
-from materiel_server import *
-from etat_server import *
-from server_speedtest import *
-from scan_servers import *
-from scan_other_servers import *
+from Modules import InfoServer, get_info_system # Import du module InfoServer
+from Modules import ScanPort # Import des modules ScanPort et ScanPortOtherServers
+from Modules import Speedtest # Import du module Speedtest
+
 
 """
     Description de la Librairie Flask:
@@ -61,9 +62,9 @@ cache = Cache(app, config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT":
 name_file = f'Flask_{time.strftime("%Y_%m_%d_%H")}.log' # Nom du fichier de logs
 
 if sys.platform == 'win32': # Windows
-    direction_file = f'SemaAPI/logs/{name_file}'
+    direction_file = f'Api/logs/{name_file}'
 else:
-    direction_file = f'../SemaAPI/logs/{name_file}'
+    direction_file = f'../Api/logs/{name_file}'
     if not os.path.exists(direction_file):
         open(direction_file, 'w')
         
@@ -96,9 +97,35 @@ def create_script(script)->dict:
 
     # Définir le chemin d'accès au fichier en fonction du système d'exploitation
     if os.name == 'nt': # Windows
-        file_path = os.path.join("SemaOS", script)
+        if script == 'info.py':
+            file_path = os.path.join("Modules/Information", script)
+        elif script == 'materiel.py':
+            file_path = os.path.join("Modules/Information", script)
+        elif script == 'scanAllServer.py':
+            file_path = os.path.join("Modules/Scan", script)
+        elif script == 'scanPort.py':
+            file_path = os.path.join("Modules/Scan", script)
+        elif script == 'speedtest.py':
+            file_path = os.path.join("Modules/Speedtest", script)
+        elif script == 'restart.py':
+            file_path = os.path.join("Modules/Serveur", script)
+        elif script == 'update.py':
+            file_path = os.path.join("Modules/Serveur", script)
     else: # Linux ou autre
-        file_path = os.path.join("/Semabox/SemaOS", script)
+        if script == 'info.py':
+            file_path = os.path.join("../Semabox/Modules/Information", script)
+        elif script == 'materiel.py':
+            file_path = os.path.join("../Semabox/Modules/Information", script)
+        elif script == 'scanAllServer.py':
+            file_path = os.path.join("../Semabox/Modules/Scan", script)
+        elif script == 'scanPort.py':
+            file_path = os.path.join("../Semabox/Modules/Scan", script)
+        elif script == 'speedtest.py':
+            file_path = os.path.join("../Semabox/Modules/Speedtest", script)
+        elif script == 'restart.py':
+            file_path = os.path.join("../Semabox/Modules/Serveur", script)
+        elif script == 'update.py':
+            file_path = os.path.join("../Semabox/Modules/Serveur", script)
         
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', file_path], stdout=subprocess.PIPE)
@@ -113,18 +140,14 @@ def create_script(script)->dict:
     if result_script is None or not isinstance(result_script, dict):
         return "Aucune information sur le serveur disponible"
     
-
-    # Conversion du dictionnaire en une chaîne de caractères au format JSON
-    result_script_json = json.dumps(result_script)
-    
     # Retour de la chaîne de caractères au format JSON avec l'en-tête 'Content-Type: application/json'
-    return jsonify(result_script_json=result_script_json)
+    return jsonify(result_script_json=result_script)
 
 
 
 
 # Définition d'une route qui accepte les méthodes POST, GET
-@app.route('/api/scan_port_other_servers.py/<arg>/<ip>', methods=['POST', 'GET'])
+@app.route('/api/scanPortOtherServer/<arg>/<ip>', methods=['POST', 'GET'])
 def add_script(ip, arg):
     """
         Description de la fonction create_script:
@@ -133,9 +156,9 @@ def add_script(ip, arg):
     ip_add = str(ip)
     # Définir le chemin d'accès au fichier en fonction du système d'exploitation
     if os.name == 'nt': # Windows
-        file_path = os.path.join("SemaOS/scan_port_other_servers.py")
+        file_path = os.path.join("Modules/Scan/scanPortOtherServer.py")
     else: # Linux ou autre
-        file_path = os.path.join("/Semabox/SemaOS/scan_port_other_servers.py")
+        file_path = os.path.join("../Semabox/Modules/Scan/scanPortOtherServer.py")
         
     # Exécution du script en utilisant subprocess.run
     result = subprocess.run(['python', file_path, arg, ip],stdout=subprocess.PIPE)
@@ -150,16 +173,8 @@ def add_script(ip, arg):
     if result_script is None or not isinstance(result_script, dict):
         return "Aucune information sur le serveur disponible"
     
-    # Conversion du dictionnaire en une chaîne de caractères au format JSON
-    result_script_json = json.dumps(result_script)
-    
     # Retour de la chaîne de caractères au format JSON avec l'en-tête 'Content-Type: application/json'
-    return jsonify(result_script_json=result_script_json)
-
-
-
-
-
+    return jsonify(result_script_json=result_script)
 
 
 
@@ -174,18 +189,15 @@ def index():
             La page html 'index.html' est ensuite rendue en utilisant les informations récupérées.
     """
 
-    info_server = cli_get_info_server()
+    info_server = InfoServer.api_info_server()
+    version_web = semaweb_version
     
 # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
     if info_server is None or not isinstance(info_server, dict):
         return "Aucune information sur le serveur disponible"
     
     
-    return render_template('index.html', info_server=info_server)
-
-
-
-
+    return render_template('index.html', info_server=info_server,version=version_web)
 
 
 
@@ -222,22 +234,16 @@ def tools():
         session['scan_status'] = 'reset'
 
     # Appel de la fonction api_get_info_system() pour récupérer les informations relatives au serveur
-    materiel = api_get_info_system()
+    materiel = get_info_system()
  
-    # Appel de la fonction api_server_is_up() pour récupérer les informations relatives à l'état du serveur
-    etat = api_server_is_up()
-    
-    
 
     # Appel de la fonction api_get_public_ip() pour récupérer les informations relatives à l'IP public
-    ip_public = api_get_public_ip()
+    ip_public = InfoServer.api_get_public_ip()
 
     # # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
     if ip_public is None or not isinstance(ip_public, dict):
         return "Aucune information sur le serveur disponible"
     
-    if etat is None or not isinstance(etat, dict):
-        return "Aucune information sur le serveur disponible"
 
     if materiel is None or not isinstance(materiel,dict):
         return "Aucune information sur le serveur disponible"
@@ -245,7 +251,7 @@ def tools():
 
     if session.get('speedtest_status') == 'go':
         # Appel de la fonction api_web_speedtest() pour récupérer les informations relatives au test de vitesse
-        speedtest = api_web_speedtest()       
+        speedtest = asyncio.run(Speedtest.api_web_speedtest())      
 
         # Si le dictionnaire est vide, on retourne une erreur HTTP 404 avec un message d'erreur personnalisé
         if speedtest is None or not isinstance(speedtest, dict):
@@ -258,7 +264,7 @@ def tools():
 
     if session.get('scan_status') == 'scan':
         # Appel de la fonction api_web_scan_nmap() pour récupérer les informations relatives au scan réseau
-        scan = api_web_scan_nmap()
+        scan = ScanPort.api_scan()
 
         if not isinstance(scan, (dict, list, tuple)):
             raise ValueError("scan_results is not a valid iterable")
@@ -271,9 +277,9 @@ def tools():
     if session.get('scan_status') == 'reset':
         scan = {}
 
-
+    version_web = semaweb_version
         
-    return render_template('tools.html', materiel=materiel, etat=etat, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
+    return render_template('tools.html', materiel=materiel, version=version_web, ip=ip_public, speedtest=speedtest, scan_results=scan.items())
 
 
 
@@ -288,7 +294,9 @@ def about():
         Description:
             Cette fonction est un gestionnaire de route pour la page 'A propos'. Elle est appelée chaque fois qu'une demande est effectuée sur la page 'A propos'.
     """
-    return render_template('propos.html')
+    version_web = semaweb_version
+    
+    return render_template('propos.html', version=version_web)
 
 
 
