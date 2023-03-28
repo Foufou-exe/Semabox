@@ -10,10 +10,10 @@
 
 
 # Import des modules Python nécessaires
-import socket # Pour récupérer l'adresse IP
-import platform # Pour récupérer le nom d'hôte
-import requests # Pour récupérer l'adresse IP publique
-import ipaddress # Pour récupérer l'adresse de réseau
+import socket  # Pour récupérer l'adresse IP
+import platform  # Pour récupérer le nom d'hôte
+import requests  # Pour récupérer l'adresse IP publique
+import ipaddress  # Pour récupérer l'adresse de réseau
 import sys
 
 
@@ -21,6 +21,7 @@ import sys
 sys.path.append("Modules")
 from Registre.generationUID import Registres
 from Version.version import __version__
+
 
 class InfoServer:
     @staticmethod
@@ -68,9 +69,8 @@ class InfoServer:
         Args:
             ip (str): IP address for which we want to retrieve the domain name.
         """
-        dns_result = socket.gethostbyaddr(InfoServer.get_ip_address())
 
-        return dns_result[0]
+        return socket.getfqdn(InfoServer.get_hostname())
 
     @staticmethod
     def get_version_semabox() -> str:
@@ -107,19 +107,17 @@ class InfoServer:
         ip_public = InfoServer.get_public_ip()
 
         info_server = {
-            'hostname': hostname,
-            'ip': ip,
-            'ip_public': ip_public,
-            'dns': dns,
-            'uid': uid,
-            'version_semabox': version
+            "hostname": hostname,
+            "ip": ip,
+            "ip_public": ip_public,
+            "dns": dns,
+            "uid": uid,
+            "version_semabox": version,
         }
 
         return info_server
-    
-    
-    
+
+
 # Si ce fichier est exécuté directement, on appelle la fonction api_info_server()
 if __name__ == "__main__":
     print(InfoServer.api_info_server())
-

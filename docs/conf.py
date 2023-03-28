@@ -6,10 +6,10 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'Semabox'
-copyright = '2023, Le Quadro'
-author = 'Le Quadro'
-release = '2.0.0'
+project = "Semabox"
+copyright = "2023, Le Quadro"
+author = "Le Quadro"
+release = "2.0.0"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -17,20 +17,20 @@ release = '2.0.0'
 import sys
 
 
-sys.path.insert(0, 'Semabox') 
-sys.path.insert(0, 'SemaAPI')
-sys.path.insert(0, 'SemaOS')
-sys.path.insert(0, 'install')
+sys.path.insert(0, "Semabox")
+sys.path.insert(0, "SemaAPI")
+sys.path.insert(0, "SemaOS")
+sys.path.insert(0, "install")
 
-extensions = ['sphinx.ext.autodoc']
+extensions = ["sphinx.ext.autodoc"]
 
-templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
-language = 'fr'
+language = "fr"
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'sphinx_rtd_theme'
-html_static_path = ['_static']
+html_theme = "sphinx_rtd_theme"
+html_static_path = ["_static"]

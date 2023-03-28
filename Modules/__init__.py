@@ -4,3 +4,6 @@ from .Version import *
 from .Speedtest import *
 from .Scan import *
 from .Serveur import *
+from .Bdd import ConnexionBdd
+from .Version import __version__
+from .Connexion import *
