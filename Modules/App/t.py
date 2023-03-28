@@ -76,34 +76,59 @@
 
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
+from yspeed import Yspeed
 
 my_w = ttk.Window()
-my_w.geometry("220x260")  # width and height
+my_w.geometry("680x300")  # width and height
 
 m1 = ttk.Meter(
     my_w,
-    amounttotal=59,
+    amounttotal=1,
     amountused=0,
     meterthickness=20,
     bootstyle=INFO,
     metersize=200,
     stripethickness=6,
+    subtext="Download",
+    textright="Mbps",
 )
 m1.grid(row=1, column=1, padx=5, pady=10)
+m2 = ttk.Meter(
+    my_w,
+    amounttotal=1,
+    amountused=0,
+    meterthickness=20,
+    bootstyle=INFO,
+    metersize=200,
+    stripethickness=6,
+    subtext="Upload",
+    textright="Mbps",
+)
+m2.grid(row=1, column=2, padx=5, pady=10)
 
-count = 0
-gap_sec = 10  # Time delay in Millseconds
+m3 = ttk.Meter(
+    my_w,
+    amounttotal=1,
+    amountused=0,
+    meterthickness=20,
+    bootstyle=INFO,
+    metersize=200,
+    stripethickness=6,
+    subtext="Ping",
+    textright="Ms",
+)
+m3.grid(row=1, column=3, padx=5, pady=10)
 
 
 def my_second():
-    global count
-    if count <= 59:
-        m1["amountused"] = count  #  update meter value
-        count = count + 1
-        my_w.after(gap_sec, my_second)  # time delay in Milli seconds
-
-    else:
-        count = 0
+    y = Yspeed()
+    result = y.get_speedtest()
+    m1["amountused"] = "{download}".format(**result)  #  update meter value
+    m1["bootstyle"] = "success"
+    m2["amountused"] = "{upload}".format(**result)  #  update meter value
+    m2["bootstyle"] = "success"
+    m3["amountused"] = "{ping}".format(**result)  #  update meter value
+    m3["bootstyle"] = "success"
 
 
 b1 = ttk.Button(my_w, text="Start", command=my_second)

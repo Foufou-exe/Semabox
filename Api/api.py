@@ -155,21 +155,6 @@ def add_script(ip):
     Description de la fonction create_script:
         Cette fonction exécute le script spécifié en utilisant subprocess.run et retourne une représentation en chaîne de caractères JSON de la sortie du script.
     """
-    # ip_add = str(ip)
-    # # Définir le chemin d'accès au fichier en fonction du système d'exploitation
-    # if os.name == 'nt': # Windows
-    #     file_path = os.path.join("Modules/Scan/scanPortOtherServer.py")
-    # else: # Linux ou autre
-    #     file_path = os.path.join("../Semabox/Modules/Scan/scanPortOtherServer.py")
-
-    # # Exécution du script en utilisant subprocess.run
-    # result = subprocess.run(['python', file_path, arg, ip],stdout=subprocess.PIPE)
-
-    # # Récupération de la sortie standard du script exécuté
-    # output = result.stdout.decode("utf-8")
-
-    # # Conversion de la sortie du script en un dictionnaire Python
-    # result_script = ast.literal_eval(output)
 
     result_script = api_scan_port_other_machine(str(ip))
 

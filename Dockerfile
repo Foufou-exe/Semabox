@@ -20,7 +20,7 @@ RUN git clone https://github.com/Foufou-exe/Semabox.git
 WORKDIR /Semabox
 
 # Install requirements
-RUN pip install -r install/requirement.txt
+RUN pip install -r install/requirements.txt
 
 
 RUN rm -f Semabox.py
